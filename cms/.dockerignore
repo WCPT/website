@@ -1,0 +1,6 @@
+.env
+.cache
+.tmp
+build
+node_modules
+public/uploads/*
