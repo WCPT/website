@@ -22,7 +22,7 @@ type IReturnProps = {
   };
 };
 
-export const getStaticProps: GetServerSideProps<IReturnProps> = async () => {
+export const getServerSideProps: GetServerSideProps<IReturnProps> = async () => {
   return {
     props: {
       title: "Wisdom Community of Pasifika Teachers",
@@ -40,7 +40,7 @@ export const getStaticProps: GetServerSideProps<IReturnProps> = async () => {
   };
 };
 
-const HomePage: NextPage<InferGetServerSidePropsType<typeof getStaticProps>> = ({
+const HomePage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
   title,
   header,
   videoURL,
