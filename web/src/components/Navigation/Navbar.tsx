@@ -2,21 +2,23 @@ import React from "react";
 import cx from "classnames";
 import Link from "next/link";
 
-import { Logo, SocialMedia } from "../Elements";
+import { Logo } from "../Elements";
 
-interface IProps {
+export const Navbar: React.FC<{
+  theme?: "transparent";
   className?: string;
-  socialLinks: {
-    facebook: string;
-    twitter: string;
-    youtube: string;
-    email: string;
-  };
-}
+  itemsRight: React.ReactNode;
+}> = ({ theme, className, itemsRight }) => {
+  const hasTransparentTheme = theme === "transparent";
 
-export const Navbar = ({ className, socialLinks }: IProps) => {
   return (
-    <nav className={cx(`flex w-full text-gray-100 transition-all text-nav-base bg-nav-fill`, className)}>
+    <nav
+      className={cx(
+        `flex w-full text-gray-100 transition-all text-nav-base bg-nav-fill`,
+        className,
+        { "theme-transparent": hasTransparentTheme }
+      )}
+    >
       <div className="container mx-auto flex items-center py-8 px-12 sm:px-16">
         <Link href="/">
           <a className="flex items-center">
@@ -28,14 +30,7 @@ export const Navbar = ({ className, socialLinks }: IProps) => {
         </Link>
 
         <div className="ml-auto">
-          <SocialMedia
-            links={{
-              facebook: "#",
-              twitter: "#",
-              youtube: "#",
-              email: "#",
-            }}
-          />
+          {itemsRight}
         </div>
       </div>
     </nav>

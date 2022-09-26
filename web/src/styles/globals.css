@@ -4,12 +4,12 @@
 
 @layer base {
   :root {
-    --color-text-base: #000000;
-    --color-fill: #ffffff;
+    --color-nav-text-base: #242424;
+    --color-nav-fill: #ffffff;
   }
 
-  .theme-nav-transparent {
-    --color-text-base: #ffffff;
-    --color-fill: transparent;
+  .theme-transparent {
+    --color-nav-text-base: #ffffff;
+    --color-nav-fill: transparent;
   }
 }

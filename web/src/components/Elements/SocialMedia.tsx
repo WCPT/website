@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React from "react";
 import Link from "next/link";
 import { MdEmail } from "react-icons/md";
 import { FaTwitter, FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import cx from "classnames";
 
-export const SocialMedia: FC<{
+export const SocialMedia: React.FC<{
   links: {
     facebook: string;
     twitter: string;
@@ -24,7 +24,7 @@ export const SocialMedia: FC<{
 
 export default SocialMedia;
 
-const Icon: FC<{
+const Icon: React.FC<{
   icon: React.ElementType;
   href: string;
   title: string;
@@ -48,7 +48,7 @@ type ISocialIconProps = {
   href: string;
 };
 
-const FacebookIcon: FC<ISocialIconProps> = ({ href }) => {
+const FacebookIcon: React.FC<ISocialIconProps> = ({ href }) => {
   return (
     <Icon
       icon={FaFacebookSquare}
@@ -59,12 +59,12 @@ const FacebookIcon: FC<ISocialIconProps> = ({ href }) => {
       //     ? `hover:text-blue-800 text-blue-800 bg-white`
       //     : `hover:text-white bg-gray-100 hover:bg-blue-800`
       // }
-      className="hover:text-blue-800 text-blue-800 bg-white"
+      className="hover:scale-95 hover:text-blue-800 text-blue-800 bg-white"
     />
   );
 };
 
-const TwitterIcon: FC<ISocialIconProps> = ({ href }) => {
+const TwitterIcon: React.FC<ISocialIconProps> = ({ href }) => {
   return (
     <Icon
       icon={FaTwitter}
@@ -75,12 +75,12 @@ const TwitterIcon: FC<ISocialIconProps> = ({ href }) => {
       //     ? `hover:text-blue-400 text-blue-400 bg-white`
       //     : `hover:text-white bg-gray-100 hover:bg-blue-400`
       // }
-      className="hover:text-blue-400 text-blue-400 bg-white"
+      className="hover:scale-95 hover:text-blue-400 text-blue-400 bg-white"
     />
   );
 };
 
-const YoutubeIcon: FC<ISocialIconProps> = ({ href }) => {
+const YoutubeIcon: React.FC<ISocialIconProps> = ({ href }) => {
   return (
     <Icon
       icon={FaYoutube}
@@ -91,12 +91,12 @@ const YoutubeIcon: FC<ISocialIconProps> = ({ href }) => {
       //     ? `hover:text-red-600 text-red-600 bg-white`
       //     : `hover:text-white bg-gray-100 hover:bg-red-600`
       // }
-      className="hover:text-red-600 text-red-600 bg-white"
+      className="hover:scale-95 hover:text-red-600 text-red-600 bg-white"
     />
   );
 };
 
-const EmailIcon: FC<ISocialIconProps> = ({ href }) => {
+const EmailIcon: React.FC<ISocialIconProps> = ({ href }) => {
   return (
     <Icon
       icon={MdEmail}
@@ -107,7 +107,7 @@ const EmailIcon: FC<ISocialIconProps> = ({ href }) => {
       //     ? `hover:text-blue-500 text-blue-500 bg-white`
       //     : `hover:text-white bg-gray-100 hover:bg-blue-500`
       // }
-      className="hover:text-blue-500 text-blue-500 bg-white"
+      className="hover:scale-95 hover:text-blue-500 text-blue-500 bg-white"
     />
   );
 };

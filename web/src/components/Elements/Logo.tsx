@@ -1,10 +1,10 @@
-import { FC, HTMLAttributes } from "react";
+import React from "react";
 
-interface IProps extends HTMLAttributes<any> {
+interface IProps extends React.HTMLAttributes<any> {
   dark?: boolean;
 }
 
-export const Logo: FC<IProps> = ({ dark, ...props }) => {
+export const Logo: React.FC<IProps> = ({ dark, ...props }) => {
   const colors = dark
     ? { text: "#fff", bg: "#000" }
     : { text: "#000", bg: "#fff" };

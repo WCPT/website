@@ -1,14 +1,23 @@
-import { FC } from "react";
-import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
+import React from "react";
+import type {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { MdOpenInNew, MdPlayCircleOutline } from "react-icons/md";
 import cx from "classnames";
 
-import Blueocean from "../../public/blueocean.jpeg";
-import Navbar from "../components/Navigation/Navbar";
-import { Credit, VideoModal } from "../components/Elements";
+import { Navbar } from "../components/Navigation";
+import { Credit, VideoModal, SocialMedia } from "../components/Elements";
 import { useExtendedContent, useModal } from "../hooks";
+
+import Blueocean from "../../public/blueocean.jpeg";
+import SmilingFijianImage from "../../public/smiling-fijian.jpeg";
+import StudentPortraitImage from "../../public/student-portrait.jpeg";
+import SmilingStudentImage from "../../public/smiling-student.jpeg";
+import IslanderStudentImage from "../../public/islander-student.jpeg";
 
 type IReturnProps = {
   title: string;
@@ -16,13 +25,22 @@ type IReturnProps = {
   signUpLink: string;
   signInLink: string;
   videoURL: string;
+  socialLinks: {
+    facebook: string;
+    twitter: string;
+    youtube: string;
+    email: string;
+  };
   intro: {
     title: string;
+    excerpt: string;
     body: string;
   };
 };
 
-export const getServerSideProps: GetServerSideProps<IReturnProps> = async () => {
+export const getServerSideProps: GetServerSideProps<
+  IReturnProps
+> = async () => {
   return {
     props: {
       title: "Wisdom Community of Pasifika Teachers",
@@ -31,21 +49,68 @@ export const getServerSideProps: GetServerSideProps<IReturnProps> = async () => 
       signInLink: "https://online.fnu.ac.fj/course/view.php?id=3",
       signUpLink: "https://clte.fnu.ac.fj/talanoakaro",
 
+      socialLinks: {
+        facebook: "",
+        twitter: "",
+        youtube: "",
+        email: "",
+      },
+
       intro: {
         title:
           "Recalibrating Pacific education to empower our generations for global competency",
-        body: "...",
+        excerpt: `We are a growing network of teachers of all levels from the
+        wider Pacific region, with a common goal and the will to
+        recalibrate Pacific education to optimise students’ learning
+        outcomes and empower our generations for global competency and
+        well-being. Reflecting the communal lifestyle of the Pacific, we
+        work together, share and collaborate to solve problems, and
+        conduct research to raise the quality of learning throughout the
+        Pacific.`,
+        body: `<p>
+            Our work is guided by the Sustainable Development Goal 4
+            (SDG4) and the Pacific Regional Education Framework (PacREF).
+            As the Wisdom Community (WisCom) for teachers, we aspire to
+            contribute and work towards achieving the SDG4 and PacREF 2030
+            targets. Through our online communication and collaboration
+            platform, ‘Please Talanoa Karo, Pasifika!’, our members engage
+            in constructive discourse and reflect on topics of significant
+            importance to teaching and learning in the Pacific context.
+          </p>
+          <p>
+            We firmly believe in our members' professional growth and
+            evolution; our continuing professional development niches span
+            various topics, from learning design to teaching best
+            practices to the classroom and beyond. Our professional
+            development sessions enhance our members’ skills and knowledge
+            for sustainable student learning outcomes. We also have
+            established a trusted network of teaching experts who can
+            guide community members with special needs and those in need,
+            especially during an unexpected event or crisis.
+          </p>
+          <p>
+            With the WisCom in place, we, the Pasifika Teachers, work and
+            strive together to prosper and professionally grow by
+            convening in a sustained way. If you are a Pasifika Teacher
+            and yet to connect with us, we encourage you to register on
+            our ‘Please Talanoa Karo, Pasifika!’ platform. Registration is
+            free; just bring your Pacific Islander spirit! Join us, and
+            let’s learn, share, connect and move forward together.
+          </p>`,
       },
     },
   };
 };
 
-const HomePage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+const HomePage: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({
   title,
   header,
   videoURL,
   signUpLink,
   signInLink,
+  socialLinks,
   intro,
 }) => {
   return (
@@ -55,13 +120,18 @@ const HomePage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>>
       </Head>
 
       <Navbar
-        className="absolute top-0 z-10 theme-nav-transparent"
-        socialLinks={{
-          facebook: "",
-          twitter: "",
-          youtube: "",
-          email: "",
-        }}
+        theme="transparent"
+        className="absolute top-0 z-10"
+        itemsRight={
+          <SocialMedia
+            links={{
+              facebook: socialLinks.facebook,
+              twitter: socialLinks.twitter,
+              youtube: socialLinks.youtube,
+              email: socialLinks.email,
+            }}
+          />
+        }
       />
 
       <main>
@@ -72,7 +142,11 @@ const HomePage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>>
           signUpLink={signUpLink}
           signInLink={signInLink}
         />
-        <IntroSection title={intro.title} body={intro.body} />
+        <IntroSection
+          title={intro.title}
+          excerpt={intro.excerpt}
+          body={intro.body}
+        />
       </main>
 
       <footer></footer>
@@ -80,7 +154,7 @@ const HomePage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>>
   );
 };
 
-const HeroSection: FC<{
+const HeroSection: React.FC<{
   title: string;
   header: string;
   signUpLink: string;
@@ -96,7 +170,6 @@ const HeroSection: FC<{
           layout="fill"
           objectFit="cover"
           objectPosition="50% 0%"
-          unoptimized
           priority
           src={Blueocean}
           alt="Blue ocean"
@@ -114,13 +187,23 @@ const HeroSection: FC<{
 
       <div className="flex h-full container mx-auto">
         <div className="mx-auto lg:mx-0 flex flex-col items-center lg:items-start justify-center px-12 sm:px-16 text-white text-center lg:text-left">
-          <h1 className="xs:hidden text-[2rem] text-center pb-4 font-light">
-            {title}
-          </h1>
+          {/* For mobile */}
+          <div className="xs:hidden">
+            <h1 className="pb-4 font-light text-[1.8rem] leading-snug text-center">
+              {title}
+            </h1>
 
-          <h2 className="mb-4 font-serif font-light text-[1.5rem] xs:text-[2.5rem] md:text-[2.75rem] leading-snug sm:w-[90%] lg:w-[55%] 2xl:w-[40%]">
-            {header}
-          </h2>
+            <h2 className="mb-4 font-serif font-light text-[1.25rem] leading-snug text-">
+              {header}
+            </h2>
+          </div>
+
+          {/* For tablet and desktop */}
+          <div className="hidden xs:block sm:w-[500px] lg:w-[520px]">
+            <h2 className="mb-4 font-serif font-light text-[2.5rem] leading-snug">
+              {header}
+            </h2>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:flex sm:flex-row my-4">
             <div className="flex justify-center">
@@ -165,7 +248,11 @@ const HeroSection: FC<{
   );
 };
 
-const IntroSection: FC<{ title: string; body: string }> = ({ title, body }) => {
+const IntroSection: React.FC<{
+  title: string;
+  excerpt: string;
+  body: string;
+}> = ({ title, excerpt, body }) => {
   const { ref, isVisible, toggle } = useExtendedContent();
 
   return (
@@ -179,53 +266,17 @@ const IntroSection: FC<{ title: string; body: string }> = ({ title, body }) => {
         <div className="grid lmd:grid-cols-5 xl:grid-cols-2 gap-8">
           <div className="lmd:col-span-3 xl:col-span-1">
             <div className="prose max-w-none lg:pr-6 text-lg lg:text-xl text-gray-600">
-              <p className="first-letter:text-5xl">
-                We are a growing network of teachers of all levels from the
-                wider Pacific region, with a common goal and the will to
-                recalibrate Pacific education to optimise students’ learning
-                outcomes and empower our generations for global competency and
-                well-being. Reflecting the communal lifestyle of the Pacific, we
-                work together, share and collaborate to solve problems, and
-                conduct research to raise the quality of learning throughout the
-                Pacific.
-              </p>
+              <p
+                className="first-letter:text-5xl"
+                dangerouslySetInnerHTML={{ __html: excerpt }}
+              />
               <div
                 className={cx(
                   "opacity-0 xs:opacity-100 transition-opacity duration-300",
                   isVisible ? "block opacity-100" : "hidden xs:block"
                 )}
-              >
-                <p>
-                  Our work is guided by the Sustainable Development Goal 4
-                  (SDG4) and the Pacific Regional Education Framework (PacREF).
-                  As the Wisdom Community (WisCom) for teachers, we aspire to
-                  contribute and work towards achieving the SDG4 and PacREF 2030
-                  targets. Through our online communication and collaboration
-                  platform, ‘Please Talanoa Karo, Pasifika!’, our members engage
-                  in constructive discourse and reflect on topics of significant
-                  importance to teaching and learning in the Pacific context.
-                </p>
-                <p>
-                  We firmly believe in our members' professional growth and
-                  evolution; our continuing professional development niches span
-                  various topics, from learning design to teaching best
-                  practices to the classroom and beyond. Our professional
-                  development sessions enhance our members’ skills and knowledge
-                  for sustainable student learning outcomes. We also have
-                  established a trusted network of teaching experts who can
-                  guide community members with special needs and those in need,
-                  especially during an unexpected event or crisis.
-                </p>
-                <p>
-                  With the WisCom in place, we, the Pasifika Teachers, work and
-                  strive together to prosper and professionally grow by
-                  convening in a sustained way. If you are a Pasifika Teacher
-                  and yet to connect with us, we encourage you to register on
-                  our ‘Please Talanoa Karo, Pasifika!’ platform. Registration is
-                  free; just bring your Pacific Islander spirit! Join us, and
-                  let’s learn, share, connect and move forward together.
-                </p>
-              </div>
+                dangerouslySetInnerHTML={{ __html: body }}
+              />
             </div>
 
             <div className="block xs:hidden">
@@ -237,7 +288,39 @@ const IntroSection: FC<{ title: string; body: string }> = ({ title, body }) => {
               </span>
             </div>
           </div>
-          <div className="hidden lmd:grid xl:grid-cols-2 gap-4 auto-rows-min col-span-2 xl:col-span-1">
+          <div className="hidden relative lmd:grid xl:grid-cols-2 gap-4 auto-rows-min col-span-2 xl:col-span-1">
+            <Image
+              objectFit="cover"
+              src={SmilingFijianImage}
+              alt="Smiling student"
+              placeholder="blur"
+            />
+            <div className="relative hidden xl:inline top-[10%]">
+              <Image
+                layout="fill"
+                objectFit="cover"
+                src={StudentPortraitImage}
+                alt="Smiling student"
+                placeholder="blur"
+              />
+            </div>
+            <div className="relative lg:hidden xl:inline">
+              <Image
+                objectFit="cover"
+                src={SmilingStudentImage}
+                alt="Smiling student"
+                placeholder="blur"
+              />
+            </div>
+            <div className="relative hidden lg:inline xl:top-[10%]">
+              <Image
+                objectFit="cover"
+                src={IslanderStudentImage}
+                alt="Smiling student"
+                placeholder="blur"
+              />
+            </div>
+
             {/* <SmilingFijianImage
               containerClassName="relative"
               credit="Photo by Vijeshwar Datt on Unsplash"

@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import React from 'react';
 
 type IProps = {
   title: string;
   children: React.ReactNode;
 };
 
-const ContentLayout: FC<IProps> = ({ title, children }) => {
+const ContentLayout: React.FC<IProps> = ({ title, children }) => {
   return (
     <>
       <title>{title}</title>

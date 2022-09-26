@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 type IProps = {
   credit: string;
 };
 
-export const Credit: FC<IProps> = ({ credit }) => {
+export const Credit: React.FC<IProps> = ({ credit }) => {
   const [display, toggle] = React.useState(false);
   const toggleCredit = () => toggle((display) => !display);
 

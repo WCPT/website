@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import React from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 type IProps = {
@@ -8,7 +8,7 @@ type IProps = {
   closeModal: () => void;
 };
 
-export const VideoModal: FC<IProps> = ({
+export const VideoModal: React.FC<IProps> = ({
   url,
   isOpen,
   openModal,
@@ -37,10 +37,10 @@ export const VideoModal: FC<IProps> = ({
   }
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={isOpen} as={React.Fragment}>
       <Dialog as='div' className='relative z-10' onClose={closeModal}>
         <Transition.Child
-          as={Fragment}
+          as={React.Fragment}
           enter='ease-out duration-300'
           enterFrom='opacity-0'
           enterTo='opacity-100'
@@ -54,7 +54,7 @@ export const VideoModal: FC<IProps> = ({
         <div className='fixed inset-0 overflow-y-auto'>
           <div className='flex min-h-full items-center justify-center p-4'>
             <Transition.Child
-              as={Fragment}
+              as={React.Fragment}
               enter='ease-out duration-300'
               enterFrom='opacity-0 scale-95'
               enterTo='opacity-100 scale-100'
