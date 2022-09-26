@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-text-base: #000000;
+    --color-fill: #ffffff;
+  }
+
+  .theme-nav-transparent {
+    --color-text-base: #ffffff;
+    --color-fill: transparent;
+  }
+}
