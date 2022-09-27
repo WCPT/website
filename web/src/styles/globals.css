@@ -4,12 +4,58 @@
 
 @layer base {
   :root {
+    --color-accent: #05708d;
+    --color-base-bg: #ffffff;
+    --color-shaded-bg: #fcfbf8;
+
     --color-nav-text-base: #242424;
     --color-nav-fill: #ffffff;
+
+    --color-twitter: #1da1f2;
+    --color-youtube: #ff0000;
+    --color-facebook: #4267b2;
+    --color-email: #339eff;
+
+    --color-twitter-hover: #1da1f2;
+    --color-youtube-hover: #ff0000;
+    --color-facebook-hover: #4267b2;
+    --color-email-hover: #339eff;
+
+    --color-twitter-bg: #fff;
+    --color-youtube-bg: #fff;
+    --color-facebook-bg: #fff;
+    --color-email-bg: #fff;
+
+    --color-twitter-bg-hover: #fff;
+    --color-youtube-bg-hover: #fff;
+    --color-facebook-bg-hover: #fff;
+    --color-email-bg-hover: #fff;
   }
 
-  .theme-transparent {
+  .theme-nav-transparent-bg {
     --color-nav-text-base: #ffffff;
     --color-nav-fill: transparent;
+  }
+
+  .theme-social-transparent-bg {
+    --color-twitter: #fff;
+    --color-youtube: #fff;
+    --color-facebook: #fff;
+    --color-email: #fff;
+
+    --color-twitter-hover: #1da1f2;
+    --color-youtube-hover: #ff0000;
+    --color-facebook-hover: #4267b2;
+    --color-email-hover: #339eff;
+
+    --color-twitter-bg: transparent;
+    --color-youtube-bg: transparent;
+    --color-facebook-bg: transparent;
+    --color-email-bg: transparent;
+
+    --color-twitter-bg-hover: #fff;
+    --color-youtube-bg-hover: #fff;
+    --color-facebook-bg-hover: #fff;
+    --color-email-bg-hover: #fff;
   }
 }

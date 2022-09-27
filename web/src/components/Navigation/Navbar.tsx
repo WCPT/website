@@ -5,21 +5,19 @@ import Link from "next/link";
 import { Logo } from "../Elements";
 
 export const Navbar: React.FC<{
-  theme?: "transparent";
+  themeStyle?: 0 | 1;
   className?: string;
   itemsRight: React.ReactNode;
-}> = ({ theme, className, itemsRight }) => {
-  const hasTransparentTheme = theme === "transparent";
-
+}> = ({ themeStyle = 0, className, itemsRight }) => {
   return (
     <nav
       className={cx(
         `flex w-full text-gray-100 transition-all text-nav-base bg-nav-fill`,
         className,
-        { "theme-transparent": hasTransparentTheme }
+        { "theme-nav-transparent-bg": themeStyle === 1 }
       )}
     >
-      <div className="container mx-auto flex items-center py-8 px-12 sm:px-16">
+      <div className="container mx-auto flex items-center py-8 px-8 xs:px-12 sm:px-16">
         <Link href="/">
           <a className="flex items-center">
             <Logo className="mr-4 h-16 md:h-20 transition-all" />
@@ -29,9 +27,7 @@ export const Navbar: React.FC<{
           </a>
         </Link>
 
-        <div className="ml-auto">
-          {itemsRight}
-        </div>
+        <div className="ml-auto">{itemsRight}</div>
       </div>
     </nav>
   );

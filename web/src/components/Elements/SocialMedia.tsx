@@ -5,15 +5,20 @@ import { FaTwitter, FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import cx from "classnames";
 
 export const SocialMedia: React.FC<{
+  themeStyle?: 0 | 1;
   links: {
     facebook: string;
     twitter: string;
     youtube: string;
     email: string;
   };
-}> = ({ links }) => {
+}> = ({ links, themeStyle = 0 }) => {
   return (
-    <div className="flex items-center">
+    <div
+      className={cx("flex items-center", {
+        "theme-social-transparent-bg": themeStyle === 1,
+      })}
+    >
       <FacebookIcon href={links.facebook} />
       <TwitterIcon href={links.twitter} />
       <YoutubeIcon href={links.youtube} />
@@ -54,12 +59,7 @@ const FacebookIcon: React.FC<ISocialIconProps> = ({ href }) => {
       icon={FaFacebookSquare}
       href={href}
       title="Facebook"
-      // className={
-      //   isLightTheme
-      //     ? `hover:text-blue-800 text-blue-800 bg-white`
-      //     : `hover:text-white bg-gray-100 hover:bg-blue-800`
-      // }
-      className="hover:scale-95 hover:text-blue-800 text-blue-800 bg-white"
+      className="text-facebook hover:text-facebook-hover bg-facebook hover:bg-facebook-hover"
     />
   );
 };
@@ -70,12 +70,7 @@ const TwitterIcon: React.FC<ISocialIconProps> = ({ href }) => {
       icon={FaTwitter}
       href={href}
       title="Twitter"
-      // className={
-      //   isLightTheme
-      //     ? `hover:text-blue-400 text-blue-400 bg-white`
-      //     : `hover:text-white bg-gray-100 hover:bg-blue-400`
-      // }
-      className="hover:scale-95 hover:text-blue-400 text-blue-400 bg-white"
+      className="text-twitter hover:text-twitter-hover bg-twitter hover:bg-twitter-hover"
     />
   );
 };
@@ -86,12 +81,7 @@ const YoutubeIcon: React.FC<ISocialIconProps> = ({ href }) => {
       icon={FaYoutube}
       href={href}
       title="Youtube"
-      // className={
-      //   isLightTheme
-      //     ? `hover:text-red-600 text-red-600 bg-white`
-      //     : `hover:text-white bg-gray-100 hover:bg-red-600`
-      // }
-      className="hover:scale-95 hover:text-red-600 text-red-600 bg-white"
+      className="text-youtube hover:text-youtube-hover bg-youtube hover:bg-youtube-hover"
     />
   );
 };
@@ -102,12 +92,7 @@ const EmailIcon: React.FC<ISocialIconProps> = ({ href }) => {
       icon={MdEmail}
       href={href}
       title="Email"
-      // className={
-      //   isLightTheme
-      //     ? `hover:text-blue-500 text-blue-500 bg-white`
-      //     : `hover:text-white bg-gray-100 hover:bg-blue-500`
-      // }
-      className="hover:scale-95 hover:text-blue-500 text-blue-500 bg-white"
+      className="text-email hover:text-email-hover bg-email hover:bg-email-hover"
     />
   );
 };
