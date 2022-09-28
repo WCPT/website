@@ -12,7 +12,7 @@ export const Navbar: React.FC<{
   return (
     <nav
       className={cx(
-        `flex w-full text-gray-100 transition-all text-nav-base bg-nav-fill`,
+        `flex w-full text-gray-100 transition-all text-skin-nav-base bg-skin-nav-fill`,
         className,
         { "theme-nav-transparent-bg": themeStyle === 1 }
       )}

@@ -5,7 +5,7 @@ import { FaTwitter, FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import cx from "classnames";
 
 export const SocialMedia: React.FC<{
-  themeStyle?: 0 | 1;
+  themeStyle?: 0 | 1 | 2;
   links: {
     facebook: string;
     twitter: string;
@@ -17,6 +17,7 @@ export const SocialMedia: React.FC<{
     <div
       className={cx("flex items-center", {
         "theme-social-transparent-bg": themeStyle === 1,
+        "theme-social-gray-bg": themeStyle === 2,
       })}
     >
       <FacebookIcon href={links.facebook} />
@@ -59,7 +60,7 @@ const FacebookIcon: React.FC<ISocialIconProps> = ({ href }) => {
       icon={FaFacebookSquare}
       href={href}
       title="Facebook"
-      className="text-facebook hover:text-facebook-hover bg-facebook hover:bg-facebook-hover"
+      className="text-skin-facebook hover:text-skin-facebook-hover bg-skin-facebook hover:bg-skin-facebook-hover"
     />
   );
 };
@@ -70,7 +71,7 @@ const TwitterIcon: React.FC<ISocialIconProps> = ({ href }) => {
       icon={FaTwitter}
       href={href}
       title="Twitter"
-      className="text-twitter hover:text-twitter-hover bg-twitter hover:bg-twitter-hover"
+      className="text-skin-twitter hover:text-skin-twitter-hover bg-skin-twitter hover:bg-skin-twitter-hover"
     />
   );
 };
@@ -81,7 +82,7 @@ const YoutubeIcon: React.FC<ISocialIconProps> = ({ href }) => {
       icon={FaYoutube}
       href={href}
       title="Youtube"
-      className="text-youtube hover:text-youtube-hover bg-youtube hover:bg-youtube-hover"
+      className="text-skin-youtube hover:text-skin-youtube-hover bg-skin-youtube hover:bg-skin-youtube-hover"
     />
   );
 };
@@ -92,7 +93,7 @@ const EmailIcon: React.FC<ISocialIconProps> = ({ href }) => {
       icon={MdEmail}
       href={href}
       title="Email"
-      className="text-email hover:text-email-hover bg-email hover:bg-email-hover"
+      className="text-skin-email hover:text-skin-email-hover bg-skin-email hover:bg-skin-email-hover"
     />
   );
 };

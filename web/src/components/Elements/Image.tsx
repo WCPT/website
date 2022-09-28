@@ -6,7 +6,7 @@ import Credit from "./Credit";
 
 export const Image: React.FC<
   ImageProps & {
-    overlayed?: boolean;
+    overlayed?: boolean | string;
     backgroundCover?: boolean;
     credit?: string;
     creditHref?: string;
@@ -21,7 +21,9 @@ export const Image: React.FC<
 }) => {
   return (
     <>
-      <div className={cx(backgroundCover ? "absolute inset-0" : "relative")}>
+      <div
+        className={cx(backgroundCover ? "absolute inset-0 -z-50" : "relative")}
+      >
         <NextImage
           className={cx(className, backgroundCover && "-z-50")}
           {...rest}
@@ -29,7 +31,12 @@ export const Image: React.FC<
         {credit && <Credit credit={credit} href={creditHref} />}
       </div>
       {overlayed && (
-        <div className="absolute inset-0 opacity-30 bg-black -z-40 pointer-events-none" />
+        <div
+          className={cx(
+            "absolute inset-0 -z-40 pointer-events-none",
+            typeof overlayed === "string" ? overlayed : "opacity-30 bg-black"
+          )}
+        />
       )}
     </>
   );

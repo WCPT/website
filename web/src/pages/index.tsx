@@ -5,13 +5,12 @@ import type {
   NextPage,
 } from "next";
 import Head from "next/head";
-import NextImage from "next/image";
 import { MdOpenInNew, MdPlayCircleOutline } from "react-icons/md";
-import cx from "classnames";
 import { differenceInMonths, format } from "date-fns";
+import cx from "classnames";
 
 import { Navbar } from "../components/Navigation";
-import { Credit, VideoModal, SocialMedia, Image } from "../components/Elements";
+import { VideoModal, SocialMedia, Image } from "../components/Elements";
 import { useExtendedContent, useModal } from "../hooks";
 
 import Blueocean from "../../public/blueocean.jpeg";
@@ -44,6 +43,15 @@ type IReturnProps = {
     participants: string | number;
     lifetimeInMonths: string | number;
   };
+  events: Array<{
+    type?: string;
+    title: string;
+    date: string;
+    duration: string;
+    registrationUrl?: string;
+    registrationDeadline?: string;
+    slug: string;
+  }>;
 };
 
 export const getServerSideProps: GetServerSideProps<
@@ -115,6 +123,17 @@ export const getServerSideProps: GetServerSideProps<
         participants: "5186+",
         lifetimeInMonths: differenceInMonths(new Date(), new Date(launched)),
       },
+
+      events: [
+        {
+          type: "Workshop",
+          title: "Advanced Excel - Generate Report Sheets and Graphs",
+          date: "2022-07-13T03:30:00.000Z",
+          duration: "3.30 - 5.30PM / 17 May - 13 July 2022",
+          registrationUrl: "",
+          slug: "advanced-excel-generate-report-sheets-and-graphs",
+        },
+      ],
     },
   };
 };
@@ -130,7 +149,17 @@ const HomePage: NextPage<
   socialLinks,
   intro,
   stats,
+  events,
 }) => {
+  const ev = React.useMemo(
+    () =>
+      events.map((event) => ({
+        ...event,
+        date: new Date(event.date),
+      })),
+    [events]
+  );
+
   return (
     <div>
       <Head>
@@ -166,16 +195,24 @@ const HomePage: NextPage<
           excerpt={intro.excerpt}
           body={intro.body}
         />
-        <StatSection
+        <StatsSection
           engagements={stats.engagements}
           participants={stats.participants}
           registered={stats.registered}
           lifetimeInMonths={stats.lifetimeInMonths}
         />
-        <EventsSection events={[]} />
+        <EventsSection events={ev} />
+        <ContactSection
+          socialLinks={{
+            facebook: socialLinks.facebook,
+            twitter: socialLinks.twitter,
+            youtube: socialLinks.youtube,
+            email: socialLinks.email,
+          }}
+        />
       </main>
 
-      <footer></footer>
+      <Footer />
     </div>
   );
 };
@@ -214,21 +251,21 @@ const HeroSection: React.FC<{
       />
 
       <div className="flex h-full container mx-auto">
-        <div className="mx-auto lg:mx-0 flex flex-col items-center lg:items-start justify-center px-12 sm:px-16 text-white text-center lg:text-left">
+        <div className="mx-auto lg:mx-0 flex flex-col items-center lg:items-start justify-center px-12 sm:px-16 text-center lg:text-left">
           {/* For mobile */}
           <div className="xs:hidden">
-            <h1 className="pb-4 text-[1.8rem] leading-snug text-center">
+            <h1 className="pb-4 text-[1.8rem] leading-snug text-center text-skin-inverted">
               {title}
             </h1>
 
-            <h2 className="mb-4 font-serif font-light text-[1.2rem] leading-snug opacity-90">
+            <h2 className="mb-4 font-light text-[1.2rem] leading-snug opacity-90 text-skin-inverted">
               {header}
             </h2>
           </div>
 
           {/* For tablet and desktop */}
           <div className="hidden xs:block sm:w-[500px] lg:w-[520px]">
-            <h2 className="mb-4 font-serif font-light text-[2.5rem] leading-snug">
+            <h2 className="mb-4 font-serif font-light text-[2.5rem] leading-snug text-skin-inverted">
               {header}
             </h2>
           </div>
@@ -236,11 +273,11 @@ const HeroSection: React.FC<{
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:flex sm:flex-row my-4">
             <div className="flex justify-center">
               <div
-                className="group cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 xs:w-full border border-gray-200 hover:border-blue-600 hover:bg-blue-600 transition-all duration-200"
+                className="group cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 xs:w-full text-skin-inverted-muted border border-gray-200 hover:border-blue-600 hover:bg-blue-600 transition-all duration-200"
                 onClick={openModal}
               >
                 <MdPlayCircleOutline className="-ml-1 mr-2 text-xl" />
-                <span className="text-gray-200 group-hover:text-white text-lg transition-all duration-200">
+                <span className="group-hover:text-white text-lg transition-all duration-200">
                   Watch short video
                 </span>
               </div>
@@ -248,12 +285,12 @@ const HeroSection: React.FC<{
 
             <div className="flex justify-center">
               <a
-                className="group cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 xs:w-full border border-gray-200 hover:border-blue-600 hover:bg-blue-600 transition-all duration-200"
+                className="group cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 xs:w-full text-skin-inverted-muted border border-gray-200 hover:border-blue-600 hover:bg-blue-600 transition-all duration-200"
                 href={signUpLink}
                 target="_blank"
                 rel="noreferrer"
               >
-                <span className="mr-2 text-gray-200 group-hover:text-white text-lg transition-all duration-200">
+                <span className="mr-2 group-hover:text-white text-lg transition-all duration-200">
                   Join our community
                 </span>
                 <MdOpenInNew className="text-xl" />
@@ -261,11 +298,11 @@ const HeroSection: React.FC<{
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center mt-6 sm:my-2 text-gray-200 text-lg">
+          <div className="flex flex-col sm:flex-row items-center mt-6 sm:my-2 text-skin-inverted-muted text-lg">
             <span className="sm:mr-2 font-thin">Already a member?</span>
             <a
               href={signInLink}
-              className="hover:underline text-yellow-300 font-thin transition-all"
+              className="hover:underline text-skin-accent font-thin transition-all"
             >
               Sign in here!
             </a>
@@ -284,16 +321,16 @@ const IntroSection: React.FC<{
   const { ref, isVisible, toggle } = useExtendedContent();
 
   return (
-    <section ref={ref} className="relative py-16 sm:py-20 bg-white">
+    <section ref={ref} className="relative py-16 sm:py-20 bg-base">
       <div className="xl:container mx-auto px-8 xs:px-12 sm:px-16">
         <div className="flex justify-center mb-8">
-          <h1 className="font-serif xs:mb-8 max-w-3xl text-2xl xs:text-3xl md:text-4xl text-center leading-snug md:leading-snug text-gray-500">
+          <h1 className="font-serif xs:mb-8 max-w-3xl text-2xl xs:text-3xl md:text-4xl text-center leading-snug md:leading-snug text-skin-muted">
             {title}
           </h1>
         </div>
         <div className="grid lmd:grid-cols-5 xl:grid-cols-2 gap-8">
           <div className="lmd:col-span-3 xl:col-span-1">
-            <div className="prose max-w-none lg:pr-6 text-lg lg:text-xl text-gray-600">
+            <div className="prose max-w-none lg:pr-6 text-lg lg:text-xl text-skin-base">
               <p
                 className="first-letter:text-5xl"
                 dangerouslySetInnerHTML={{ __html: excerpt }}
@@ -366,7 +403,7 @@ const IntroSection: React.FC<{
   );
 };
 
-const StatSection: React.FC<{
+const StatsSection: React.FC<{
   engagements: string | number;
   registered: string | number;
   participants: string | number;
@@ -374,10 +411,10 @@ const StatSection: React.FC<{
 }> = ({ engagements, registered, participants, lifetimeInMonths }) => {
   return (
     <section className="relative lg:pt-12">
-      <div className="pt-24 pb-44 bg-shaded">
+      <div className="pt-24 pb-44 bg-skin-secondary">
         <div className="2xl:container mx-auto px-8 xs:px-12 sm:px-16">
           <div className="flex flex-col justify-center items-center mb-20">
-            <h1 className="xs:mb-8 max-w-2xl text-center text-2xl xs:text-3xl md:text-4xl leading-snug md:leading-snug text-gray-700 font-light">
+            <h1 className="xs:mb-8 max-w-2xl text-center text-2xl xs:text-3xl md:text-4xl leading-snug md:leading-snug text-skin-base font-light">
               We are an active, growing community in the wider Pacific region
             </h1>
           </div>
@@ -489,10 +526,10 @@ const Stat: React.FC<{
       )}
     >
       {icon}
-      <span className="my-4 text-4xl md:text-5xl md:font-normal text-accent">
+      <span className="my-4 text-4xl md:text-5xl md:font-normal text-skin-primary">
         {stat}
       </span>
-      <span className="max-w-xs text-2xl leading-normal font-light text-gray-900">
+      <span className="max-w-xs text-2xl leading-normal font-light text-skin-base">
         {text}
       </span>
     </div>
@@ -501,46 +538,39 @@ const Stat: React.FC<{
 
 const EventsSection: React.FC<{
   events: Array<{
-    type: string;
+    type?: string;
     title: string;
     date: Date;
     duration: string;
-    order: number;
-    registrationDeadline: string;
+    registrationUrl?: string;
+    registrationDeadline?: string;
     slug: string;
   }>;
 }> = ({ events }) => {
   return (
     <section className="relative py-12 xs:py-16 sm:pb-36">
-      <NextImage
-        layout="fill"
-        objectFit="cover"
-        objectPosition="50% 0%"
-        src={GlobeImage}
-        alt="Connected world"
-      />
-      {/* <Image
-        containerClassName="absolute inset-0"
-        overlayClassName="z-10 opacity-80 bg-accent"
-        alt="Vector image depicting a connected globe"
+      <Image
+        overlayed="opacity-80 bg-skin-primary"
+        backgroundCover
+        alt="Connected globe"
         src={GlobeImage}
         layout="fill"
         objectFit="cover"
         objectPosition="0% 0%"
         placeholder="blur"
         credit="Background vector created by liuzishan on freepik.com"
-        creditLink="https://www.freepik.com/vectors/background"
-      /> */}
+        creditHref="https://www.freepik.com/vectors/background"
+      />
       <div className="xl:container mx-auto">
         <div className="flex flex-col mb-12 lg:mb-0 px-8 xs:px-12 sm:px-16">
-          <div className="z-10 flex flex-col my-16 max-w-lg text-white">
-            <span className="text-lg font-mono tracking-wider">
+          <div className="z-10 flex flex-col my-16 max-w-lg">
+            <span className="text-lg font-mono tracking-wider text-skin-inverted">
               #WCPTevents
             </span>
-            <h1 className="mt-1 mb-2 xs:mb-4 text-2xl xs:text-3xl md:text-4xl text-white">
+            <h1 className="mt-1 mb-2 xs:mb-4 text-2xl xs:text-3xl md:text-4xl text-skin-inverted">
               Upcoming Events
             </h1>
-            <span className="text-lg opacity-90">
+            <span className="text-lg text-skin-inverted-muted">
               Join us in our virtual events. We carry out workshops and meetups
               that you can virtually join from anywhere.
             </span>
@@ -558,12 +588,13 @@ const EventsSection: React.FC<{
 
 const EventCard: React.FC<{
   className?: string;
-  type: string | null;
+  type?: string;
   title: string;
   date: Date;
   duration: string;
   href: string;
-  registrationDeadline: string | null;
+  registrationUrl?: string;
+  registrationDeadline?: string;
 }> = ({
   className,
   type,
@@ -577,7 +608,7 @@ const EventCard: React.FC<{
     <a
       href={href}
       className={cx(
-        "group flex flex-col py-8 lg:py-12 2xl:py-16 px-10 2xl:px-12 text-gray-100 border border-gray-300 cursor-pointer transition-all duration-200 ease-linear hover:bg-gray-900 hover:border-gray-900 hover:shadow-xl",
+        "group flex flex-col py-8 lg:py-12 2xl:py-16 px-10 2xl:px-12 text-skin-inverted border border-skin-inverted-muted cursor-pointer transition-all duration-200 ease-linear hover:bg-gray-900 hover:border-gray-900 hover:shadow-xl",
         className
       )}
     >
@@ -598,5 +629,60 @@ const EventCard: React.FC<{
         </span>
       </div>
     </a>
+  );
+};
+
+const ContactSection: React.FC<{
+  socialLinks: {
+    facebook: string;
+    twitter: string;
+    youtube: string;
+    email: string;
+  };
+}> = ({ socialLinks }) => {
+  return (
+    <section className="relative py-12 xs:py-12 bg-white">
+      <div className="xl:container mx-auto py-16 px-8 xs:px-12 sm:px-16 flex flex-col">
+        <h2 className="z-10 font-sans font-black text-3xl xs:text-4xl tracking-tight text-gray-900">
+          <span className="block">Want to get in touch?</span>
+          <span className="block bg-clip-text text-skin-primary">
+            Reach us through social media or email us!
+          </span>
+        </h2>
+        <div className="z-10 mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
+          <SocialMedia
+            themeStyle={2}
+            links={{
+              facebook: socialLinks.facebook,
+              twitter: socialLinks.twitter,
+              youtube: socialLinks.youtube,
+              email: socialLinks.email,
+            }}
+          />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Footer: React.FC = () => {
+  return (
+    <footer className="relative bg-skin-secondary">
+      <div className="flex flex-col container mx-auto px-8 xs:px-12 sm:px-16">
+        <div className="z-10 flex flex-col md:flex-row justify-between container mx-auto py-12">
+          <div className="flex justify-center items-center my-2">
+            <span className="text-center text-gray-900">
+              Wisdom Community of Pasifika Teachers &copy;
+              {new Date().getFullYear()}
+            </span>
+          </div>
+          <div className="flex justify-center items-center my-2">
+            <span className="text-center text-gray-900">
+              Supported by Fiji National University
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 };

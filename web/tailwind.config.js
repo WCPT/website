@@ -19,41 +19,65 @@ module.exports = {
         serif: ["Bitter", "serif"],
         mono: ["Cousine"],
       },
+
       colors: {
-        accent: "var(--color-accent)",
+        skin: {
+          primary: "var(--color-primary)",
+          accent: "var(--color-accent)",
+        },
       },
+
       textColor: {
-        nav: {
-          base: "var(--color-nav-text-base)",
+        skin: {
+          base: "var(--color-base-text)",
+          muted: "var(--color-muted-text)",
+          inverted: "var(--color-inverted-text)",
+          "inverted-muted": "var(--color-inverted-muted-text)",
+
+          twitter: "var(--color-twitter)",
+          youtube: "var(--color-youtube)",
+          facebook: "var(--color-facebook)",
+          email: "var(--color-email)",
+
+          "twitter-hover": "var(--color-twitter-hover)",
+          "youtube-hover": "var(--color-youtube-hover)",
+          "facebook-hover": "var(--color-facebook-hover)",
+          "email-hover": "var(--color-email-hover)",
+
+          nav: {
+            base: "var(--color-nav-text-base)",
+          },
         },
-
-        twitter: "var(--color-twitter)",
-        youtube: "var(--color-youtube)",
-        facebook: "var(--color-facebook)",
-        email: "var(--color-email)",
-
-        "twitter-hover": "var(--color-twitter-hover)",
-        "youtube-hover": "var(--color-youtube-hover)",
-        "facebook-hover": "var(--color-facebook-hover)",
-        "email-hover": "var(--color-email-hover)",
       },
+
       backgroundColor: {
-        base: "var(--color-base-bg)",
-        shaded: "var(--color-shaded-bg)",
+        skin: {
+          base: "var(--color-base-bg)",
+          secondary: "var(--color-secondary-bg)",
 
-        nav: {
-          fill: "var(--color-nav-fill)",
+          twitter: "var(--color-twitter-bg)",
+          youtube: "var(--color-youtube-bg)",
+          facebook: "var(--color-facebook-bg)",
+          email: "var(--color-email-bg)",
+
+          "twitter-hover": "var(--color-twitter-bg-hover)",
+          "youtube-hover": "var(--color-youtube-bg-hover)",
+          "facebook-hover": "var(--color-facebook-bg-hover)",
+          "email-hover": "var(--color-email-bg-hover)",
+
+          nav: {
+            fill: "var(--color-nav-fill)",
+          },
         },
+      },
 
-        twitter: "var(--color-twitter-bg)",
-        youtube: "var(--color-youtube-bg)",
-        facebook: "var(--color-facebook-bg)",
-        email: "var(--color-email-bg)",
-
-        "twitter-hover": "var(--color-twitter-bg-hover)",
-        "youtube-hover": "var(--color-youtube-bg-hover)",
-        "facebook-hover": "var(--color-facebook-bg-hover)",
-        "email-hover": "var(--color-email-bg-hover)",
+      borderColor: {
+        skin: {
+          base: "var(--color-base-border)",
+          muted: "var(--color-muted-border)",
+          inverted: "var(--color-inverted-border)",
+          "inverted-muted": "var(--color-inverted-muted-border)",
+        },
       },
     },
   },
