@@ -12,6 +12,7 @@ import cx from "classnames";
 import { Navbar } from "../components/Navigation";
 import { VideoModal, SocialMedia, Image } from "../components/Elements";
 import { useExtendedContent, useModal } from "../hooks";
+import { Footer } from "../components/Footer";
 
 import Blueocean from "../../public/blueocean.jpeg";
 import SmilingFijianImage from "../../public/smiling-fijian.jpeg";
@@ -44,13 +45,13 @@ type IReturnProps = {
     lifetimeInMonths: string | number;
   };
   events: Array<{
+    id: string | number;
     type?: string;
     title: string;
     date: string;
     duration: string;
     registrationUrl?: string;
     registrationDeadline?: string;
-    slug: string;
   }>;
 };
 
@@ -126,12 +127,12 @@ export const getServerSideProps: GetServerSideProps<
 
       events: [
         {
+          id: 1,
           type: "Workshop",
           title: "Advanced Excel - Generate Report Sheets and Graphs",
           date: "2022-07-13T03:30:00.000Z",
           duration: "3.30 - 5.30PM / 17 May - 13 July 2022",
           registrationUrl: "",
-          slug: "advanced-excel-generate-report-sheets-and-graphs",
         },
       ],
     },
@@ -538,13 +539,13 @@ const Stat: React.FC<{
 
 const EventsSection: React.FC<{
   events: Array<{
+    id: string | number;
     type?: string;
     title: string;
     date: Date;
     duration: string;
     registrationUrl?: string;
     registrationDeadline?: string;
-    slug: string;
   }>;
 }> = ({ events }) => {
   return (
@@ -577,7 +578,7 @@ const EventsSection: React.FC<{
           </div>
           <div className="z-10 grid lg:grid-cols-3 grid-rows-1 gap-4 text-gray-600 overflow-hidden">
             {events.map((event, i) => (
-              <EventCard key={i} {...event} href={event.slug} />
+              <EventCard key={i} {...event} href={`/events/${event.id}`} />
             ))}
           </div>
         </div>
@@ -662,27 +663,5 @@ const ContactSection: React.FC<{
         </div>
       </div>
     </section>
-  );
-};
-
-const Footer: React.FC = () => {
-  return (
-    <footer className="relative bg-skin-secondary">
-      <div className="flex flex-col container mx-auto px-8 xs:px-12 sm:px-16">
-        <div className="z-10 flex flex-col md:flex-row justify-between container mx-auto py-12">
-          <div className="flex justify-center items-center my-2">
-            <span className="text-center text-gray-900">
-              Wisdom Community of Pasifika Teachers &copy;
-              {new Date().getFullYear()}
-            </span>
-          </div>
-          <div className="flex justify-center items-center my-2">
-            <span className="text-center text-gray-900">
-              Supported by Fiji National University
-            </span>
-          </div>
-        </div>
-      </div>
-    </footer>
   );
 };

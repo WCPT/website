@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { Footer } from "../Footer";
 
 type IProps = {
   title: string;
@@ -10,6 +11,7 @@ const ContentLayout: React.FC<IProps> = ({ title, children }) => {
     <>
       <title>{title}</title>
       <main>{children}</main>
+      <Footer className="mt-auto" />
     </>
   );
 };
