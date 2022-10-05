@@ -11,7 +11,7 @@ import cx from "classnames";
 
 import { Navbar } from "../components/Navigation";
 import { VideoModal, SocialMedia, Image } from "../components/Elements";
-import { useExtendedContent, useModal } from "../hooks";
+import { useExtendedContent, useModal, useSocialLinks } from "../hooks";
 import { Footer } from "../components/Footer";
 
 import Blueocean from "../../public/blueocean.jpeg";
@@ -27,12 +27,6 @@ type IReturnProps = {
   signUpLink: string;
   signInLink: string;
   videoURL: string;
-  socialLinks: {
-    facebook: string;
-    twitter: string;
-    youtube: string;
-    email: string;
-  };
   intro: {
     title: string;
     excerpt: string;
@@ -67,13 +61,6 @@ export const getServerSideProps: GetServerSideProps<
       videoURL: "https://www.youtube.com/embed/zNp_l9RQSJk",
       signInLink: "https://online.fnu.ac.fj/course/view.php?id=3",
       signUpLink: "https://clte.fnu.ac.fj/talanoakaro",
-
-      socialLinks: {
-        facebook: "",
-        twitter: "",
-        youtube: "",
-        email: "",
-      },
 
       intro: {
         title:
@@ -125,6 +112,7 @@ export const getServerSideProps: GetServerSideProps<
         lifetimeInMonths: differenceInMonths(new Date(), new Date(launched)),
       },
 
+      // Sort by date (descending) and only return 3
       events: [
         {
           id: 1,
@@ -147,11 +135,12 @@ const HomePage: NextPage<
   videoURL,
   signUpLink,
   signInLink,
-  socialLinks,
   intro,
   stats,
   events,
 }) => {
+  const socialLinks = useSocialLinks();
+
   const ev = React.useMemo(
     () =>
       events.map((event) => ({

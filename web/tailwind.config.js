@@ -23,6 +23,7 @@ module.exports = {
       colors: {
         skin: {
           primary: "var(--color-primary)",
+          "primary-muted": "var(--color-primary-muted)",
           accent: "var(--color-accent)",
         },
       },

@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --color-primary: #05708d;
+    --color-primary-muted: #0988ab;
     --color-accent: #fde047;
 
     --color-base-text: #4b5563;
