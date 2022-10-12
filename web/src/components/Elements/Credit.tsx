@@ -24,7 +24,7 @@ export const Credit: React.FC<{
   return (
     <span
       className={cx(
-        "absolute bottom-0 right-0 z-50 px-3 py-1 text-sm xs:text-base text-gray-300 transition-all bg-black hover:text-white bg-opacity-80 cursor-pointer rounded-tl-md text-center",
+        "absolute bottom-0 right-0 z-50 px-3 py-1 text-sm sm:text-base text-gray-300 transition-all bg-black hover:text-white bg-opacity-80 cursor-pointer rounded-tl-md text-center",
         display && "bg-opacity-60 hover:bg-black"
       )}
       onClick={toggleCredit}

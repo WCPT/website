@@ -17,14 +17,14 @@ export const Navbar: React.FC<{
         { "theme-nav-transparent-bg": themeStyle === 1 }
       )}
     >
-      <div className="container mx-auto flex items-center py-8 px-8 xs:px-12 sm:px-16">
+      <div className="container mx-auto flex items-center py-8 px-8 sm:px-12">
         <Link href="/">
           <a className="flex items-center">
             <Logo
               dark={themeStyle === 0}
               className="mr-4 h-16 md:h-20 transition-all"
             />
-            <span className="hidden xs:block w-44 text-lg md:text-xl font-light">
+            <span className="hidden sm:block w-44 md:w-48 text-lg md:text-xl font-light font-serif">
               Wisdom Community of Pasifika Teachers
             </span>
           </a>

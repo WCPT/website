@@ -41,7 +41,7 @@ const Icon: React.FC<{
       <a title={title} target="_blank" rel="noopener">
         <IconComponent
           className={cx(
-            `mx-1 p-1.5 md:p-2.5 text-4xl md:text-5xl rounded-md transition-all duration-300`,
+            `mx-1 p-1.5 text-4xl sm:p-2.5 sm:text-5xl rounded-md transition-all duration-300`,
             className
           )}
         />
@@ -54,44 +54,44 @@ type ISocialIconProps = {
   href: string;
 };
 
-const FacebookIcon: React.FC<ISocialIconProps> = ({ href }) => {
+const FacebookIcon: React.FC<ISocialIconProps> = (props) => {
   return (
     <Icon
+      {...props}
       icon={FaFacebookSquare}
-      href={href}
       title="Facebook"
       className="text-skin-facebook hover:text-skin-facebook-hover bg-skin-facebook hover:bg-skin-facebook-hover"
     />
   );
 };
 
-const TwitterIcon: React.FC<ISocialIconProps> = ({ href }) => {
+const TwitterIcon: React.FC<ISocialIconProps> = (props) => {
   return (
     <Icon
+      {...props}
       icon={FaTwitter}
-      href={href}
       title="Twitter"
       className="text-skin-twitter hover:text-skin-twitter-hover bg-skin-twitter hover:bg-skin-twitter-hover"
     />
   );
 };
 
-const YoutubeIcon: React.FC<ISocialIconProps> = ({ href }) => {
+const YoutubeIcon: React.FC<ISocialIconProps> = (props) => {
   return (
     <Icon
+      {...props}
       icon={FaYoutube}
-      href={href}
       title="Youtube"
       className="text-skin-youtube hover:text-skin-youtube-hover bg-skin-youtube hover:bg-skin-youtube-hover"
     />
   );
 };
 
-const EmailIcon: React.FC<ISocialIconProps> = ({ href }) => {
+const EmailIcon: React.FC<ISocialIconProps> = (props) => {
   return (
     <Icon
+      {...props}
       icon={MdEmail}
-      href={href}
       title="Email"
       className="text-skin-email hover:text-skin-email-hover bg-skin-email hover:bg-skin-email-hover"
     />

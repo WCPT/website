@@ -141,15 +141,6 @@ const HomePage: NextPage<
 }) => {
   const socialLinks = useSocialLinks();
 
-  const ev = React.useMemo(
-    () =>
-      events.map((event) => ({
-        ...event,
-        date: new Date(event.date),
-      })),
-    [events]
-  );
-
   return (
     <div>
       <Head>
@@ -191,7 +182,7 @@ const HomePage: NextPage<
           registered={stats.registered}
           lifetimeInMonths={stats.lifetimeInMonths}
         />
-        <EventsSection events={ev} />
+        <EventsSection events={events} />
         <ContactSection
           socialLinks={{
             facebook: socialLinks.facebook,
@@ -241,9 +232,9 @@ const HeroSection: React.FC<{
       />
 
       <div className="flex h-full container mx-auto">
-        <div className="mx-auto lg:mx-0 flex flex-col items-center lg:items-start justify-center px-12 sm:px-16 text-center lg:text-left">
+        <div className="mx-auto lg:mx-0 flex flex-col items-center lg:items-start justify-center px-12 text-center lg:text-left">
           {/* For mobile */}
-          <div className="xs:hidden">
+          <div className="block sm:hidden">
             <h1 className="pb-4 text-[1.8rem] leading-snug text-center text-skin-inverted">
               {title}
             </h1>
@@ -254,7 +245,7 @@ const HeroSection: React.FC<{
           </div>
 
           {/* For tablet and desktop */}
-          <div className="hidden xs:block sm:w-[500px] lg:w-[520px]">
+          <div className="hidden sm:block sm:w-[500px] lg:w-[520px]">
             <h2 className="mb-4 font-serif font-light text-[2.5rem] leading-snug text-skin-inverted">
               {header}
             </h2>
@@ -263,7 +254,7 @@ const HeroSection: React.FC<{
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:flex sm:flex-row my-4">
             <div className="flex justify-center">
               <div
-                className="group cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 xs:w-full text-skin-inverted-muted border border-gray-200 hover:border-blue-600 hover:bg-blue-600 transition-all duration-200"
+                className="group cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full text-skin-inverted-muted border border-gray-200 hover:border-blue-600 hover:bg-blue-600 transition-all duration-200"
                 onClick={openModal}
               >
                 <MdPlayCircleOutline className="-ml-1 mr-2 text-xl" />
@@ -275,7 +266,7 @@ const HeroSection: React.FC<{
 
             <div className="flex justify-center">
               <a
-                className="group cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 xs:w-full text-skin-inverted-muted border border-gray-200 hover:border-blue-600 hover:bg-blue-600 transition-all duration-200"
+                className="group cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full text-skin-inverted-muted border border-gray-200 hover:border-blue-600 hover:bg-blue-600 transition-all duration-200"
                 href={signUpLink}
                 target="_blank"
                 rel="noreferrer"
@@ -292,7 +283,7 @@ const HeroSection: React.FC<{
             <span className="sm:mr-2 font-thin">Already a member?</span>
             <a
               href={signInLink}
-              className="hover:underline text-skin-accent font-thin transition-all"
+              className="underline underline-offset-4 text-skin-accent font-thin transition-all"
             >
               Sign in here!
             </a>
@@ -312,31 +303,31 @@ const IntroSection: React.FC<{
 
   return (
     <section ref={ref} className="relative py-16 sm:py-20 bg-base">
-      <div className="xl:container mx-auto px-8 xs:px-12 sm:px-16">
+      <div className="xl:container mx-auto px-8 sm:px-12">
         <div className="flex justify-center mb-8">
-          <h1 className="font-serif xs:mb-8 max-w-3xl text-2xl xs:text-3xl md:text-4xl text-center leading-snug md:leading-snug text-skin-muted">
+          <h1 className="font-serif sm:mb-8 max-w-3xl text-2xl sm:text-3xl md:text-4xl text-center leading-snug md:leading-snug text-skin-muted">
             {title}
           </h1>
         </div>
         <div className="grid lmd:grid-cols-5 xl:grid-cols-2 gap-8">
           <div className="lmd:col-span-3 xl:col-span-1">
-            <div className="prose max-w-none lg:pr-6 text-lg lg:text-xl text-skin-base">
+            <div className="prose prose-p:leading-normal max-w-none lg:pr-6 text-lg lg:text-xl text-skin-base">
               <p
                 className="first-letter:text-5xl"
                 dangerouslySetInnerHTML={{ __html: excerpt }}
               />
               <div
                 className={cx(
-                  "opacity-0 xs:opacity-100 transition-opacity duration-300",
-                  isVisible ? "block opacity-100" : "hidden xs:block"
+                  "opacity-0 sm:opacity-100 transition-opacity duration-300",
+                  isVisible ? "block opacity-100" : "hidden sm:block"
                 )}
                 dangerouslySetInnerHTML={{ __html: body }}
               />
             </div>
 
-            <div className="block xs:hidden">
+            <div className="block sm:hidden">
               <span
-                className="inline-block px-2 py-1.5 xs:p-2 rounded-sm text-blue-500 border border-blue-500 cursor-pointer"
+                className="inline-block px-2 py-1.5 sm:p-2 rounded-sm text-blue-500 border border-blue-500 cursor-pointer"
                 onClick={toggle}
               >
                 {isVisible ? "Show less" : "Show more"}
@@ -402,9 +393,9 @@ const StatsSection: React.FC<{
   return (
     <section className="relative lg:pt-12">
       <div className="pt-24 pb-44 bg-skin-secondary">
-        <div className="2xl:container mx-auto px-8 xs:px-12 sm:px-16">
+        <div className="2xl:container mx-auto px-8 sm:px-12">
           <div className="flex flex-col justify-center items-center mb-20">
-            <h1 className="xs:mb-8 max-w-2xl text-center text-2xl xs:text-3xl md:text-4xl leading-snug md:leading-snug text-skin-base font-light">
+            <h1 className="sm:mb-8 max-w-2xl text-center text-2xl sm:text-3xl md:text-4xl leading-snug md:leading-snug text-skin-base font-light">
               We are an active, growing community in the wider Pacific region
             </h1>
           </div>
@@ -531,14 +522,14 @@ const EventsSection: React.FC<{
     id: string | number;
     type?: string;
     title: string;
-    date: Date;
+    date: Date | string;
     duration: string;
     registrationUrl?: string;
     registrationDeadline?: string;
   }>;
 }> = ({ events }) => {
   return (
-    <section className="relative py-12 xs:py-16 sm:pb-36">
+    <section className="relative py-12 sm:py-16 sm:pb-36">
       <Image
         overlayed="opacity-80 bg-skin-primary"
         backgroundCover
@@ -552,12 +543,12 @@ const EventsSection: React.FC<{
         creditHref="https://www.freepik.com/vectors/background"
       />
       <div className="xl:container mx-auto">
-        <div className="flex flex-col mb-12 lg:mb-0 px-8 xs:px-12 sm:px-16">
+        <div className="flex flex-col mb-12 lg:mb-0 px-8 sm:px-12">
           <div className="z-10 flex flex-col my-16 max-w-lg">
             <span className="text-lg font-mono tracking-wider text-skin-inverted">
               #WCPTevents
             </span>
-            <h1 className="mt-1 mb-2 xs:mb-4 text-2xl xs:text-3xl md:text-4xl text-skin-inverted">
+            <h1 className="mt-1 mb-2 sm:mb-4 text-2xl sm:text-3xl md:text-4xl text-skin-inverted">
               Upcoming Events
             </h1>
             <span className="text-lg text-skin-inverted-muted">
@@ -580,7 +571,7 @@ const EventCard: React.FC<{
   className?: string;
   type?: string;
   title: string;
-  date: Date;
+  date: Date | string;
   duration: string;
   href: string;
   registrationUrl?: string;
@@ -589,11 +580,16 @@ const EventCard: React.FC<{
   className,
   type,
   title,
-  date,
+  date: dateProp,
   duration,
   href,
   registrationDeadline,
 }) => {
+  const date = React.useMemo(
+    () => (typeof dateProp === "string" ? new Date(dateProp) : dateProp),
+    [dateProp]
+  );
+
   return (
     <a
       href={href}
@@ -631,9 +627,9 @@ const ContactSection: React.FC<{
   };
 }> = ({ socialLinks }) => {
   return (
-    <section className="relative py-12 xs:py-12 bg-white">
-      <div className="xl:container mx-auto py-16 px-8 xs:px-12 sm:px-16 flex flex-col">
-        <h2 className="z-10 font-sans font-black text-3xl xs:text-4xl tracking-tight text-gray-900">
+    <section className="relative py-12 sm:py-12 bg-white">
+      <div className="xl:container mx-auto py-16 px-8 sm:px-12 flex flex-col">
+        <h2 className="z-10 font-sans font-black text-3xl sm:text-4xl tracking-tight text-gray-900">
           <span className="block">Want to get in touch?</span>
           <span className="block bg-clip-text text-skin-primary">
             Reach us through social media or email us!

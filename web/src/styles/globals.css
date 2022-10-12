@@ -45,11 +45,17 @@
     --color-email-bg-hover: #fff;
   }
 
+  h1 {
+    @apply font-serif;
+  }
+
+  /* Nav theme variant */
   .theme-nav-transparent-bg {
     --color-nav-text-base: #ffffff;
     --color-nav-fill: transparent;
   }
 
+  /* Social theme variants */
   .theme-social-transparent-bg {
     --color-twitter: #fff;
     --color-youtube: #fff;
@@ -71,7 +77,6 @@
     --color-facebook-bg-hover: #fff;
     --color-email-bg-hover: #fff;
   }
-
   .theme-social-gray-bg {
     --color-twitter: #4b5563;
     --color-youtube: #4b5563;
@@ -92,9 +97,5 @@
     --color-youtube-bg-hover: #ff0000;
     --color-facebook-bg-hover: #4267b2;
     --color-email-bg-hover: #339eff;
-  }
-
-  h1 {
-    @apply font-serif;
   }
 }
