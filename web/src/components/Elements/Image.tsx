@@ -35,7 +35,7 @@ export const Image: React.FC<
       <NextImage
         className={cx(
           className,
-          backgroundCover && "inset-0 -z-50 object-cover h-full",
+          backgroundCover && "inset-0 -z-50 object-cover h-full w-full",
           position
         )}
         {...rest}
