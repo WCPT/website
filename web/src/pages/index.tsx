@@ -19,7 +19,7 @@ import SmilingFijianImage from "../../public/smiling-fijian.jpeg";
 import StudentPortraitImage from "../../public/student-portrait.jpeg";
 import SmilingStudentImage from "../../public/smiling-student.jpeg";
 import IslanderStudentImage from "../../public/islander-student.jpeg";
-import GlobeImage from "../../public/globe.jpg";
+import GlobeImage from "../../public/globe.jpeg";
 
 type IReturnProps = {
   title: string;
@@ -117,7 +117,7 @@ export const getServerSideProps: GetServerSideProps<
         {
           id: 1,
           type: "Workshop",
-          title: "Advanced Excel - Generate Report Sheets and Graphs",
+          title: "Advanced Excel: Generate Report Sheets and Graphs",
           date: "2022-07-13T03:30:00.000Z",
           duration: "3.30 - 5.30PM / 17 May - 13 July 2022",
           registrationUrl: "",
@@ -213,10 +213,11 @@ const HeroSection: React.FC<{
     <div className="relative h-screen min-h-[640px] overflow-hidden">
       <Image
         fixed
-        overlayed
         backgroundCover
-        placeholder="blur"
         priority
+        className="object-center"
+        overlayed="opacity-10 bg-black"
+        placeholder="blur"
         src={Blueocean}
         alt="Blue ocean"
         credit="Photo by Hoodh Ahmed on Unsplash"
@@ -250,29 +251,29 @@ const HeroSection: React.FC<{
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:flex sm:flex-row my-4">
-            <div className="flex justify-center">
+            <div className="flex justify-center group">
               <div
-                className="group cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full text-skin-inverted-muted border border-gray-200 hover:border-blue-600 hover:bg-blue-600 transition-all duration-200"
+                className="cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full text-skin-inverted-muted border border-blue-600 bg-blue-600"
                 onClick={openModal}
               >
-                <MdPlayCircleOutline className="-ml-1 mr-2 text-xl" />
-                <span className="group-hover:text-white text-lg transition-all duration-200">
+                <MdPlayCircleOutline className="-ml-1 mr-2 text-xl text-gray-200 group-hover:text-white" />
+                <span className="text-gray-200 group-hover:text-white">
                   Watch short video
                 </span>
               </div>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center group">
               <a
-                className="group cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full text-skin-inverted-muted border border-gray-200 hover:border-blue-600 hover:bg-blue-600 transition-all duration-200"
+                className="cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full text-skin-inverted-muted border border-gray-200 group-hover:border-white"
                 href={signUpLink}
                 target="_blank"
                 rel="noreferrer"
               >
-                <span className="mr-2 group-hover:text-white text-lg transition-all duration-200">
+                <span className="mr-2 text-gray-200 group-hover:text-white">
                   Join our community
                 </span>
-                <MdOpenInNew className="text-xl" />
+                <MdOpenInNew className="text-xl group-hover:text-white" />
               </a>
             </div>
           </div>
@@ -532,7 +533,7 @@ const EventsSection: React.FC<{
       <div className="xl:container mx-auto">
         <div className="flex flex-col mb-12 lg:mb-0 px-8 sm:px-12">
           <div className="z-10 flex flex-col my-16 max-w-lg">
-            <span className="text-lg font-mono tracking-wider text-skin-inverted">
+            <span className="text-lg tracking-wider text-skin-inverted-muted">
               #WCPTevents
             </span>
             <h1 className="mt-1 mb-2 sm:mb-4 text-2xl sm:text-3xl md:text-4xl text-skin-inverted">
@@ -581,19 +582,29 @@ const EventCard: React.FC<{
     <a
       href={href}
       className={cx(
-        "group flex flex-col py-8 lg:py-12 2xl:py-16 px-10 2xl:px-12 text-skin-inverted border border-skin-inverted-muted cursor-pointer transition-all duration-200 ease-linear hover:bg-gray-900 hover:border-gray-900 hover:shadow-xl",
+        "group flex flex-col py-8 lg:py-12 px-10 2xl:px-12 bg-skin-secondary rounded hover:shadow-xl transition-all duration-200 ease-linear",
         className
       )}
     >
-      <span className="text-4xl 2xl:text-5xl font-light leading-tight tracking-wide">
-        {format(date, "dd")}
-      </span>
-      <span className="2xl:text-lg uppercase tracking-widest">
-        {format(date, "MMMM")}
-      </span>
-      <span className="mt-8 2xl:mt-12 mb-6 2xl:mb-8 text-xl 2xl:text-2xl leading-snug font-light">
-        {type && `${type} -`} {title}
-      </span>
+      <div className="flex justify-between">
+        <div className="flex flex-col">
+          <span className="text-2xl 2xl:text-3xl font-semibold text-skin-primary">
+            {format(date, "dd MMMM")}
+          </span>
+          <span className="2xl:text-lg uppercase tracking-widest">
+            {format(date, "Y")}
+          </span>
+        </div>
+
+        <div>{type && <span className="text-lg">{type}</span>}</div>
+      </div>
+
+      <div className="my-4 2xl:my-5 border border-solid" />
+
+      <div className="flex flex-col mb-6 2xl:mb-8 leading-snug">
+        <span className="text-xl text-skin-primary">{title}</span>
+      </div>
+
       <div className="flex flex-col mt-auto mb-2 text-lg 2xl:text-xl font-light leading-snug">
         <span>{duration}</span>
         {registrationDeadline && <span>{registrationDeadline}</span>}
