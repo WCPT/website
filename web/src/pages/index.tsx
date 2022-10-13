@@ -212,11 +212,9 @@ const HeroSection: React.FC<{
   return (
     <div className="relative h-screen min-h-[640px] overflow-hidden">
       <Image
+        fixed
         overlayed
         backgroundCover
-        layout="fill"
-        objectFit="cover"
-        objectPosition="50% 0%"
         placeholder="blur"
         priority
         src={Blueocean}
@@ -231,7 +229,7 @@ const HeroSection: React.FC<{
         isOpen={isOpen}
       />
 
-      <div className="flex h-full container mx-auto">
+      <div className="flex h-full xl:container mx-auto">
         <div className="mx-auto lg:mx-0 flex flex-col items-center lg:items-start justify-center px-12 text-center lg:text-left">
           {/* For mobile */}
           <div className="block sm:hidden">
@@ -302,7 +300,7 @@ const IntroSection: React.FC<{
   const { ref, isVisible, toggle } = useExtendedContent();
 
   return (
-    <section ref={ref} className="relative py-16 sm:py-20 bg-base">
+    <section ref={ref} className="relative py-16 sm:py-20 bg-skin-base">
       <div className="xl:container mx-auto px-8 sm:px-12">
         <div className="flex justify-center mb-8">
           <h1 className="font-serif sm:mb-8 max-w-3xl text-2xl sm:text-3xl md:text-4xl text-center leading-snug md:leading-snug text-skin-muted">
@@ -336,8 +334,6 @@ const IntroSection: React.FC<{
           </div>
           <div className="hidden relative lmd:grid xl:grid-cols-2 gap-4 auto-rows-min col-span-2 xl:col-span-1">
             <Image
-              layout="responsive"
-              objectFit="cover"
               src={SmilingFijianImage}
               alt="Smiling student"
               placeholder="blur"
@@ -346,8 +342,6 @@ const IntroSection: React.FC<{
             />
             <div className="relative hidden xl:inline top-[10%]">
               <Image
-                layout="responsive"
-                objectFit="cover"
                 src={StudentPortraitImage}
                 alt="Smiling student"
                 placeholder="blur"
@@ -357,8 +351,6 @@ const IntroSection: React.FC<{
             </div>
             <div className="relative lg:hidden xl:inline">
               <Image
-                layout="responsive"
-                objectFit="cover"
                 src={SmilingStudentImage}
                 alt="Smiling student"
                 placeholder="blur"
@@ -368,8 +360,6 @@ const IntroSection: React.FC<{
             </div>
             <div className="relative hidden lg:inline xl:top-[10%]">
               <Image
-                layout="responsive"
-                objectFit="cover"
                 src={IslanderStudentImage}
                 alt="Smiling student"
                 placeholder="blur"
@@ -391,7 +381,7 @@ const StatsSection: React.FC<{
   lifetimeInMonths: string | number;
 }> = ({ engagements, registered, participants, lifetimeInMonths }) => {
   return (
-    <section className="relative lg:pt-12">
+    <section className="relative lg:pt-12 bg-skin-secondary">
       <div className="pt-24 pb-44 bg-skin-secondary">
         <div className="2xl:container mx-auto px-8 sm:px-12">
           <div className="flex flex-col justify-center items-center mb-20">
@@ -531,13 +521,10 @@ const EventsSection: React.FC<{
   return (
     <section className="relative py-12 sm:py-16 sm:pb-36">
       <Image
-        overlayed="opacity-80 bg-skin-primary"
         backgroundCover
+        overlayed="opacity-80 bg-skin-primary"
         alt="Connected globe"
         src={GlobeImage}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="0% 0%"
         placeholder="blur"
         credit="Background vector created by liuzishan on freepik.com"
         creditHref="https://www.freepik.com/vectors/background"

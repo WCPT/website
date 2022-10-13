@@ -2,9 +2,10 @@ import React from "react";
 import cx from "classnames";
 
 export const Credit: React.FC<{
+  className?: string;
   credit: string;
   href?: string;
-}> = ({ credit, href }) => {
+}> = ({ className, credit, href }) => {
   const [display, setDisplay] = React.useState(false);
   const toggleCredit = () => setDisplay((display) => !display);
 
@@ -25,7 +26,8 @@ export const Credit: React.FC<{
     <span
       className={cx(
         "absolute bottom-0 right-0 z-50 px-3 py-1 text-sm sm:text-base text-gray-300 transition-all bg-black hover:text-white bg-opacity-80 cursor-pointer rounded-tl-md text-center",
-        display && "bg-opacity-60 hover:bg-black"
+        display && "bg-opacity-60 hover:bg-black",
+        className
       )}
       onClick={toggleCredit}
     >

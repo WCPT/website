@@ -17,7 +17,7 @@ export const Navbar: React.FC<{
         { "theme-nav-transparent-bg": themeStyle === 1 }
       )}
     >
-      <div className="container mx-auto flex items-center py-8 px-8 sm:px-12">
+      <div className="xl:container mx-auto flex justify-between items-center flex-1 py-8 px-8 sm:px-12">
         <Link href="/">
           <a className="flex items-center">
             <Logo
