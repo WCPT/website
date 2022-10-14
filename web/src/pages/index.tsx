@@ -6,7 +6,8 @@ import type {
 } from "next";
 import Head from "next/head";
 import { MdOpenInNew, MdPlayCircleOutline } from "react-icons/md";
-import { differenceInMonths, format } from "date-fns";
+import { BsArrowRightCircle } from "react-icons/bs";
+import { differenceInMonths } from "date-fns";
 import cx from "classnames";
 
 import { Navbar } from "../components/Navigation";
@@ -42,10 +43,12 @@ type IReturnProps = {
     id: string | number;
     type?: string;
     title: string;
-    date: string;
-    duration: string;
-    registrationUrl?: string;
-    registrationDeadline?: string;
+    excerpt?: string;
+    dates: string;
+    year: number;
+    // duration: string;
+    // registrationUrl?: string;
+    // registrationDeadline?: string;
   }>;
 };
 
@@ -118,9 +121,29 @@ export const getServerSideProps: GetServerSideProps<
           id: 1,
           type: "Workshop",
           title: "Advanced Excel: Generate Report Sheets and Graphs",
-          date: "2022-07-13T03:30:00.000Z",
-          duration: "3.30 - 5.30PM / 17 May - 13 July 2022",
-          registrationUrl: "",
+          excerpt:
+            "Having mastered your basic Excel skills in creating a master marksheet, you can now level up your Excel skills",
+          dates: "13 May - 17 July",
+          year: 2022,
+        },
+        {
+          id: 2,
+          type: "Workshop",
+          title: "Advanced Zoom: Using Mobile Phone as a Document Viewer",
+          excerpt:
+            "Having mastered your basic Excel skills in creating a master marksheet, you can now level up your Excel skills",
+          dates: "5 October",
+          year: 2022,
+        },
+        {
+          id: 3,
+          type: "Short course",
+          title:
+            "Communication Skills for Open, Distance and Flexible Learning",
+          excerpt:
+            "Having mastered your basic Excel skills in creating a master marksheet, you can now level up your Excel skills",
+          dates: "3 - 30 January",
+          year: 2022,
         },
       ],
     },
@@ -302,6 +325,16 @@ const IntroSection: React.FC<{
 
   return (
     <section ref={ref} className="relative py-16 sm:py-20 bg-skin-base">
+      {/* <Image
+        backgroundCover
+        className="object-center"
+        overlayed="opacity-10 bg-black"
+        placeholder="blur"
+        src={LearnImage}
+        alt="Blue ocean"
+        credit="Photo by Hoodh Ahmed on Unsplash"
+      /> */}
+
       <div className="xl:container mx-auto px-8 sm:px-12">
         <div className="flex justify-center mb-8">
           <h1 className="font-serif sm:mb-8 max-w-3xl text-2xl sm:text-3xl md:text-4xl text-center leading-snug md:leading-snug text-skin-muted">
@@ -513,10 +546,8 @@ const EventsSection: React.FC<{
     id: string | number;
     type?: string;
     title: string;
-    date: Date | string;
-    duration: string;
-    registrationUrl?: string;
-    registrationDeadline?: string;
+    dates: string;
+    year: number;
   }>;
 }> = ({ events }) => {
   return (
@@ -544,7 +575,7 @@ const EventsSection: React.FC<{
               that you can virtually join from anywhere.
             </span>
           </div>
-          <div className="z-10 grid lg:grid-cols-3 grid-rows-1 gap-4 text-gray-600 overflow-hidden">
+          <div className="z-10 grid lg:grid-cols-3 grid-rows-1 gap-16 text-gray-600 overflow-hidden">
             {events.map((event, i) => (
               <EventCard key={i} {...event} href={`/events/${event.id}`} />
             ))}
@@ -559,58 +590,48 @@ const EventCard: React.FC<{
   className?: string;
   type?: string;
   title: string;
-  date: Date | string;
-  duration: string;
+  excerpt?: string;
+  dates: string;
+  year: number;
   href: string;
-  registrationUrl?: string;
-  registrationDeadline?: string;
-}> = ({
-  className,
-  type,
-  title,
-  date: dateProp,
-  duration,
-  href,
-  registrationDeadline,
-}) => {
-  const date = React.useMemo(
-    () => (typeof dateProp === "string" ? new Date(dateProp) : dateProp),
-    [dateProp]
-  );
-
+}> = ({ className, type, title, excerpt, dates, year, href }) => {
   return (
     <a
       href={href}
       className={cx(
-        "group flex flex-col py-8 lg:py-12 px-10 2xl:px-12 bg-skin-secondary rounded hover:shadow-xl transition-all duration-200 ease-linear",
+        "group flex flex-col rounded-md overflow-hidden",
         className
       )}
     >
-      <div className="flex justify-between">
+      <div className="relative flex justify-between py-8 px-10 border-b border-solid text-skin-inverted bg-[#0988ab]/60">
         <div className="flex flex-col">
-          <span className="text-2xl 2xl:text-3xl font-semibold text-skin-primary">
-            {format(date, "dd MMMM")}
-          </span>
-          <span className="2xl:text-lg uppercase tracking-widest">
-            {format(date, "Y")}
+          <span className="text-2xl 2xl:text-3xl font-semibold">{dates}</span>
+          <span className="text-lg uppercase tracking-widest">{year}</span>
+          {type && (
+            <div className="absolute bottom-0 translate-y-1/2 py-2 px-3 rounded-md drop-shadow-md text-skin-base bg-white">
+              <span className="font-bold text-skin-muted tracking-wider">
+                {type}
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="p-10 bg-skin-base">
+        <div className="flex flex-col leading-snug">
+          <span className="text-xl font-bold mb-4 group-hover:text-skin-primary">
+            {title}
           </span>
         </div>
 
-        <div>{type && <span className="text-lg">{type}</span>}</div>
-      </div>
+        {excerpt && (
+          <div className="text-lg leading-snug text-skin-muted">{excerpt}</div>
+        )}
 
-      <div className="my-4 2xl:my-5 border border-solid" />
-
-      <div className="flex flex-col mb-6 2xl:mb-8 leading-snug">
-        <span className="text-xl text-skin-primary">{title}</span>
-      </div>
-
-      <div className="flex flex-col mt-auto mb-2 text-lg 2xl:text-xl font-light leading-snug">
-        <span>{duration}</span>
-        {registrationDeadline && <span>{registrationDeadline}</span>}
-        <span className="font-normal text-base xl:text-lg group-hover:underline">
-          View details
-        </span>
+        <div className="flex items-center mt-10 gap-2">
+          <span className="group-hover:text-skin-primary">View details</span>
+          <BsArrowRightCircle className="text-3xl text-skin-muted group-hover:text-skin-primary" />
+        </div>
       </div>
     </a>
   );
