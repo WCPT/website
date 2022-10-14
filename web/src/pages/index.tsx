@@ -41,7 +41,7 @@ type IReturnProps = {
   };
   events: Array<{
     id: string | number;
-    type?: string;
+    type: string;
     title: string;
     excerpt?: string;
     dates: string;
@@ -544,7 +544,7 @@ const Stat: React.FC<{
 const EventsSection: React.FC<{
   events: Array<{
     id: string | number;
-    type?: string;
+    type: string;
     title: string;
     dates: string;
     year: number;
@@ -588,7 +588,7 @@ const EventsSection: React.FC<{
 
 const EventCard: React.FC<{
   className?: string;
-  type?: string;
+  type: string;
   title: string;
   excerpt?: string;
   dates: string;
@@ -607,13 +607,11 @@ const EventCard: React.FC<{
         <div className="flex flex-col">
           <span className="text-2xl 2xl:text-3xl font-semibold">{dates}</span>
           <span className="text-lg uppercase tracking-widest">{year}</span>
-          {type && (
-            <div className="absolute bottom-0 translate-y-1/2 py-2 px-3 rounded-md drop-shadow-md text-skin-base bg-white">
-              <span className="font-bold text-skin-muted tracking-wider">
-                {type}
-              </span>
-            </div>
-          )}
+          <div className="absolute bottom-0 translate-y-1/2 py-2 px-3 rounded-md drop-shadow-md text-skin-base bg-white">
+            <span className="font-bold text-skin-muted tracking-wider">
+              {type}
+            </span>
+          </div>
         </div>
       </div>
 

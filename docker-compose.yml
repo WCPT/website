@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=toor
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=supersecret
+      - MYSQL_DATABASE=wcpt
+    # volumes:
+    #   - wcpt_mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    environment:
+      - PMA_HOST=mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=supersecret
+    ports:
+      - "8080:80"
+
+# volumes:
+#   wcpt_mysql:
