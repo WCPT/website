@@ -603,7 +603,7 @@ const EventCard: React.FC<{
         className
       )}
     >
-      <div className="relative flex justify-between py-8 px-10 border-b border-solid text-skin-inverted bg-[#0988ab]/60">
+      <div className="relative flex justify-between py-8 px-10 border-b border-solid text-skin-inverted bg-[#0988ab]/60 group-hover:bg-skin-primary-muted transition-colors duration-200">
         <div className="flex flex-col">
           <span className="text-2xl 2xl:text-3xl font-semibold">{dates}</span>
           <span className="text-lg uppercase tracking-widest">{year}</span>
@@ -617,7 +617,7 @@ const EventCard: React.FC<{
 
       <div className="p-10 bg-skin-base">
         <div className="flex flex-col leading-snug">
-          <span className="text-xl font-bold mb-4 group-hover:text-skin-primary">
+          <span className="text-xl font-bold mb-4 group-hover:text-skin-primary transition-colors duration-200">
             {title}
           </span>
         </div>
@@ -626,9 +626,9 @@ const EventCard: React.FC<{
           <div className="text-lg leading-snug text-skin-muted">{excerpt}</div>
         )}
 
-        <div className="flex items-center mt-10 gap-2">
-          <span className="group-hover:text-skin-primary">View details</span>
-          <BsArrowRightCircle className="text-3xl text-skin-muted group-hover:text-skin-primary" />
+        <div className="flex items-center mt-10 gap-2 text-skin-muted group-hover:text-skin-primary transition-colors duration-200">
+          <span>View details</span>
+          <BsArrowRightCircle className="text-3xl" />
         </div>
       </div>
     </a>
