@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps<
 export const EventPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ event }) => {
-  const id = useRouterQuery<string>("id");
+  const slug = useRouterQuery<string>("slug");
 
   return (
     <ContentLayout title={`WCPT | {${event.title}}`}>
