@@ -23,10 +23,11 @@ model Event {
   id                   String    @id @default(uuid())
   slug                 String    @unique @default("")
   type                 String?
-  startDate            DateTime
-  endDate              DateTime?
-  duration             String    @default("")
   title                String    @default("")
+  startDate            DateTime
+  dates                String    @default("")
+  year                 String    @default("")
+  duration             String    @default("")
   excerpt              String    @default("")
   content              Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   registrationURL      String    @default("")

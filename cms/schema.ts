@@ -71,19 +71,34 @@ export const lists: Lists = {
           { label: "Event", value: "Event" },
         ],
       }),
-      startDate: timestamp({
-        validation: {
-          isRequired: true,
-        },
-      }),
-      endDate: timestamp(),
-      duration: text(),
       title: text({
         validation: {
           isRequired: true,
         },
       }),
+      // Required for sorting
+      startDate: timestamp({
+        validation: {
+          isRequired: true,
+        },
+      }),
+      dates: text({
+        validation: {
+          isRequired: true,
+        },
+      }),
+      year: text({
+        validation: {
+          isRequired: true,
+        },
+      }),
+      duration: text(),
       excerpt: text({
+        validation: {
+          length: {
+            max: 300,
+          },
+        },
         ui: {
           displayMode: "textarea",
         },
@@ -107,6 +122,7 @@ export const lists: Lists = {
       registrationDeadline: timestamp(),
       status: select({
         options: [
+          { label: "Featured", value: "featured" },
           { label: "Published", value: "published" },
           { label: "Draft", value: "draft" },
         ],
@@ -131,7 +147,7 @@ export const lists: Lists = {
     },
     ui: {
       listView: {
-        initialColumns: ["title", "type", "slug"],
+        initialColumns: ["title", "type", "status"],
       },
     },
   }),

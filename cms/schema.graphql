@@ -97,10 +97,11 @@ type Event {
   id: ID!
   slug: String
   type: String
-  startDate: DateTime
-  endDate: DateTime
-  duration: String
   title: String
+  startDate: DateTime
+  dates: String
+  year: String
+  duration: String
   excerpt: String
   content: Event_content_Document
   registrationURL: String
@@ -127,10 +128,11 @@ input EventWhereInput {
   id: IDFilter
   slug: StringFilter
   type: StringNullableFilter
-  startDate: DateTimeFilter
-  endDate: DateTimeNullableFilter
-  duration: StringFilter
   title: StringFilter
+  startDate: DateTimeFilter
+  dates: StringFilter
+  year: StringFilter
+  duration: StringFilter
   excerpt: StringFilter
   registrationURL: StringFilter
   registrationDeadline: DateTimeNullableFilter
@@ -191,10 +193,11 @@ input EventOrderByInput {
   id: OrderDirection
   slug: OrderDirection
   type: OrderDirection
-  startDate: OrderDirection
-  endDate: OrderDirection
-  duration: OrderDirection
   title: OrderDirection
+  startDate: OrderDirection
+  dates: OrderDirection
+  year: OrderDirection
+  duration: OrderDirection
   excerpt: OrderDirection
   registrationURL: OrderDirection
   registrationDeadline: OrderDirection
@@ -203,10 +206,11 @@ input EventOrderByInput {
 
 input EventUpdateInput {
   type: String
-  startDate: DateTime
-  endDate: DateTime
-  duration: String
   title: String
+  startDate: DateTime
+  dates: String
+  year: String
+  duration: String
   excerpt: String
   content: JSON
   registrationURL: String
@@ -221,10 +225,11 @@ input EventUpdateArgs {
 
 input EventCreateInput {
   type: String
-  startDate: DateTime
-  endDate: DateTime
-  duration: String
   title: String
+  startDate: DateTime
+  dates: String
+  year: String
+  duration: String
   excerpt: String
   content: JSON
   registrationURL: String
