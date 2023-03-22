@@ -1,11 +1,11 @@
 import React from "react";
-import NextImage, { ImageProps } from "next/future/image";
-import cx from "classnames";
+import NextImage from "next/image";
+import cx from "clsx";
 
 import Credit from "./Credit";
 
 export const Image: React.FC<
-  ImageProps & {
+  React.ComponentProps<typeof NextImage> & {
     overlayed?: boolean | string;
     backgroundCover?: boolean;
     credit?: string;

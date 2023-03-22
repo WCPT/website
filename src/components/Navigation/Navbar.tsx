@@ -1,5 +1,5 @@
 import React from "react";
-import cx from "classnames";
+import cx from "clsx";
 import Link from "next/link";
 
 import { Logo } from "@/components/Elements";
@@ -18,16 +18,14 @@ export const Navbar: React.FC<{
       )}
     >
       <div className="xl:container mx-auto flex justify-between items-center flex-1 py-8 px-8 sm:px-12">
-        <Link href="/">
-          <a className="flex items-center">
-            <Logo
-              dark={themeStyle === 0}
-              className="mr-4 h-16 md:h-20 transition-all"
-            />
-            <span className="hidden sm:block w-44 md:w-48 text-lg md:text-xl font-light font-serif">
-              Wisdom Community of Pasifika Teachers
-            </span>
-          </a>
+        <Link href="/" className="flex items-center">
+          <Logo
+            dark={themeStyle === 0}
+            className="mr-4 h-16 md:h-20 transition-all"
+          />
+          <span className="hidden sm:block w-44 md:w-48 text-lg md:text-xl font-light font-serif">
+            Wisdom Community of Pasifika Teachers
+          </span>
         </Link>
 
         {itemsRight && <div className="ml-auto">{itemsRight}</div>}

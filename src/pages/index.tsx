@@ -6,10 +6,9 @@ import type {
 } from "next";
 import Head from "next/head";
 import { differenceInMonths } from "date-fns";
-import { request, gql } from "graphql-request";
 import { MdOpenInNew, MdPlayCircleOutline } from "react-icons/md";
 import { BsArrowRightCircle } from "react-icons/bs";
-import cx from "classnames";
+import cx from "clsx";
 
 import { useSocialLinks, useExtendedContent, useModal } from "../hooks";
 import {
@@ -31,31 +30,7 @@ import IslanderStudentImage from "../images/islander-student.jpeg";
 import GlobeImage from "../images/globe.jpeg";
 import { makeURL } from "../lib";
 
-const query = gql`
-  {
-    events(
-      where: { status: { equals: "featured" } }
-      orderBy: { startDate: asc }
-      take: 3
-    ) {
-      id
-      title
-      slug
-      type
-      dates
-      year
-      excerpt
-      # duration
-      # registrationURL
-      # registrationDeadline
-      # content {
-      #   document
-      # }
-    }
-  }
-`;
-
-export const getServerSideProps: GetServerSideProps<{
+type ServerSideProps = {
   title: string;
   header: string;
   signUpLink: string;
@@ -72,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<{
     participants: string | number;
     lifetimeInMonths: string | number;
   };
-  events: Array<{
+  events: {
     id: string | number;
     slug: string;
     type: string;
@@ -83,10 +58,10 @@ export const getServerSideProps: GetServerSideProps<{
     // duration: string;
     // registrationUrl?: string;
     // registrationDeadline?: string;
-  }>;
-}> = async () => {
-  const { events } = await request(makeURL("/api/graphql"), query);
+  }[];
+};
 
+export const getServerSideProps = (async () => {
   const launched = "2021-06-17T00:00:00.000Z";
 
   return {
@@ -148,10 +123,35 @@ export const getServerSideProps: GetServerSideProps<{
       },
 
       // Sort by date (descending) and only return 3
-      events,
+      events: [
+        {
+          id: 1,
+          slug: "",
+          type: "Online",
+          title: "",
+          dates: "",
+          year: 2021,
+        },
+        {
+          id: 2,
+          slug: "",
+          type: "Online",
+          title: "",
+          dates: "",
+          year: 2021,
+        },
+        {
+          id: 3,
+          slug: "",
+          type: "Online",
+          title: "",
+          dates: "",
+          year: 2021,
+        },
+      ],
     },
   };
-};
+}) satisfies GetServerSideProps<ServerSideProps>;
 
 const HomePage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>

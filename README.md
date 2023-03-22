@@ -1,42 +1,34 @@
-# WCPT Website
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This documents important details of the repository to facilitate the onboarding of new developers to the project.
+## Getting Started
 
-## Directory structure
+First, run the development server:
 
-`apps` directory in the project root directory contains the 2 applications that work together to power the website:
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-- `cms` is the content management system
-- `web` is the website that users interact with on the browser when they visit the URL
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Each app in their respective directories contain their own set of dependencies and source code.
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-## Development setup
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The development setup is very straight-forward and simple. Once you have met the prerequisites, follow the instructions to get started.
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-### Prerequisites
+## Learn More
 
-- [node](https://nodejs.org/) `^16` - Node.js, the JS runtime
-- npm `^8.5` - default package manager that gets installed together with node
-- [Docker](https://www.docker.com/) `^20.10` - optional, but highly recommended
+To learn more about Next.js, take a look at the following resources:
 
-> The `^` symbol indicates that you must at minimum have these versions.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### Instructions
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-> Note that although this is a monorepo, we do not have any monorepo management tools at the moment. This is because the CMS framework ([Keystone.js](https://keystonejs.com/)) currently has issues with monorepo tooling. This is okay because the project is relatively simple. The framework will hopefully support monorepo tooling in the near future.
+## Deploy on Vercel
 
-The applications within this project uses npm as its package manager. Since this project has no monorepo tooling, you will need to manually `cd` into each application directory and run `npm install`.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Once you've installed the application dependencies with npm, you can run `npm run dev` while inside the directory of the app you want to run in development mode.
-
-> Before you run the `cms` application, you first need to run a MySQL instance. If you have docker installed, run `docker-compose up -d` from the project root. This will automatically pull the MySQL 8 docker image from the docker registry and run it within an isolated container that you can access on port 3306. When you want to stop the MySQL instance, run `docker-compose down` from the project root.
-
-## Application Stack
-
-...TODO
-
-## Deployment
-
-...TODO
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

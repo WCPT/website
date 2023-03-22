@@ -99,10 +99,8 @@ export const EventPage: React.FC<
             </nav> */}
 
             <div>
-              <Link href="/">
-                <a className="text-skin-muted hover:text-skin-base">
-                  Return to home page
-                </a>
+              <Link href="/" className="text-skin-muted hover:text-skin-base">
+                Return to home page
               </Link>
             </div>
           </section>
