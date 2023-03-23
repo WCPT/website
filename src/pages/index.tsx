@@ -28,7 +28,6 @@ import StudentPortraitImage from "../images/student-portrait.jpeg";
 import SmilingStudentImage from "../images/smiling-student.jpeg";
 import IslanderStudentImage from "../images/islander-student.jpeg";
 import GlobeImage from "../images/globe.jpeg";
-import { makeURL } from "../lib";
 
 type ServerSideProps = {
   title: string;
@@ -223,13 +222,19 @@ const HomePage: NextPage<
 
 export default HomePage;
 
-const HeroSection: React.FC<{
+const HeroSection = ({
+  title,
+  header,
+  signUpLink,
+  signInLink,
+  videoURL,
+}: {
   title: string;
   header: string;
   signUpLink: string;
   signInLink: string;
   videoURL: string;
-}> = ({ title, header, signUpLink, signInLink, videoURL }) => {
+}) => {
   const [isOpen, openModal, closeModal] = useModal(false);
 
   return (
