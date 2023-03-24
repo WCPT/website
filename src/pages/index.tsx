@@ -44,7 +44,7 @@ type ServerSideProps = {
     engagements: string | number;
     registered: string | number;
     participants: string | number;
-    lifetimeInMonths: string | number;
+    lifetimeInMonths: number;
   };
   events: {
     id: string | number;
@@ -417,7 +417,7 @@ const StatsSection: React.FC<{
   engagements: string | number;
   registered: string | number;
   participants: string | number;
-  lifetimeInMonths: string | number;
+  lifetimeInMonths: number;
 }> = ({ engagements, registered, participants, lifetimeInMonths }) => {
   return (
     <section className="relative lg:pt-12 bg-skin-secondary">
