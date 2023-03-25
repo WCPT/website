@@ -10,7 +10,7 @@ import { MdOpenInNew, MdPlayCircleOutline } from "react-icons/md";
 import { BsArrowRightCircle } from "react-icons/bs";
 import cx from "clsx";
 
-import { useSocialLinks, useExtendedContent, useModal } from "../hooks";
+import { useSiteConfig, useExtendedContent, useModal } from "../hooks";
 import {
   Image,
   VideoModal,
@@ -46,6 +46,12 @@ type ServerSideProps = {
     participants: string | number;
     lifetimeInMonths: number;
   };
+  social: {
+    twitter: string;
+    facebook: string;
+    youtube: string;
+    email: string;
+  };
   events: {
     id: string | number;
     slug: string;
@@ -61,15 +67,15 @@ type ServerSideProps = {
 };
 
 export const getServerSideProps = (async () => {
-  const launched = "2021-06-17T00:00:00.000Z";
+  const config = useSiteConfig();
 
   return {
     props: {
       title: "Wisdom Community of Pasifika Teachers",
       header: "Learning, sharing, connecting and moving forward together.",
-      videoURL: "https://www.youtube.com/embed/zNp_l9RQSJk",
-      signInLink: "https://online.fnu.ac.fj/course/view.php?id=3",
-      signUpLink: "https://clte.fnu.ac.fj/talanoakaro",
+      videoURL: config.videoURL,
+      signInLink: config.signInLink,
+      signUpLink: config.signUpLink,
 
       intro: {
         title:
@@ -115,10 +121,20 @@ export const getServerSideProps = (async () => {
       },
 
       stats: {
-        engagements: "7000+",
-        registered: "3140+",
-        participants: "5186+",
-        lifetimeInMonths: differenceInMonths(new Date(), new Date(launched)),
+        engagements: config.engagements,
+        registered: config.registered,
+        participants: config.participants,
+        lifetimeInMonths: differenceInMonths(
+          new Date(),
+          new Date(config.launched)
+        ),
+      },
+
+      social: {
+        twitter: config.twitter,
+        facebook: config.facebook,
+        youtube: config.youtube,
+        email: config.email,
       },
 
       // Sort by date (descending) and only return 3
@@ -162,10 +178,9 @@ const HomePage: NextPage<
   signInLink,
   intro,
   stats,
+  social,
   events,
 }) => {
-  const socialLinks = useSocialLinks();
-
   return (
     <div>
       <Head>
@@ -177,10 +192,10 @@ const HomePage: NextPage<
         className="absolute top-0 z-10"
         itemsRight={
           <div className="flex items-center theme-social-transparent-bg">
-            <FacebookIcon href={socialLinks.facebook} />
-            <TwitterIcon href={socialLinks.twitter} />
-            <YoutubeIcon href={socialLinks.youtube} />
-            <EmailIcon href={socialLinks.email} />
+            <FacebookIcon href={social.facebook} />
+            <TwitterIcon href={social.twitter} />
+            <YoutubeIcon href={social.youtube} />
+            <EmailIcon href={social.email} />
           </div>
         }
       />
@@ -207,10 +222,10 @@ const HomePage: NextPage<
         <EventsSection events={events} />
         <ContactSection
           socialLinks={{
-            facebook: socialLinks.facebook,
-            twitter: socialLinks.twitter,
-            youtube: socialLinks.youtube,
-            email: socialLinks.email,
+            facebook: social.facebook,
+            twitter: social.twitter,
+            youtube: social.youtube,
+            email: social.email,
           }}
         />
       </main>
@@ -321,11 +336,15 @@ const HeroSection = ({
   );
 };
 
-const IntroSection: React.FC<{
+const IntroSection = ({
+  title,
+  excerpt,
+  body,
+}: {
   title: string;
   excerpt: string;
   body: string;
-}> = ({ title, excerpt, body }) => {
+}) => {
   const { ref, isVisible, toggle } = useExtendedContent();
 
   return (

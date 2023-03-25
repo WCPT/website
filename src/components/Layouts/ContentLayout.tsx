@@ -8,13 +8,13 @@ import {
 } from "@/components/Elements";
 import { Navbar } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { useSocialLinks } from "@/hooks";
+import { useSiteConfig } from "@/hooks";
 
 export const ContentLayout: React.FC<{
   title: string;
   children: React.ReactNode;
 }> = ({ title, children }) => {
-  const socialLinks = useSocialLinks();
+  const socialLinks = useSiteConfig();
 
   return (
     <>

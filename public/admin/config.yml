@@ -1,0 +1,65 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+media_folder: public/images
+public_folder: /images
+# site_url: https://www.pasifikateachers.org
+
+collections:
+  - name: "site"
+    label: "Site"
+    files:
+      - label: "Stats"
+        name: "stats"
+        file: "content/site/stats.md"
+        fields:
+          - { label: "Engagements", name: "engagements", widget: "string" }
+          - { label: "Registered", name: "registered", widget: "string" }
+          - { label: "Participants", name: "participants", widget: "string" }
+          - { label: "Launched", name: "launched", widget: "datetime" }
+      - label: "Social"
+        name: "social"
+        file: "content/site/social.md"
+        fields:
+          - { label: "Twitter", name: "twitter", widget: "string" }
+          - { label: "Facebook", name: "facebook", widget: "string" }
+          - { label: "Youtube", name: "youtube", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+      - label: "URL"
+        name: "url"
+        file: "content/site/url.md"
+        fields:
+          - { label: "Video URL", name: "videoURL", widget: "string" }
+          - { label: "Sign in link", name: "signInLink", widget: "string" }
+          - { label: "Sign up link", name: "signUpLink", widget: "string" }
+
+  - label: "Event"
+    name: "events"
+    folder: "content/events"
+    create: true
+    slug: "{{slug}}"
+    media_folder: ""
+    public_folder: ""
+    path: "{{title}}"
+    editor:
+      preview: false
+    fields:
+      - {
+          label: "Published",
+          name: "published",
+          widget: "boolean",
+          default: false,
+        }
+      - { label: "Event Type", name: "type", widget: "string", required: false }
+      - { label: "Event Title", name: "title", widget: "string" }
+      - { label: "Event Date", name: "date", widget: "datetime" }
+      - { label: "Event Duration", name: "duration", widget: "string" }
+      - { label: "Registration URL", name: "registrationUrl", widget: "string" }
+      - {
+          label: "Registration Deadline",
+          name: "registrationDeadline",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Event Details", name: "body", widget: "markdown" }
