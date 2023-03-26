@@ -4,15 +4,7 @@ import cx from "clsx";
 
 import Credit from "./Credit";
 
-export const Image: React.FC<
-  React.ComponentProps<typeof NextImage> & {
-    overlayed?: boolean | string;
-    backgroundCover?: boolean;
-    credit?: string;
-    creditHref?: string;
-    fixed?: boolean;
-  }
-> = ({
+export const Image = ({
   overlayed,
   backgroundCover,
   credit,
@@ -20,6 +12,12 @@ export const Image: React.FC<
   className,
   fixed,
   ...rest
+}: React.ComponentProps<typeof NextImage> & {
+  overlayed?: boolean | string;
+  backgroundCover?: boolean;
+  credit?: string;
+  creditHref?: string;
+  fixed?: boolean;
 }) => {
   let position;
   if (fixed) {

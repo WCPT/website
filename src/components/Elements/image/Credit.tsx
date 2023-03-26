@@ -1,11 +1,15 @@
 import React from "react";
 import cx from "clsx";
 
-export const Credit: React.FC<{
+export const Credit = ({
+  className,
+  credit,
+  href,
+}: {
   className?: string;
   credit: string;
   href?: string;
-}> = ({ className, credit, href }) => {
+}) => {
   const [display, setDisplay] = React.useState(false);
   const toggleCredit = () => setDisplay((display) => !display);
 

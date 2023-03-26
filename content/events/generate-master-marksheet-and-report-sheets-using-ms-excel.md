@@ -2,20 +2,23 @@
 published: true
 type: Workshop
 title: Generate Master Marksheet and Report Sheets using MS Excel
-date: 2022-11-17T03:30:35.843Z
-duration: 3.30–5.30pm
+datetime: 2022-11-17T03:30:35.843Z
+date: 17 Nov 2022
+duration: 3.30 – 5.30pm
 registrationUrl: https://fijinationaluniversity.zoom.us/webinar/register/WN_FAmle4gFSj6uMBECDf_HpQ
 registrationDeadline: ""
+excerpt: In our 2-hour workshop, master Excel functions for math, statistics, COUNT, COUNTIF, RANK, and IF. Efficiently generate report sheets from master marksheets.
 ---
+
 During this 2–hour workshop, participants will learn to:
 
-* Apply basic math and statistical Excel functions such as sum, mean, median, mode,
+- Apply basic math and statistical Excel functions such as sum, mean, median, mode,
   minimum and maximum.
-* Use the COUNT and COUNTIF functions to determine the number sat and number passed.
-* Apply the RANK function to determine positions, and IF function to grade marks.
-* Generate report sheets from a master marksheet.
+- Use the COUNT and COUNTIF functions to determine the number sat and number passed.
+- Apply the RANK function to determine positions, and IF function to grade marks.
+- Generate report sheets from a master marksheet.
 
-Workshop schedule: 
+Workshop schedule:
 
 | Date        | Day      | Time (FJT)  |
 | ----------- | -------- | ----------- |

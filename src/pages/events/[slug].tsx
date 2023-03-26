@@ -36,9 +36,9 @@ export const getServerSideProps: GetServerSideProps<
   };
 };
 
-export const EventPage: React.FC<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ event }) => {
+export const EventPage = ({
+  event,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const slug = useRouterQuery<string>("slug");
 
   return (

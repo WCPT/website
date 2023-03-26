@@ -25,8 +25,6 @@ type SiteConfig = {
   launched: string;
 };
 
-export const useSiteConfig = (): SiteConfig => {
+export function getSiteConfig(): SiteConfig {
   return config;
-};
-
-export default useSiteConfig;
+}

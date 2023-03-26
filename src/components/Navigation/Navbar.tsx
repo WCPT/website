@@ -4,11 +4,15 @@ import Link from "next/link";
 
 import { Logo } from "@/components/Elements";
 
-export const Navbar: React.FC<{
+export const Navbar = ({
+  themeStyle = 0,
+  className,
+  itemsRight,
+}: {
   themeStyle?: 0 | 1;
   className?: string;
   itemsRight?: React.ReactNode;
-}> = ({ themeStyle = 0, className, itemsRight }) => {
+}) => {
   return (
     <nav
       className={cx(

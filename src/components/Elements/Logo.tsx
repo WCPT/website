@@ -1,10 +1,9 @@
 import React from "react";
 
-interface IProps extends React.HTMLAttributes<any> {
-  dark?: boolean;
-}
-
-export const Logo: React.FC<IProps> = ({ dark, ...props }) => {
+export const Logo = ({
+  dark,
+  ...props
+}: React.ComponentProps<"svg"> & { dark?: boolean }) => {
   const colors = dark
     ? { text: "#fff", bg: "#000" }
     : { text: "#000", bg: "#fff" };

@@ -51,10 +51,11 @@ collections:
           widget: "boolean",
           default: false,
         }
-      - { label: "Event Type", name: "type", widget: "string", required: false }
-      - { label: "Event Title", name: "title", widget: "string" }
-      - { label: "Event Date", name: "date", widget: "datetime" }
-      - { label: "Event Duration", name: "duration", widget: "string" }
+      - { label: "Event Type", name: "type", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Datetime", name: "datetime", widget: "datetime" }
+      # - { label: "Dates", name: "dates", widget: "string", required: false }
+      - { label: "Duration", name: "duration", widget: "string" }
       - { label: "Registration URL", name: "registrationUrl", widget: "string" }
       - {
           label: "Registration Deadline",
@@ -62,4 +63,5 @@ collections:
           widget: "string",
           required: false,
         }
-      - { label: "Event Details", name: "body", widget: "markdown" }
+      - { label: "Excerpt", name: "excerpt", widget: "string" }
+      - { label: "Details", name: "body", widget: "markdown" }

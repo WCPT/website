@@ -2,8 +2,9 @@
 published: true
 type: Short Course
 title: Enhancing Grammar Basics
-date: 2023-06-29T23:08:50.719Z
-duration: 12 July, 2021 - 30 June, 2023
+datetime: 2023-06-29T23:08:50.719Z
+date: 12 July, 2021 - 30 June, 2023
+duration: Self-paced
 registrationUrl: https://forms.gle/hNtu6sCUyLazBzEX8
 registrationDeadline: ""
 ---

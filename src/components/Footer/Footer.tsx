@@ -1,7 +1,7 @@
 import React from "react";
 import cx from "clsx";
 
-export const Footer: React.FC<{ className?: string }> = ({ className }) => {
+export const Footer = ({ className }: { className?: string }) => {
   return (
     <footer className={cx("relative bg-skin-secondary", className)}>
       <div className="flex flex-col container mx-auto px-8 sm:px-12">

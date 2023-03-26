@@ -1,16 +1,13 @@
 import React from "react";
-import type {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import Head from "next/head";
 import { differenceInMonths } from "date-fns";
 import { MdOpenInNew, MdPlayCircleOutline } from "react-icons/md";
 import { BsArrowRightCircle } from "react-icons/bs";
 import cx from "clsx";
 
-import { useSiteConfig, useExtendedContent, useModal } from "../hooks";
+import { useExtendedContent, useModal } from "../hooks";
+import { getEventPosts, getSiteConfig } from "../lib";
 import {
   Image,
   VideoModal,
@@ -52,22 +49,14 @@ type ServerSideProps = {
     youtube: string;
     email: string;
   };
-  events: {
-    id: string | number;
-    slug: string;
-    type: string;
-    title: string;
-    excerpt?: string;
-    dates: string;
-    year: number;
-    // duration: string;
-    // registrationUrl?: string;
-    // registrationDeadline?: string;
-  }[];
+  events: EventPost[];
 };
 
-export const getServerSideProps = (async () => {
-  const config = useSiteConfig();
+type EventPost = Awaited<ReturnType<typeof getEventPosts>>[number];
+
+export const getStaticProps = (async () => {
+  const config = getSiteConfig();
+  const events = await getEventPosts();
 
   return {
     props: {
@@ -137,40 +126,12 @@ export const getServerSideProps = (async () => {
         email: config.email,
       },
 
-      // Sort by date (descending) and only return 3
-      events: [
-        {
-          id: 1,
-          slug: "",
-          type: "Online",
-          title: "",
-          dates: "",
-          year: 2021,
-        },
-        {
-          id: 2,
-          slug: "",
-          type: "Online",
-          title: "",
-          dates: "",
-          year: 2021,
-        },
-        {
-          id: 3,
-          slug: "",
-          type: "Online",
-          title: "",
-          dates: "",
-          year: 2021,
-        },
-      ],
+      events: events.slice(0, 3),
     },
   };
-}) satisfies GetServerSideProps<ServerSideProps>;
+}) satisfies GetStaticProps<ServerSideProps>;
 
-const HomePage: NextPage<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({
+const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   title,
   header,
   videoURL,
@@ -295,28 +256,25 @@ const HeroSection = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:flex sm:flex-row my-4">
             <div className="flex justify-center group">
-              <div
-                className="cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full text-skin-inverted-muted border border-blue-600 bg-blue-600"
+              <button
+                type="button"
+                className="cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full text-skin-inverted-muted border border-blue-600 bg-blue-600 rounded shadow-lg"
                 onClick={openModal}
               >
-                <MdPlayCircleOutline className="-ml-1 mr-2 text-xl text-gray-200 group-hover:text-white" />
-                <span className="text-gray-200 group-hover:text-white">
-                  Watch short video
-                </span>
-              </div>
+                <MdPlayCircleOutline className="-ml-1 mr-2 text-xl text-gray-200" />
+                <span className="text-gray-200">Watch short video</span>
+              </button>
             </div>
 
             <div className="flex justify-center group">
               <a
-                className="cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full text-skin-inverted-muted border border-gray-200 group-hover:border-white"
+                className="cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full bg-skin-secondary text-skin-base border border-gray-200 group-hover:border-white rounded shadow-lg"
                 href={signUpLink}
                 target="_blank"
                 rel="noreferrer"
               >
-                <span className="mr-2 text-gray-200 group-hover:text-white">
-                  Join our community
-                </span>
-                <MdOpenInNew className="text-xl group-hover:text-white" />
+                <span className="mr-2">Join our community</span>
+                <MdOpenInNew className="text-xl" />
               </a>
             </div>
           </div>
@@ -348,7 +306,7 @@ const IntroSection = ({
   const { ref, isVisible, toggle } = useExtendedContent();
 
   return (
-    <section ref={ref} className="relative py-16 sm:py-20 bg-skin-base">
+    <section ref={ref} className="relative py-16 sm:py-20 bg-skin-base isolate">
       {/* <Image
         backgroundCover
         className="object-center"
@@ -432,14 +390,19 @@ const IntroSection = ({
   );
 };
 
-const StatsSection: React.FC<{
+const StatsSection = ({
+  engagements,
+  registered,
+  participants,
+  lifetimeInMonths,
+}: {
   engagements: string | number;
   registered: string | number;
   participants: string | number;
   lifetimeInMonths: number;
-}> = ({ engagements, registered, participants, lifetimeInMonths }) => {
+}) => {
   return (
-    <section className="relative lg:pt-12 bg-skin-secondary">
+    <section className="relative lg:pt-12 bg-skin-secondary isolate">
       <div className="pt-24 pb-44 bg-skin-secondary">
         <div className="2xl:container mx-auto px-8 sm:px-12">
           <div className="flex flex-col justify-center items-center mb-20">
@@ -541,12 +504,17 @@ const StatsSection: React.FC<{
   );
 };
 
-const Stat: React.FC<{
+const Stat = ({
+  icon,
+  stat,
+  text,
+  className,
+}: {
   icon: React.ReactNode;
   stat: string | number;
   text: string;
   className?: string;
-}> = ({ icon, stat, text, className }) => {
+}) => {
   return (
     <div
       className={cx(
@@ -565,16 +533,11 @@ const Stat: React.FC<{
   );
 };
 
-const EventsSection: React.FC<{
-  events: Array<{
-    id: string | number;
-    slug: string;
-    type: string;
-    title: string;
-    dates: string;
-    year: number;
-  }>;
-}> = ({ events }) => {
+const EventsSection = ({
+  events,
+}: {
+  events: Awaited<ReturnType<typeof getEventPosts>>;
+}) => {
   return (
     <section className="relative py-12 sm:py-16 sm:pb-36">
       <Image
@@ -611,15 +574,23 @@ const EventsSection: React.FC<{
   );
 };
 
-const EventCard: React.FC<{
+const EventCard = ({
+  className,
+  href,
+  type,
+  title,
+  excerpt,
+  date,
+  year,
+}: {
   className?: string;
+  href: string;
   type: string;
   title: string;
   excerpt?: string;
-  dates: string;
+  date?: string | null;
   year: number;
-  href: string;
-}> = ({ className, type, title, excerpt, dates, year, href }) => {
+}) => {
   return (
     <a
       href={href}
@@ -628,12 +599,14 @@ const EventCard: React.FC<{
         className
       )}
     >
-      <div className="relative flex justify-between py-8 px-10 border-b border-solid text-skin-inverted bg-[#0988ab]/60 group-hover:bg-skin-primary-muted transition-colors duration-200">
+      <div className="relative flex justify-between py-8 px-10 border-b border-solid bg-skin-primary-muted">
         <div className="flex flex-col">
-          <span className="text-2xl 2xl:text-3xl font-semibold">{dates}</span>
+          <span className="text-2xl 2xl:text-3xl font-semibold text-skin-inverted">
+            {date}
+          </span>
           <span className="text-lg uppercase tracking-widest">{year}</span>
-          <div className="absolute bottom-0 translate-y-1/2 py-2 px-3 rounded-md drop-shadow-md text-skin-base bg-white">
-            <span className="font-bold text-skin-muted tracking-wider">
+          <div className="absolute bottom-0 translate-y-1/2 py-1.5 px-2.5 rounded-md drop-shadow-md bg-skin-base">
+            <span className="font-semibold text-skin-muted tracking-wider">
               {type}
             </span>
           </div>
@@ -647,7 +620,7 @@ const EventCard: React.FC<{
           </span>
 
           {excerpt && (
-            <div className="lg:hidden xl:block text-lg leading-snug text-skin-muted">
+            <div className="lg:hidden xl:block text-lg leading-normal text-skin-muted">
               {excerpt}
             </div>
           )}
@@ -662,14 +635,16 @@ const EventCard: React.FC<{
   );
 };
 
-const ContactSection: React.FC<{
+const ContactSection = ({
+  socialLinks,
+}: {
   socialLinks: {
     facebook: string;
     twitter: string;
     youtube: string;
     email: string;
   };
-}> = ({ socialLinks }) => {
+}) => {
   return (
     <section className="relative py-12 sm:py-12 bg-white">
       <div className="xl:container mx-auto py-16 px-8 sm:px-12 flex flex-col">
