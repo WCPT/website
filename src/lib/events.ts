@@ -8,12 +8,13 @@ type EventPost = {
   date?: string | null;
   year: number;
   duration: string;
-  registrationUrl?: string | null;
+  registrationUrl: string;
   registrationDeadline?: string | null;
+  excerpt?: string | null;
   content?: string | null;
 };
 
-export async function getEventPosts(): Promise<EventPost[]> {
+async function importEvents(): Promise<EventPost[]> {
   // https://webpack.js.org/guides/dependency-management/#requirecontext
   const markdownFiles = require
     .context("../../content/events", false, /\.md$/)
@@ -21,7 +22,7 @@ export async function getEventPosts(): Promise<EventPost[]> {
     .filter((relativePath) => relativePath.startsWith("./"))
     .map((relativePath) => relativePath.substring(2)); // relativePath is "./file.md", so we remove the "./"
 
-  const events = await Promise.all<EventPost>(
+  return await Promise.all<EventPost>(
     markdownFiles.map(async (path) => {
       const { attributes, html } = await import(`../../content/events/${path}`);
       return {
@@ -31,10 +32,28 @@ export async function getEventPosts(): Promise<EventPost[]> {
       };
     })
   );
+}
 
-  return events
-    .filter((event) => event.published)
-    .sort(
-      (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
-    );
+export async function getEvents(): Promise<EventPost[]>;
+export async function getEvents(options?: {
+  publishedOnly?: boolean;
+}): Promise<EventPost[]> {
+  const { publishedOnly = true } = options ?? {};
+
+  let events = await importEvents();
+  if (publishedOnly) {
+    events = events.filter((event) => event.published);
+  }
+  return events.sort(
+    (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
+  );
+}
+
+export async function getEventBySlug(slug: string): Promise<EventPost> {
+  const { attributes, html } = await import(`../../content/events/${slug}.md`);
+  return {
+    ...attributes,
+    content: html ?? null,
+    slug,
+  };
 }

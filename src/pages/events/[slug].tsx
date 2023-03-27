@@ -1,48 +1,38 @@
-import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import React from "react";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 
-import { ContentLayout } from "../../components/Layouts";
-import { useRouterQuery } from "../../hooks";
+import { ContentLayout } from "@/components/Layouts";
+import { getEvents, getEventBySlug } from "@/lib";
 
-type IReturnProps = {
-  event: {
-    id: string | number;
-    type?: string;
-    title: string;
-    date: string;
-    duration: string;
-    registrationUrl?: string;
-    registrationDeadline?: string;
-    body: string;
+export const getStaticPaths = async () => {
+  const events = await getEvents();
+  return {
+    paths: events.map((event) => ({
+      params: {
+        slug: event.slug,
+      },
+    })),
+    fallback: false,
   };
 };
 
-export const getServerSideProps: GetServerSideProps<
-  IReturnProps
-> = async () => {
+export const getStaticProps = (async ({ params }) => {
+  const { slug } = params as { slug: string };
+  const event = await getEventBySlug(slug);
   return {
     props: {
-      event: {
-        id: 1,
-        type: "Workshop",
-        title: "Advanced Excel - Generate Report Sheets and Graphs",
-        date: "2022-07-13T03:30:00.000Z",
-        duration: "3.30 - 5.30PM / 17 May - 13 July 2022",
-        registrationUrl: "#",
-        body: "",
-      },
+      event,
     },
   };
-};
+}) satisfies GetStaticProps<{
+  event: Awaited<ReturnType<typeof getEventBySlug>>;
+}>;
 
 export const EventPage = ({
   event,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const slug = useRouterQuery<string>("slug");
-
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <ContentLayout title={`WCPT | {${event.title}}`}>
+    <ContentLayout title={event.title} description={event.excerpt}>
       <div className="flex flex-col min-h-screen">
         <div className="px-8">
           <section className="container mx-auto mt-12 mb-16 text-lg prose text-skin-base">
@@ -57,9 +47,11 @@ export const EventPage = ({
 
             <div>
               <div className="text-xl">{event.duration}</div>
-              <div className="text-xl text-skin-muted">
-                {event.registrationDeadline}
-              </div>
+              {event?.registrationDeadline ? (
+                <div className="text-xl text-skin-muted">
+                  {event.registrationDeadline}
+                </div>
+              ) : null}
 
               <div className="pt-2">
                 <a
@@ -75,11 +67,13 @@ export const EventPage = ({
               </div>
             </div>
 
-            <div
-              className="pt-4"
-              dangerouslySetInnerHTML={{ __html: event.body }}
-              itemProp="articleBody"
-            />
+            {event.content ? (
+              <div
+                className="pt-4"
+                dangerouslySetInnerHTML={{ __html: event.content }}
+                itemProp="articleBody"
+              />
+            ) : null}
 
             {/* <nav className="grid grid-cols-2 gap-8 mt-16 py-8 border-t border-gray-200">
               <div>

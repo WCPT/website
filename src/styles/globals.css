@@ -19,10 +19,8 @@
     --color-inverted-muted-border: #e5e7eb;
 
     --color-base-bg: #ffffff;
+    --color-muted-bg: #fafafa;
     --color-secondary-bg: #fcf9ed;
-
-    --color-nav-text-base: #242424;
-    --color-nav-fill: #ffffff;
 
     --color-twitter: #1da1f2;
     --color-youtube: #ff0000;
@@ -47,12 +45,6 @@
 
   h1 {
     @apply font-serif;
-  }
-
-  /* Nav theme variant */
-  .theme-nav-transparent-bg {
-    --color-nav-text-base: #ffffff;
-    --color-nav-fill: transparent;
   }
 
   /* Social theme variants */

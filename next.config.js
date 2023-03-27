@@ -6,7 +6,7 @@ module.exports = {
     cfg.module.rules.push({
       test: /\.md$/,
       loader: "frontmatter-markdown-loader",
-      options: { mode: ["react-component"] },
+      options: { mode: ["react-component", "html"] },
     });
     return cfg;
   },

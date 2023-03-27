@@ -53,6 +53,7 @@ module.exports = {
       backgroundColor: {
         skin: {
           base: "var(--color-base-bg)",
+          muted: "var(--color-muted-bg)",
           secondary: "var(--color-secondary-bg)",
 
           twitter: "var(--color-twitter-bg)",

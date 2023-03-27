@@ -1,13 +1,19 @@
 import React from "react";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import Link from "next/link";
 import Head from "next/head";
 import { differenceInMonths } from "date-fns";
-import { MdOpenInNew, MdPlayCircleOutline } from "react-icons/md";
+import {
+  MdOpenInNew,
+  MdPlayCircleOutline,
+  MdOutlineFormatListBulleted,
+} from "react-icons/md";
 import { BsArrowRightCircle } from "react-icons/bs";
 import cx from "clsx";
 
-import { useExtendedContent, useModal } from "../hooks";
-import { getEventPosts, getSiteConfig } from "../lib";
+import { useExtendedContent, useModal } from "@/hooks";
+import { getEvents, getSiteConfig } from "@/lib";
+import { getCourses } from "@/lib/courses";
 import {
   Image,
   VideoModal,
@@ -15,16 +21,15 @@ import {
   TwitterIcon,
   YoutubeIcon,
   EmailIcon,
-} from "../components/Elements";
-import { Navbar } from "../components/Navigation";
-import { Footer } from "../components/Footer";
+  Logo,
+} from "@/components/Elements";
 
-import Blueocean from "../images/blueocean.jpeg";
-import SmilingFijianImage from "../images/smiling-fijian.jpeg";
-import StudentPortraitImage from "../images/student-portrait.jpeg";
-import SmilingStudentImage from "../images/smiling-student.jpeg";
-import IslanderStudentImage from "../images/islander-student.jpeg";
-import GlobeImage from "../images/globe.jpeg";
+import Blueocean from "@/images/blueocean.jpeg";
+import SmilingFijianImage from "@/images/smiling-fijian.jpeg";
+import StudentPortraitImage from "@/images/student-portrait.jpeg";
+import SmilingStudentImage from "@/images/smiling-student.jpeg";
+import IslanderStudentImage from "@/images/islander-student.jpeg";
+import GlobeImage from "@/images/globe.jpeg";
 
 type ServerSideProps = {
   title: string;
@@ -50,13 +55,15 @@ type ServerSideProps = {
     email: string;
   };
   events: EventPost[];
+  courses: CoursePost[];
 };
 
-type EventPost = Awaited<ReturnType<typeof getEventPosts>>[number];
+type EventPost = Awaited<ReturnType<typeof getEvents>>[number];
+type CoursePost = Awaited<ReturnType<typeof getCourses>>[number];
 
 export const getStaticProps = (async () => {
   const config = getSiteConfig();
-  const events = await getEventPosts();
+  const [events, courses] = await Promise.all([getEvents(), getCourses()]);
 
   return {
     props: {
@@ -127,6 +134,7 @@ export const getStaticProps = (async () => {
       },
 
       events: events.slice(0, 3),
+      courses: courses.slice(0, 3),
     },
   };
 }) satisfies GetStaticProps<ServerSideProps>;
@@ -141,6 +149,7 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   stats,
   social,
   events,
+  courses,
 }) => {
   return (
     <div>
@@ -160,7 +169,6 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           </div>
         }
       />
-
       <main>
         <HeroSection
           title={title}
@@ -181,6 +189,7 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           lifetimeInMonths={stats.lifetimeInMonths}
         />
         <EventsSection events={events} />
+        {/* <CoursesSection courses={courses} /> */}
         <ContactSection
           socialLinks={{
             facebook: social.facebook,
@@ -190,13 +199,45 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           }}
         />
       </main>
-
       <Footer />
     </div>
   );
 };
 
 export default HomePage;
+
+const Navbar = ({
+  themeStyle = 0,
+  className,
+  itemsRight,
+}: {
+  themeStyle?: 0 | 1;
+  className?: string;
+  itemsRight?: React.ReactNode;
+}) => {
+  return (
+    <nav
+      className={cx(
+        `flex w-full transition-all text-skin-inverted-muted`,
+        className
+      )}
+    >
+      <div className="xl:container mx-auto flex justify-between items-center flex-1 py-8 px-8 sm:px-12">
+        <Link href="/" className="flex items-center">
+          <Logo
+            dark={themeStyle === 0}
+            className="mr-4 h-16 md:h-20 transition-all"
+          />
+          <span className="hidden sm:block w-44 md:w-48 text-lg md:text-xl font-light font-serif">
+            Wisdom Community of Pasifika Teachers
+          </span>
+        </Link>
+
+        {itemsRight && <div className="ml-auto">{itemsRight}</div>}
+      </div>
+    </nav>
+  );
+};
 
 const HeroSection = ({
   title,
@@ -306,7 +347,7 @@ const IntroSection = ({
   const { ref, isVisible, toggle } = useExtendedContent();
 
   return (
-    <section ref={ref} className="relative py-16 sm:py-20 bg-skin-base isolate">
+    <section ref={ref} className="relative py-16 sm:py-20 bg-skin-base">
       {/* <Image
         backgroundCover
         className="object-center"
@@ -402,7 +443,7 @@ const StatsSection = ({
   lifetimeInMonths: number;
 }) => {
   return (
-    <section className="relative lg:pt-12 bg-skin-secondary isolate">
+    <section className="relative lg:pt-12 bg-skin-secondary">
       <div className="pt-24 pb-44 bg-skin-secondary">
         <div className="2xl:container mx-auto px-8 sm:px-12">
           <div className="flex flex-col justify-center items-center mb-20">
@@ -536,7 +577,7 @@ const Stat = ({
 const EventsSection = ({
   events,
 }: {
-  events: Awaited<ReturnType<typeof getEventPosts>>;
+  events: Awaited<ReturnType<typeof getEvents>>;
 }) => {
   return (
     <section className="relative py-12 sm:py-16 sm:pb-36">
@@ -562,6 +603,15 @@ const EventsSection = ({
               Join us in our virtual events. We carry out workshops and meetups
               that you can virtually join from anywhere.
             </span>
+            <div className="mt-4">
+              <Link
+                href="/events"
+                className="inline-flex items-center gap-x-2 py-2.5 px-4 bg-skin-base text-skin-base hover:text-skin-primary rounded shadow-lg transition-colors"
+              >
+                <MdOutlineFormatListBulleted size={18} />
+                <span>View all events</span>
+              </Link>
+            </div>
           </div>
           <div className="z-10 grid lg:grid-cols-3 grid-rows-1 gap-12 lg:gap-8 xl:gap-12 2xl:gap-16 text-gray-600 overflow-hidden">
             {events.map((event, i) => (
@@ -587,7 +637,7 @@ const EventCard = ({
   href: string;
   type: string;
   title: string;
-  excerpt?: string;
+  excerpt?: string | null;
   date?: string | null;
   year: number;
 }) => {
@@ -664,5 +714,37 @@ const ContactSection = ({
         </div>
       </div>
     </section>
+  );
+};
+
+const CoursesSection = ({ courses }: { courses: CoursePost[] }) => {
+  return (
+    <div>
+      {courses.map((course) => (
+        <div key={course.id}>{course.title}</div>
+      ))}
+    </div>
+  );
+};
+
+const Footer = ({ className }: { className?: string }) => {
+  return (
+    <footer className={cx("relative bg-skin-secondary", className)}>
+      <div className="flex flex-col container mx-auto px-8 sm:px-12">
+        <div className="z-10 flex flex-col md:flex-row justify-between container mx-auto py-12">
+          <div className="flex justify-center items-center my-2">
+            <span className="text-center text-gray-900">
+              Wisdom Community of Pasifika Teachers &copy;
+              {new Date().getFullYear()}
+            </span>
+          </div>
+          <div className="flex justify-center items-center my-2">
+            <span className="text-center text-gray-900">
+              Supported by Fiji National University
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 };

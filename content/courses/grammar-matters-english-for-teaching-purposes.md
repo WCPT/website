@@ -1,9 +1,9 @@
 ---
 published: true
-type: Short Course
 title: Grammar Matters - English for Teaching Purposes
-datetime: 2023-01-30T20:34:29.413Z
-duration: TBC
+openingDate: 2023-01-30T20:34:29.413Z
+# closingDate:
+dates: Self-paced
 registrationUrl: TBC
 registrationDeadline: "Registration closes: TBC"
 ---
