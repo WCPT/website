@@ -1,15 +1,17 @@
 import cx from "clsx";
 
+import Container from "./Container";
+
 export const Footer = ({ className }: { className?: string }) => {
   return (
-    <footer className={cx("relative bg-skin-base border-t", className)}>
-      <div className="flex flex-col container mx-auto px-8 sm:px-12">
+    <footer className={cx("relative bg-skin-secondary", className)}>
+      <Container>
         <div className="z-10 flex flex-col md:flex-row justify-between container mx-auto py-12">
           <div className="flex justify-center items-center my-2">
-            <span className="text-center text-gray-900">
-              Wisdom Community of Pasifika Teachers &copy;
-              {new Date().getFullYear()}
-            </span>
+            <div className="text-center text-gray-900">
+              <span>Wisdom Community of Pasifika Teachers &copy; </span>
+              <span>{new Date().getFullYear()}</span>
+            </div>
           </div>
           <div className="flex justify-center items-center my-2">
             <span className="text-center text-gray-900">
@@ -17,7 +19,7 @@ export const Footer = ({ className }: { className?: string }) => {
             </span>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 };

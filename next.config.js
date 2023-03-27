@@ -2,6 +2,9 @@
 module.exports = {
   reactStrictMode: true,
   swcMinify: true,
+  experimental: {
+    scrollRestoration: true,
+  },
   webpack: (cfg) => {
     cfg.module.rules.push({
       test: /\.md$/,

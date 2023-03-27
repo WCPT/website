@@ -1,54 +1,18 @@
-import {
-  forwardRef,
-  ForwardRefExoticComponent,
-  HTMLAttributes,
-  RefAttributes,
-} from 'react';
-import cx from 'clsx';
+import React from "react";
+import cx from "clsx";
 
-type ContainerType = ForwardRefExoticComponent<
-  HTMLAttributes<HTMLDivElement> & RefAttributes<HTMLDivElement>
->;
-
-const OuterContainer: ContainerType = forwardRef(function OuterContainer(
-  { className, children, ...props },
-  ref,
-) {
+export const Container = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   return (
-    <div ref={ref} className={cx('sm:px-8', className)} {...props}>
-      <div className="mx-auto max-w-7xl lg:px-8">{children}</div>
+    <div className={cx("container mx-auto max-w-7xl px-8 sm:px-12", className)}>
+      {children}
     </div>
   );
-});
+};
 
-const InnerContainer: ContainerType = forwardRef(function InnerContainer(
-  { className, children, ...props },
-  ref,
-) {
-  return (
-    <div
-      ref={ref}
-      className={cx('relative px-4 sm:px-8 lg:px-12', className)}
-      {...props}
-    >
-      <div className="mx-auto max-w-2xl lg:max-w-5xl">{children}</div>
-    </div>
-  );
-});
-
-export const Container: ContainerType & {
-  Outer?: ContainerType;
-  Inner?: ContainerType;
-} = forwardRef(function Container(
-  { children, ...props }: React.HTMLAttributes<HTMLDivElement>,
-  ref: React.Ref<HTMLDivElement>,
-) {
-  return (
-    <OuterContainer ref={ref} {...props}>
-      <InnerContainer>{children}</InnerContainer>
-    </OuterContainer>
-  );
-});
-
-Container.Outer = OuterContainer;
-Container.Inner = InnerContainer;
+export default Container;

@@ -33,49 +33,47 @@ export const EventPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <ContentLayout title={event.title} description={event.excerpt}>
-      <div className="flex flex-col min-h-screen">
-        <div className="px-8">
-          <section className="container mx-auto mt-12 mb-16 text-lg prose text-skin-base">
-            {event.type && (
-              <h2 className="mb-0 text-skin-muted font-normal text-2xl">
-                {event.type}
-              </h2>
-            )}
-            <h1 className="text-4xl leading-tight text-skin-primary">
-              {event.title}
-            </h1>
+      <article className="container mx-auto mt-12 mb-16 text-lg prose text-skin-base">
+        {event.type && (
+          <h2 className="mb-0 text-skin-muted font-normal text-2xl">
+            {event.type}
+          </h2>
+        )}
+        <h1 className="text-4xl leading-tight text-skin-primary">
+          {event.title}
+        </h1>
 
-            <div>
-              <div className="text-xl">{event.duration}</div>
-              {event?.registrationDeadline ? (
-                <div className="text-xl text-skin-muted">
-                  {event.registrationDeadline}
-                </div>
-              ) : null}
-
-              <div className="pt-2">
-                <a
-                  href={event.registrationUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-white no-underline"
-                >
-                  <button className="my-2 mr-2 px-4 py-2 bg-skin-primary hover:bg-skin-primary-muted rounded shadow-md hover:shadow-sm transition-all">
-                    Register
-                  </button>
-                </a>
-              </div>
+        <div>
+          <div className="text-xl">{event.duration}</div>
+          {event?.registrationDeadline ? (
+            <div className="text-xl text-skin-muted">
+              {event.registrationDeadline}
             </div>
+          ) : null}
 
-            {event.content ? (
-              <div
-                className="pt-4"
-                dangerouslySetInnerHTML={{ __html: event.content }}
-                itemProp="articleBody"
-              />
-            ) : null}
+          <div className="pt-2">
+            <a
+              href={event.registrationUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-white no-underline"
+            >
+              <button className="my-2 mr-2 px-4 py-2 bg-skin-primary hover:bg-skin-primary-muted rounded shadow-md hover:shadow-sm transition-all">
+                Register
+              </button>
+            </a>
+          </div>
+        </div>
 
-            {/* <nav className="grid grid-cols-2 gap-8 mt-16 py-8 border-t border-gray-200">
+        {event.content ? (
+          <div
+            className="pt-4"
+            dangerouslySetInnerHTML={{ __html: event.content }}
+            itemProp="articleBody"
+          />
+        ) : null}
+
+        {/* <nav className="grid grid-cols-2 gap-8 mt-16 py-8 border-t border-gray-200">
               <div>
                 {previous && (
                   <Link to={previous.fields.slug} rel="prev">
@@ -91,15 +89,7 @@ export const EventPage = ({
                 )}
               </div>
             </nav> */}
-
-            <div>
-              <Link href="/" className="text-skin-muted hover:text-skin-base">
-                Return to home page
-              </Link>
-            </div>
-          </section>
-        </div>
-      </div>
+      </article>
     </ContentLayout>
   );
 };
