@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 
-import { Navbar } from "@/components/Elements";
+import { Container, Navbar } from "@/components/Elements";
 import { Footer } from "@/components/Elements";
 
 export const ContentLayout = ({
@@ -14,7 +14,7 @@ export const ContentLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div>
+    <div className="bg-skin-secondary">
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -22,9 +22,11 @@ export const ContentLayout = ({
 
       <Navbar />
 
-      <main>{children}</main>
+      <main className="my-20">
+        <Container>{children}</Container>
+      </main>
 
-      <Footer className="mt-auto" />
+      <Footer className="mt-36" />
     </div>
   );
 };

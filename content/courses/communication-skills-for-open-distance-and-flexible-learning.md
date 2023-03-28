@@ -3,7 +3,7 @@ published: true
 title: Communication Skills for Open, Distance and Flexible Learning
 openingDate: 2022-01-02T12:00:03.129Z
 # closingDate:
-dates: 3 - 30 January, 2022
+dates: 3 - 30 January 2022
 registrationUrl: https://oer.nz/cs4odfl22
 ---
 

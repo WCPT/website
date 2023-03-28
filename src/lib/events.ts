@@ -1,10 +1,9 @@
 type EventPost = {
-  id: string | number;
   slug: string;
   published: boolean;
   type: string;
   title: string;
-  datetime: Date;
+  datetime: string;
   date?: string | null;
   year: number;
   duration: string;

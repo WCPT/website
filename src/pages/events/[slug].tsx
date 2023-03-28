@@ -1,8 +1,10 @@
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
+import { MdOpenInNew } from "react-icons/md";
+import { format } from "date-fns";
 
 import { ContentLayout } from "@/components/Layouts";
-import { getEvents, getEventBySlug } from "@/lib";
+import { getEvents, getEventBySlug, getCourses } from "@/lib";
 
 export const getStaticPaths = async () => {
   const events = await getEvents();
@@ -19,77 +21,116 @@ export const getStaticPaths = async () => {
 export const getStaticProps = (async ({ params }) => {
   const { slug } = params as { slug: string };
   const event = await getEventBySlug(slug);
+
+  const allEvents = await getEvents();
+  const allCourses = await getCourses();
+
   return {
     props: {
       event,
+      eventList: allEvents.slice(0, 5),
+      courseList: allCourses.slice(0, 5),
     },
   };
 }) satisfies GetStaticProps<{
   event: Awaited<ReturnType<typeof getEventBySlug>>;
+  eventList: Awaited<ReturnType<typeof getEvents>>;
+  courseList: Awaited<ReturnType<typeof getCourses>>;
 }>;
 
 export const EventPage = ({
   event,
+  eventList,
+  courseList,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <ContentLayout title={event.title} description={event.excerpt}>
-      <article className="container mx-auto mt-12 mb-16 text-lg prose text-skin-base">
-        {event.type && (
-          <h2 className="mb-0 text-skin-muted font-normal text-2xl">
-            {event.type}
-          </h2>
-        )}
-        <h1 className="text-4xl leading-tight text-skin-primary">
-          {event.title}
-        </h1>
+      <div className="grid grid-cols-7 gap-x-12">
+        <article className="col-span-full lg:col-span-5 text-lg prose prose-li:my-1 max-w-3xl">
+          <h1 className="text-5xl leading-tight mb-10">{event.title}</h1>
 
-        <div>
-          <div className="text-xl">{event.duration}</div>
-          {event?.registrationDeadline ? (
-            <div className="text-xl text-skin-muted">
-              {event.registrationDeadline}
+          <div className="flex items-center gap-x-6">
+            <div>
+              {event.registrationUrl ? (
+                <Link
+                  href={event.registrationUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-x-1.5 no-underline px-5 py-3 bg-skin-primary-muted hover:bg-skin-accent text-skin-inverted hover:text-black rounded-full shadow-md transition-colors"
+                >
+                  <span>Register now</span>
+                  <MdOpenInNew className="text-xl" />
+                </Link>
+              ) : (
+                <div>Registration is not yet open</div>
+              )}
             </div>
-          ) : null}
 
-          <div className="pt-2">
-            <a
-              href={event.registrationUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-white no-underline"
-            >
-              <button className="my-2 mr-2 px-4 py-2 bg-skin-primary hover:bg-skin-primary-muted rounded shadow-md hover:shadow-sm transition-all">
-                Register
-              </button>
-            </a>
+            <div>
+              {event.type ? (
+                <div className="font-bold">{event.type}</div>
+              ) : null}
+
+              <div>{event.duration}</div>
+              {event.registrationDeadline ? (
+                <div className="text-xl text-skin-muted">
+                  {event.registrationDeadline}
+                </div>
+              ) : null}
+            </div>
           </div>
-        </div>
 
-        {event.content ? (
-          <div
-            className="pt-4"
-            dangerouslySetInnerHTML={{ __html: event.content }}
-            itemProp="articleBody"
-          />
-        ) : null}
+          {event.content ? (
+            <div
+              className="mt-16"
+              dangerouslySetInnerHTML={{ __html: event.content }}
+              itemProp="articleBody"
+            />
+          ) : null}
+        </article>
 
-        {/* <nav className="grid grid-cols-2 gap-8 mt-16 py-8 border-t border-gray-200">
-              <div>
-                {previous && (
-                  <Link to={previous.fields.slug} rel="prev">
-                    ← {previous.frontmatter.title}
-                  </Link>
-                )}
-              </div>
-              <div className="ml-auto">
-                {next && (
-                  <Link to={next.fields.slug} rel="next">
-                    {next.frontmatter.title} →
-                  </Link>
-                )}
-              </div>
-            </nav> */}
-      </article>
+        <aside className="hidden lg:flex flex-col col-span-2 gap-y-12">
+          <div className="flex flex-col gap-y-2">
+            <h1 className="font-bold">Workshops & Events</h1>
+            {eventList.map((event) => (
+              <Link
+                key={event.slug}
+                href={`/events/${event.slug}`}
+                className="group"
+              >
+                <span className="block group-hover:underline underline-offset-2">
+                  {event.title}
+                </span>
+                <span className="flex items-center gap-x-1.5 text-sm text-skin-muted">
+                  {event.date
+                    ? event.date
+                    : format(new Date(event.datetime), "d MMM yyyy")}
+                  <div className="inline-block rounded-full w-1 h-1 bg-gray-400" />
+                  {event.type}
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <h1 className="font-bold">Short Courses</h1>
+            {courseList.map((event) => (
+              <Link
+                key={event.slug}
+                href={`/courses/${event.slug}`}
+                className="group"
+              >
+                <span className="block group-hover:underline underline-offset-2">
+                  {event.title}
+                </span>
+                <span className="flex items-center gap-x-1.5 text-sm text-skin-muted">
+                  {event.dates}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </aside>
+      </div>
     </ContentLayout>
   );
 };

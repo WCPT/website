@@ -17,7 +17,6 @@ export const EventsIndexPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <div>
-      <div>EventsIndexPage</div>
       <ul>
         {events.map((event) => (
           <li key={event.slug}>

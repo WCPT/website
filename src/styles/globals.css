@@ -6,21 +6,17 @@
   :root {
     --color-primary: #05708d;
     --color-primary-muted: #0988ab;
-    --color-accent: #fde047;
+    --color-accent: #f59e0b;
 
-    --color-base-text: #4b5563;
-    --color-muted-text: #6b7280;
-    --color-inverted-text: #ffffff;
-    --color-inverted-muted-text: #e5e7eb;
+    --color-text-base: #4b5563;
+    --color-text-muted: #6b7280;
+    --color-text-inverted: #ffffff;
+    --color-text-inverted-muted: #e5e7eb;
 
-    --color-base-border: #4b5563;
-    --color-muted-border: #6b7280;
-    --color-inverted-border: #ffffff;
-    --color-inverted-muted-border: #e5e7eb;
-
-    --color-base-bg: #ffffff;
-    --color-muted-bg: #fafafa;
-    --color-secondary-bg: #fcf9ed;
+    --color-bg-base: #ffffff;
+    --color-bg-inverted: #111827;
+    --color-bg-muted: #fafafa;
+    --color-bg-secondary: #fcf9ed;
 
     --color-twitter: #1da1f2;
     --color-youtube: #ff0000;

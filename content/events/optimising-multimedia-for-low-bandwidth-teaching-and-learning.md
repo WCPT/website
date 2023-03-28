@@ -3,7 +3,6 @@ published: true
 type: Workshop
 title: Optimising Multimedia for Low-Bandwidth Teaching and Learning
 datetime: 2021-11-18T00:30:49.559Z
-date: 18 Nov 2021
 duration: 1 - 2.30PM
 registrationUrl: https://online.fnu.ac.fj/mod/page/view.php?id=95
 registrationDeadline: ""

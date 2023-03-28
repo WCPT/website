@@ -391,6 +391,7 @@ const IntroSection = ({
           </div>
           <div className="hidden relative lmd:grid xl:grid-cols-2 gap-4 auto-rows-min col-span-2 xl:col-span-1">
             <Image
+              className="rounded-lg"
               src={SmilingFijianImage}
               alt="Smiling student"
               placeholder="blur"
@@ -399,6 +400,7 @@ const IntroSection = ({
             />
             <div className="relative hidden xl:inline top-[10%]">
               <Image
+                className="rounded-lg"
                 src={StudentPortraitImage}
                 alt="Smiling student"
                 placeholder="blur"
@@ -408,6 +410,7 @@ const IntroSection = ({
             </div>
             <div className="relative lg:hidden xl:inline">
               <Image
+                className="rounded-lg"
                 src={SmilingStudentImage}
                 alt="Smiling student"
                 placeholder="blur"
@@ -417,6 +420,7 @@ const IntroSection = ({
             </div>
             <div className="relative hidden lg:inline xl:top-[10%]">
               <Image
+                className="rounded-lg"
                 src={IslanderStudentImage}
                 alt="Smiling student"
                 placeholder="blur"
@@ -717,15 +721,15 @@ const ContactSection = ({
   );
 };
 
-const CoursesSection = ({ courses }: { courses: CoursePost[] }) => {
-  return (
-    <div>
-      {courses.map((course) => (
-        <div key={course.id}>{course.title}</div>
-      ))}
-    </div>
-  );
-};
+// const CoursesSection = ({ courses }: { courses: CoursePost[] }) => {
+//   return (
+//     <div>
+//       {courses.map((course) => (
+//         <div key={course.id}>{course.title}</div>
+//       ))}
+//     </div>
+//   );
+// };
 
 const Footer = ({ className }: { className?: string }) => {
   return (

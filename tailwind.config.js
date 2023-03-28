@@ -29,10 +29,10 @@ module.exports = {
 
       textColor: {
         skin: {
-          base: "var(--color-base-text)",
-          muted: "var(--color-muted-text)",
-          inverted: "var(--color-inverted-text)",
-          "inverted-muted": "var(--color-inverted-muted-text)",
+          base: "var(--color-text-base)",
+          muted: "var(--color-text-muted)",
+          inverted: "var(--color-text-inverted)",
+          "inverted-muted": "var(--color-text-inverted-muted)",
 
           twitter: "var(--color-twitter)",
           youtube: "var(--color-youtube)",
@@ -52,9 +52,10 @@ module.exports = {
 
       backgroundColor: {
         skin: {
-          base: "var(--color-base-bg)",
-          muted: "var(--color-muted-bg)",
-          secondary: "var(--color-secondary-bg)",
+          base: "var(--color-bg-base)",
+          muted: "var(--color-bg-muted)",
+          inverted: "var(--color-bg-inverted)",
+          secondary: "var(--color-bg-secondary)",
 
           twitter: "var(--color-twitter-bg)",
           youtube: "var(--color-youtube-bg)",
@@ -69,15 +70,6 @@ module.exports = {
           nav: {
             fill: "var(--color-nav-fill)",
           },
-        },
-      },
-
-      borderColor: {
-        skin: {
-          base: "var(--color-base-border)",
-          muted: "var(--color-muted-border)",
-          inverted: "var(--color-inverted-border)",
-          "inverted-muted": "var(--color-inverted-muted-border)",
         },
       },
     },
