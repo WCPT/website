@@ -43,10 +43,6 @@ module.exports = {
           "youtube-hover": "var(--color-youtube-hover)",
           "facebook-hover": "var(--color-facebook-hover)",
           "email-hover": "var(--color-email-hover)",
-
-          nav: {
-            base: "var(--color-nav-text-base)",
-          },
         },
       },
 
@@ -66,10 +62,6 @@ module.exports = {
           "youtube-hover": "var(--color-youtube-bg-hover)",
           "facebook-hover": "var(--color-facebook-bg-hover)",
           "email-hover": "var(--color-email-bg-hover)",
-
-          nav: {
-            fill: "var(--color-nav-fill)",
-          },
         },
       },
     },
