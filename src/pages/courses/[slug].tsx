@@ -5,14 +5,14 @@ import { BsArrowLeftCircle } from "react-icons/bs";
 import { format } from "date-fns";
 
 import { ContentLayout } from "@/components/Layouts";
-import { getEvents, getEventBySlug, getCourses } from "@/lib";
+import { getEvents, getCourseBySlug, getCourses } from "@/lib";
 
 export const getStaticPaths = async () => {
-  const events = await getEvents();
+  const courses = await getCourses();
   return {
-    paths: events.map((event) => ({
+    paths: courses.map((course) => ({
       params: {
-        slug: event.slug,
+        slug: course.slug,
       },
     })),
     fallback: false,
@@ -21,48 +21,48 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = (async ({ params }) => {
   const { slug } = params as { slug: string };
-  const event = await getEventBySlug(slug);
+  const course = await getCourseBySlug(slug);
 
   const allEvents = await getEvents();
   const allCourses = await getCourses();
 
   return {
     props: {
-      event,
-      eventList: allEvents.slice(0, 5),
+      course,
       courseList: allCourses.slice(0, 5),
+      eventList: allEvents.slice(0, 5),
     },
   };
 }) satisfies GetStaticProps<{
-  event: Awaited<ReturnType<typeof getEventBySlug>>;
-  eventList: Awaited<ReturnType<typeof getEvents>>;
+  course: Awaited<ReturnType<typeof getCourseBySlug>>;
   courseList: Awaited<ReturnType<typeof getCourses>>;
+  eventList: Awaited<ReturnType<typeof getEvents>>;
 }>;
 
 export const EventPage = ({
-  event,
+  course,
   eventList,
   courseList,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <ContentLayout title={event.title} description={event.excerpt}>
+    <ContentLayout title={course.title} description={course.excerpt}>
       <Link
-        href="/events"
+        href="/courses"
         className="group flex items-center mb-6 gap-x-2 text-skin-muted hover:text-skin-base"
       >
         <BsArrowLeftCircle className="text-2xl" />
-        <span className="text-lg">View list of workshops & events</span>
+        <span className="text-lg">View list of short courses</span>
       </Link>
 
       <div className="grid grid-cols-7 gap-x-12">
         <article className="col-span-full lg:col-span-5 text-lg prose prose-li:my-1 max-w-3xl">
-          <h1 className="text-5xl leading-tight mb-10">{event.title}</h1>
+          <h1 className="text-5xl leading-tight mb-10">{course.title}</h1>
 
           <div className="flex items-center gap-x-6">
             <div>
-              {event.registrationUrl ? (
+              {course.registrationUrl ? (
                 <Link
-                  href={event.registrationUrl}
+                  href={course.registrationUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-x-1.5 no-underline px-5 py-3 bg-skin-primary-muted hover:bg-skin-accent text-skin-inverted hover:text-black rounded-full shadow-md transition-colors"
@@ -71,28 +71,25 @@ export const EventPage = ({
                   <MdOpenInNew className="text-xl" />
                 </Link>
               ) : (
-                <div>Registration is not yet open</div>
+                <div className="text-skin-muted">
+                  &#x2022; Registration is currently not open
+                </div>
               )}
             </div>
 
             <div>
-              {event.type ? (
-                <div className="font-bold">{event.type}</div>
-              ) : null}
-
-              <div>{event.duration}</div>
-              {event.registrationDeadline ? (
+              {course.registrationDeadline ? (
                 <div className="text-xl text-skin-muted">
-                  {event.registrationDeadline}
+                  {course.registrationDeadline}
                 </div>
               ) : null}
             </div>
           </div>
 
-          {event.content ? (
+          {course.content ? (
             <div
               className="mt-16"
-              dangerouslySetInnerHTML={{ __html: event.content }}
+              dangerouslySetInnerHTML={{ __html: course.content }}
               itemProp="articleBody"
             />
           ) : null}

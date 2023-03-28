@@ -22,7 +22,7 @@ export const ContentLayout = ({
 
       <Navbar />
 
-      <main className="my-20">
+      <main className="my-16">
         <Container>{children}</Container>
       </main>
 

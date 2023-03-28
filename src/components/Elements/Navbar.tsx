@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import NextLink from "next/link";
 import cx from "clsx";
 
@@ -21,7 +22,7 @@ export const Navbar = () => {
             </Link>
             <Link href="/events">Workshops & Events</Link>
             <Link href="/courses">Short courses</Link>
-            <Link href="/signup">Become a member</Link>
+            <Link href="/sign-up">Become a member</Link>
           </div>
         </div>
       </Container>
@@ -37,11 +38,16 @@ const Link = ({
   children,
   ...props
 }: React.ComponentProps<typeof NextLink>) => {
+  const router = useRouter();
+  const isActive = router.pathname.startsWith(href.toString());
+
   return (
     <div className="flex items-center">
       <NextLink
         href={href}
-        className={cx("link relative py-4 px-1", className)}
+        className={cx("link relative py-4 px-1", className, {
+          active: isActive,
+        })}
         {...props}
       >
         {children}
@@ -59,6 +65,10 @@ const Link = ({
           transition: all 0.25s ease;
         }
         div > :global(.link):hover:before {
+          opacity: 1;
+        }
+        div > :global(.link.active):before {
+          background: var(--color-primary);
           opacity: 1;
         }
       `}</style>

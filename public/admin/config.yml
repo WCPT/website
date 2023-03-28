@@ -57,7 +57,12 @@ collections:
       - { label: "Datetime", name: "datetime", widget: "datetime" }
       # - { label: "Dates", name: "dates", widget: "string", required: false }
       - { label: "Duration", name: "duration", widget: "string" }
-      - { label: "Registration URL", name: "registrationUrl", widget: "string" }
+      - {
+          label: "Registration URL",
+          name: "registrationUrl",
+          widget: "string",
+          required: false,
+        }
       - {
           label: "Registration Deadline",
           name: "registrationDeadline",
@@ -93,7 +98,12 @@ collections:
           required: false,
         }
       - { label: "Dates", name: "dates", widget: "string", required: false }
-      - { label: "Registration URL", name: "registrationUrl", widget: "string" }
+      - {
+          label: "Registration URL",
+          name: "registrationUrl",
+          widget: "string",
+          required: false,
+        }
       - {
           label: "Registration Deadline",
           name: "registrationDeadline",

@@ -2,13 +2,13 @@ type CoursePost = {
   id: string | number;
   slug: string;
   published: boolean;
-  type: string;
   title: string;
   openingDate: Date;
   closingDate?: Date | null;
   dates?: string | null; // to be deprecated
-  registrationUrl: string;
+  registrationUrl?: string | null;
   registrationDeadline?: string | null;
+  excerpt?: string | null;
   content?: string | null;
 };
 
@@ -48,4 +48,13 @@ export async function getCourses(options?: {
     (a, b) =>
       new Date(b.openingDate).getTime() - new Date(a.openingDate).getTime()
   );
+}
+
+export async function getCourseBySlug(slug: string): Promise<CoursePost> {
+  const { attributes, html } = await import(`../../content/courses/${slug}.md`);
+  return {
+    ...attributes,
+    content: html ?? null,
+    slug,
+  };
 }

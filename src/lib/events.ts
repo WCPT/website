@@ -7,7 +7,7 @@ type EventPost = {
   date?: string | null;
   year: number;
   duration: string;
-  registrationUrl: string;
+  registrationUrl?: string | null;
   registrationDeadline?: string | null;
   excerpt?: string | null;
   content?: string | null;
