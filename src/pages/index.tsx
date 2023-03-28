@@ -2,7 +2,7 @@ import React from "react";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
 import Head from "next/head";
-import { differenceInMonths } from "date-fns";
+import { differenceInMonths, format } from "date-fns";
 import {
   MdOpenInNew,
   MdPlayCircleOutline,
@@ -635,6 +635,7 @@ const EventCard = ({
   title,
   excerpt,
   date,
+  datetime,
   year,
 }: {
   className?: string;
@@ -643,6 +644,7 @@ const EventCard = ({
   title: string;
   excerpt?: string | null;
   date?: string | null;
+  datetime: string;
   year: number;
 }) => {
   return (
@@ -656,7 +658,7 @@ const EventCard = ({
       <div className="relative flex justify-between py-8 px-10 border-b border-solid bg-skin-primary-muted">
         <div className="flex flex-col">
           <span className="text-2xl 2xl:text-3xl font-semibold text-skin-inverted">
-            {date}
+            {date ? date : format(new Date(datetime), "d MMM yyyy")}
           </span>
           <span className="text-lg uppercase tracking-widest">{year}</span>
           <div className="absolute bottom-0 translate-y-1/2 py-1.5 px-2.5 rounded-md drop-shadow-md bg-skin-base">
