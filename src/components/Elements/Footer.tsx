@@ -4,11 +4,9 @@ import Container from "./Container";
 
 export const Footer = ({ className }: { className?: string }) => {
   return (
-    <footer
-      className={cx("relative bg-skin-inverted text-skin-inverted", className)}
-    >
+    <footer className={cx("bg-skin-inverted text-skin-inverted", className)}>
       <Container>
-        <div className="z-10 flex flex-col md:flex-row justify-between container mx-auto py-12">
+        <div className="flex flex-col md:flex-row justify-between container mx-auto py-12">
           <div className="flex justify-center items-center my-2">
             <div className="text-center">
               <span>Wisdom Community of Pasifika Teachers &copy; </span>

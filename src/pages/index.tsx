@@ -257,7 +257,6 @@ const HeroSection = ({
   return (
     <div className="relative h-screen min-h-[640px] overflow-hidden">
       <Image
-        fixed
         backgroundCover
         priority
         className="object-center"

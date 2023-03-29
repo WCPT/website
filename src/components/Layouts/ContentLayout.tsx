@@ -10,14 +10,14 @@ export const ContentLayout = ({
   children,
 }: {
   title: string;
-  description: string;
+  description?: string | null;
   children: React.ReactNode;
 }) => {
   return (
     <div className="bg-skin-secondary">
       <Head>
         <title>{title}</title>
-        <meta name="description" content={description} />
+        {description ? <meta name="description" content={description} /> : null}
       </Head>
 
       <Navbar />
