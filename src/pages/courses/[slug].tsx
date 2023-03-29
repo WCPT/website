@@ -48,18 +48,18 @@ export const EventPage = ({
     <ContentLayout title={course.title} description={course.excerpt}>
       <Link
         href="/courses"
-        className="group flex items-center mb-6 gap-x-2 text-skin-muted hover:text-skin-base"
+        className="group flex items-center -mt-4 mb-6 gap-x-2 text-skin-muted hover:text-skin-primary"
       >
         <BsArrowLeftCircle className="text-2xl" />
-        <span className="text-lg">View list of short courses</span>
+        <span className="text-base">View list of short courses</span>
       </Link>
 
       <div className="grid grid-cols-7 gap-x-12">
         <article className="col-span-full lg:col-span-5 text-lg prose prose-li:my-1 max-w-3xl">
-          <h1 className="text-5xl leading-tight mb-10">{course.title}</h1>
+          <h1 className="sm:text-5xl !leading-tight mb-10">{course.title}</h1>
 
-          <div className="flex items-center gap-x-6">
-            <div>
+          <div className="grid sm:flex items-center gap-y-4 gap-x-6">
+            <div className="order-2 sm:order-1">
               {course.registrationUrl ? (
                 <Link
                   href={course.registrationUrl}
@@ -77,7 +77,7 @@ export const EventPage = ({
               )}
             </div>
 
-            <div>
+            <div className="order-1 sm:order-2">
               {course.registrationDeadline ? (
                 <div className="text-xl text-skin-muted">
                   {course.registrationDeadline}
