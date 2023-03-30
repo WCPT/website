@@ -17,14 +17,14 @@ const links = [
   { href: "/sign-up", label: "Become a member" },
 ];
 
-export const Navbar = () => {
+export const Navbar = ({ className }: { className?: string }) => {
   const [isMobileMenuVisible, setMobileMenuVisible] = React.useState(false);
 
   const toggleMobileMenu = () => setMobileMenuVisible(!isMobileMenuVisible);
 
   return (
     <nav>
-      <Container className="relative py-6">
+      <Container className={cx("relative py-6", className)}>
         <div className="flex justify-between">
           <Link href="/" className="flex items-center">
             <Logo dark className="w-14 h-14 mr-2" />

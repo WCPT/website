@@ -200,143 +200,152 @@ const HeroSection = ({
       />
 
       <header className="absolute inset-x-0 top-0 z-50">
-        <Navbar />
+        <Navbar className="!max-w-screen-2xl" />
       </header>
-      <main>
-        <div className="relative isolate">
-          <svg
-            className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]"
-            aria-hidden="true"
-          >
-            <defs>
-              <pattern
-                id="1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84"
-                width={200}
-                height={200}
-                x="50%"
-                y={-1}
-                patternUnits="userSpaceOnUse"
-              >
-                <path d="M.5 200V.5H200" fill="none" />
-              </pattern>
-            </defs>
-            <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
-              <path
-                d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
-                strokeWidth={0}
-              />
-            </svg>
-            <rect
-              width="100%"
-              height="100%"
+
+      <div className="relative isolate">
+        <svg
+          className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]"
+          aria-hidden="true"
+        >
+          <defs>
+            <pattern
+              id="1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84"
+              width={200}
+              height={200}
+              x="50%"
+              y={-1}
+              patternUnits="userSpaceOnUse"
+            >
+              <path d="M.5 200V.5H200" fill="none" />
+            </pattern>
+          </defs>
+          <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
+            <path
+              d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
               strokeWidth={0}
-              fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)"
             />
           </svg>
-          <div className="absolute top-0 left-1/2 right-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48">
-            <svg
-              viewBox="0 0 801 1036"
-              aria-hidden="true"
-              className="w-[50.0625rem]"
-            >
-              <path
-                fill="url(#70656b7e-db44-4b9b-b7d2-1f06791bed52)"
-                fillOpacity=".3"
-                d="m282.279 843.371 32.285 192.609-313.61-25.32 281.325-167.289-58.145-346.888c94.5 92.652 277.002 213.246 251.009-45.597C442.651 127.331 248.072 10.369 449.268.891c160.956-7.583 301.235 116.434 351.256 179.39L507.001 307.557l270.983 241.04-495.705 294.774Z"
-              />
-              <defs>
-                <linearGradient
-                  id="70656b7e-db44-4b9b-b7d2-1f06791bed52"
-                  x1="508.179"
-                  x2="-28.677"
-                  y1="-116.221"
-                  y2="1091.63"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#9089FC" />
-                  <stop offset={1} stopColor="#FF80B5" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <div className="overflow-hidden">
-            <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
-              <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
-                <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
-                  <h1 className="text-4xl sm:text-6xl sm:leading-[4.2rem] font-bold tracking-tight text-gray-900">
-                    {title}
-                  </h1>
-                  <p className="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
-                    {header}
-                  </p>
-                  <div className="mt-10 flex items-center gap-x-6">
-                    <button
-                      onClick={openModal}
-                      className="text-skin-inverted hover:text-skin-base bg-skin-primary-muted hover:bg-skin-accent px-3.5 py-2.5 font-semibold shadow-sm rounded-full transition-all"
-                    >
-                      Watch short video
-                    </button>
-                    <Link
-                      href="/sign-up"
-                      className="font-semibold leading-6 text-gray-900 hover:text-skin-primary transition-colors"
-                    >
-                      Sign up <span aria-hidden="true">→</span>
-                    </Link>
+          <rect
+            width="100%"
+            height="100%"
+            strokeWidth={0}
+            fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)"
+          />
+        </svg>
+        <div className="absolute top-0 left-1/2 right-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48">
+          <svg
+            viewBox="0 0 801 1036"
+            aria-hidden="true"
+            className="w-[50.0625rem]"
+          >
+            <path
+              fill="url(#70656b7e-db44-4b9b-b7d2-1f06791bed52)"
+              fillOpacity=".3"
+              d="m282.279 843.371 32.285 192.609-313.61-25.32 281.325-167.289-58.145-346.888c94.5 92.652 277.002 213.246 251.009-45.597C442.651 127.331 248.072 10.369 449.268.891c160.956-7.583 301.235 116.434 351.256 179.39L507.001 307.557l270.983 241.04-495.705 294.774Z"
+            />
+            <defs>
+              <linearGradient
+                id="70656b7e-db44-4b9b-b7d2-1f06791bed52"
+                x1="508.179"
+                x2="-28.677"
+                y1="-116.221"
+                y2="1091.63"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#9089FC" />
+                <stop offset={1} stopColor="#FF80B5" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div className="overflow-hidden">
+          <Container.Inner className="pb-32 pt-36 sm:pt-60 lg:pt-32">
+            <Container.Content className="gap-x-14">
+              <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
+                <h1 className="text-4xl sm:text-6xl sm:leading-[4.2rem] tracking-tight text-gray-900">
+                  {title}
+                </h1>
+                <p className="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
+                  {header}
+                </p>
+                <div className="mt-10 flex items-center gap-x-6">
+                  <button
+                    onClick={openModal}
+                    className="px-3.5 py-2.5 text-skin-inverted hover:text-gray-900 bg-skin-primary-muted hover:bg-skin-accent shadow-sm rounded-full transition-all"
+                  >
+                    Watch short video
+                  </button>
+                  <Link
+                    href="/sign-up"
+                    className="font-semibold leading-6 text-gray-900 hover:text-skin-primary transition-colors"
+                  >
+                    Sign up <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </div>
+              <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
+                <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
+                  <div className="relative">
+                    <Image
+                      width={176}
+                      height={264}
+                      src="/images/1.jpeg"
+                      alt=""
+                      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                    />
+                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
                 </div>
-                <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
-                  <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
-                    <div className="relative">
-                      <img
-                        src="images/1.jpeg"
-                        alt=""
-                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                      />
-                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                    </div>
+                <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
+                  <div className="relative">
+                    <Image
+                      width={176}
+                      height={264}
+                      src="/images/2.jpeg"
+                      alt=""
+                      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                    />
+                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
-                  <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
-                    <div className="relative">
-                      <img
-                        src="images/2.jpeg"
-                        alt=""
-                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                      />
-                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                    </div>
-                    <div className="relative">
-                      <img
-                        src="images/3.jpeg"
-                        alt=""
-                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                      />
-                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                    </div>
+                  <div className="relative">
+                    <Image
+                      width={176}
+                      height={264}
+                      src="/images/3.jpeg"
+                      alt=""
+                      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                    />
+                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
-                  <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-                    <div className="relative">
-                      <img
-                        src="images/4.jpeg"
-                        alt=""
-                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                      />
-                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                    </div>
-                    <div className="relative">
-                      <img
-                        src="images/5.jpeg"
-                        alt=""
-                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                      />
-                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                    </div>
+                </div>
+                <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
+                  <div className="relative">
+                    <Image
+                      width={176}
+                      height={264}
+                      src="/images/4.jpeg"
+                      alt=""
+                      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                    />
+                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+                  </div>
+                  <div className="relative">
+                    <Image
+                      width={176}
+                      height={264}
+                      src="/images/5.jpeg"
+                      alt=""
+                      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                    />
+                    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </Container.Content>
+          </Container.Inner>
         </div>
-      </main>
+      </div>
     </div>
   );
 };
@@ -353,90 +362,82 @@ const IntroSection = ({
   const { ref, isVisible, toggle } = useExtendedContent();
 
   return (
-    <section ref={ref} className="relative py-16 sm:py-20 bg-skin-base">
-      {/* <Image
-        backgroundCover
-        className="object-center"
-        overlayed="opacity-10 bg-black"
-        placeholder="blur"
-        src={LearnImage}
-        alt="Blue ocean"
-        credit="Photo by Hoodh Ahmed on Unsplash"
-      /> */}
+    <section>
+      <Container.Outer ref={ref} className="relative bg-skin-base">
+        <Container.Inner className="mb-4">
+          <div className="flex justify-center mb-8">
+            <h1 className="font-serif sm:mb-8 max-w-3xl text-2xl sm:text-3xl md:text-4xl text-center leading-snug md:leading-snug text-skin-base">
+              {title}
+            </h1>
+          </div>
+          <div className="grid lmd:grid-cols-5 xl:grid-cols-2 gap-8">
+            <div className="lmd:col-span-3 xl:col-span-1">
+              <div className="prose prose-p:leading-normal max-w-none lg:pr-6 text-lg lg:text-xl text-skin-base">
+                <p
+                  className="first-letter:text-5xl"
+                  dangerouslySetInnerHTML={{ __html: excerpt }}
+                />
+                <div
+                  className={cx(
+                    "opacity-0 sm:opacity-100 transition-opacity duration-300",
+                    isVisible ? "block opacity-100" : "hidden sm:block"
+                  )}
+                  dangerouslySetInnerHTML={{ __html: body }}
+                />
+              </div>
 
-      <div className="xl:container mx-auto px-8 sm:px-12">
-        <div className="flex justify-center mb-8">
-          <h1 className="font-serif sm:mb-8 max-w-3xl text-2xl sm:text-3xl md:text-4xl text-center leading-snug md:leading-snug text-skin-muted">
-            {title}
-          </h1>
-        </div>
-        <div className="grid lmd:grid-cols-5 xl:grid-cols-2 gap-8">
-          <div className="lmd:col-span-3 xl:col-span-1">
-            <div className="prose prose-p:leading-normal max-w-none lg:pr-6 text-lg lg:text-xl text-skin-base">
-              <p
-                className="first-letter:text-5xl"
-                dangerouslySetInnerHTML={{ __html: excerpt }}
-              />
-              <div
-                className={cx(
-                  "opacity-0 sm:opacity-100 transition-opacity duration-300",
-                  isVisible ? "block opacity-100" : "hidden sm:block"
-                )}
-                dangerouslySetInnerHTML={{ __html: body }}
-              />
+              <div className="block sm:hidden">
+                <span
+                  className="inline-block px-2 py-1.5 sm:p-2 rounded-sm text-blue-500 border border-blue-500 cursor-pointer"
+                  onClick={toggle}
+                >
+                  {isVisible ? "Show less" : "Show more"}
+                </span>
+              </div>
             </div>
-
-            <div className="block sm:hidden">
-              <span
-                className="inline-block px-2 py-1.5 sm:p-2 rounded-sm text-blue-500 border border-blue-500 cursor-pointer"
-                onClick={toggle}
-              >
-                {isVisible ? "Show less" : "Show more"}
-              </span>
+            <div className="hidden relative lmd:grid xl:grid-cols-2 gap-4 auto-rows-min col-span-2 xl:col-span-1">
+              <Image
+                className="rounded-lg"
+                src={SmilingFijianImage}
+                alt="Smiling student"
+                placeholder="blur"
+                credit="Vijeshwar Datt on Unsplash"
+                creditHref="https://vijeshdatt.com/"
+              />
+              <div className="relative hidden xl:inline top-[10%]">
+                <Image
+                  className="rounded-lg"
+                  src={StudentPortraitImage}
+                  alt="Smiling student"
+                  placeholder="blur"
+                  credit="Vijeshwar Datt on Unsplash"
+                  creditHref="https://vijeshdatt.com/"
+                />
+              </div>
+              <div className="relative lg:hidden xl:inline">
+                <Image
+                  className="rounded-lg"
+                  src={SmilingStudentImage}
+                  alt="Smiling student"
+                  placeholder="blur"
+                  credit="Vijeshwar Datt on Unsplash"
+                  creditHref="https://vijeshdatt.com/"
+                />
+              </div>
+              <div className="relative hidden lg:inline xl:top-[10%]">
+                <Image
+                  className="rounded-lg"
+                  src={IslanderStudentImage}
+                  alt="Smiling student"
+                  placeholder="blur"
+                  credit="Vijeshwar Datt on Unsplash"
+                  creditHref="https://vijeshdatt.com/"
+                />
+              </div>
             </div>
           </div>
-          <div className="hidden relative lmd:grid xl:grid-cols-2 gap-4 auto-rows-min col-span-2 xl:col-span-1">
-            <Image
-              className="rounded-lg"
-              src={SmilingFijianImage}
-              alt="Smiling student"
-              placeholder="blur"
-              credit="Vijeshwar Datt on Unsplash"
-              creditHref="https://vijeshdatt.com/"
-            />
-            <div className="relative hidden xl:inline top-[10%]">
-              <Image
-                className="rounded-lg"
-                src={StudentPortraitImage}
-                alt="Smiling student"
-                placeholder="blur"
-                credit="Vijeshwar Datt on Unsplash"
-                creditHref="https://vijeshdatt.com/"
-              />
-            </div>
-            <div className="relative lg:hidden xl:inline">
-              <Image
-                className="rounded-lg"
-                src={SmilingStudentImage}
-                alt="Smiling student"
-                placeholder="blur"
-                credit="Vijeshwar Datt on Unsplash"
-                creditHref="https://vijeshdatt.com/"
-              />
-            </div>
-            <div className="relative hidden lg:inline xl:top-[10%]">
-              <Image
-                className="rounded-lg"
-                src={IslanderStudentImage}
-                alt="Smiling student"
-                placeholder="blur"
-                credit="Vijeshwar Datt on Unsplash"
-                creditHref="https://vijeshdatt.com/"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+        </Container.Inner>
+      </Container.Outer>
     </section>
   );
 };
@@ -453,9 +454,9 @@ const StatsSection = ({
   lifetimeInMonths: number;
 }) => {
   return (
-    <section className="relative lg:pt-12 bg-skin-secondary">
-      <div className="pt-24 pb-44 bg-skin-secondary">
-        <div className="2xl:container mx-auto px-8 sm:px-12">
+    <section className="relative">
+      <Container.Outer className="bg-skin-secondary">
+        <Container.Inner className="mt-4 mb-20">
           <div className="flex flex-col justify-center items-center mb-20">
             <h1 className="sm:mb-8 max-w-2xl text-center text-2xl sm:text-3xl md:text-4xl leading-snug md:leading-snug text-skin-base font-light">
               We are an active, growing community in the wider Pacific region
@@ -549,8 +550,8 @@ const StatsSection = ({
               } old`}
             />
           </div>
-        </div>
-      </div>
+        </Container.Inner>
+      </Container.Outer>
     </section>
   );
 };
@@ -590,46 +591,61 @@ const EventsSection = ({
   events: Awaited<ReturnType<typeof getEvents>>;
 }) => {
   return (
-    <section className="relative py-12 sm:py-16 sm:pb-36">
-      <Image
-        backgroundCover
-        overlayed="opacity-80 bg-skin-primary"
-        alt="Connected globe"
-        src={GlobeImage}
-        placeholder="blur"
-        credit="Background vector created by liuzishan on freepik.com"
-        creditHref="https://www.freepik.com/vectors/background"
-      />
-      <div className="xl:container mx-auto">
-        <div className="flex flex-col mb-12 lg:mb-0 px-8 sm:px-12">
-          <div className="z-10 flex flex-col my-16 max-w-lg">
-            <span className="text-lg tracking-wider text-skin-inverted-muted">
-              #WCPTevents
-            </span>
-            <h1 className="mt-1 mb-2 sm:mb-4 text-2xl sm:text-3xl md:text-4xl text-skin-inverted">
-              Upcoming Events
-            </h1>
-            <span className="text-lg text-skin-inverted-muted">
-              Join us in our virtual events. We carry out workshops and meetups
-              that you can virtually join from anywhere.
-            </span>
-            <div className="mt-4">
-              <Link
-                href="/events"
-                className="inline-flex items-center gap-x-2 py-2.5 text-skin-inverted hover:text-skin-inverted-muted transition-colors"
-              >
-                <span>View all events</span>
-                <BsArrowRight size={18} />
-              </Link>
+    <section>
+      <Container.Outer className="relative">
+        <Image
+          backgroundCover
+          overlayed="opacity-90 bg-skin-primary"
+          alt="Connected globe"
+          src={GlobeImage}
+          placeholder="blur"
+          credit="Background vector created by liuzishan on freepik.com"
+          creditHref="https://www.freepik.com/vectors/background"
+        />
+        <Container.Inner className="my-16">
+          <Container.Content>
+            <div className="flex flex-col mb-12 lg:mb-0">
+              <div className="z-10 flex flex-col mb-16 max-w-lg">
+                <div>
+                  <Link
+                    href="https://twitter.com/hashtag/WCPTevents?src=hashtag_click"
+                    className="text-lg tracking-wider text-yellow-400"
+                    referrerPolicy="no-referrer"
+                    target="_blank"
+                  >
+                    #WCPTevents
+                  </Link>
+                </div>
+                <h1 className="mt-1 mb-2 sm:mb-4 text-2xl sm:text-3xl md:text-4xl text-skin-inverted">
+                  Upcoming Events
+                </h1>
+                <span className="text-lg text-gray-100">
+                  Join us in our virtual events. We carry out workshops and
+                  meetups that you can virtually join from anywhere.
+                </span>
+                {/* <div className="mt-4">
+                  <Link
+                    href="/events"
+                    className="inline-flex items-center gap-x-2 py-2.5 text-skin-inverted hover:text-amber-400 transition-colors"
+                  >
+                    <span>View all events</span>
+                    <BsArrowRight size={18} />
+                  </Link>
+                </div> */}
+              </div>
+              <div className="z-10 grid lg:grid-cols-3 grid-rows-1 gap-12 lg:gap-8 xl:gap-10 2xl:gap-12 text-gray-600 overflow-hidden">
+                {events.map((event, i) => (
+                  <EventCard
+                    key={i}
+                    {...event}
+                    href={`/events/${event.slug}`}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="z-10 grid lg:grid-cols-3 grid-rows-1 gap-12 lg:gap-8 xl:gap-12 2xl:gap-16 text-gray-600 overflow-hidden">
-            {events.map((event, i) => (
-              <EventCard key={i} {...event} href={`/events/${event.slug}`} />
-            ))}
-          </div>
-        </div>
-      </div>
+          </Container.Content>
+        </Container.Inner>
+      </Container.Outer>
     </section>
   );
 };
@@ -682,7 +698,7 @@ const EventCard = ({
           </span>
 
           {excerpt && (
-            <div className="lg:hidden xl:block text-lg leading-normal text-skin-muted">
+            <div className="block text-lg leading-normal text-skin-muted">
               {excerpt}
             </div>
           )}
@@ -760,3 +776,70 @@ const Footer = ({ className }: { className?: string }) => {
     </footer>
   );
 };
+
+type ContainerType = React.ForwardRefExoticComponent<
+  React.HTMLAttributes<HTMLDivElement> & React.RefAttributes<HTMLDivElement>
+>;
+
+const ContainerOuter: ContainerType = React.forwardRef(function ContainerOuter(
+  { children, className, ...props },
+  ref
+) {
+  return (
+    <div ref={ref} className={cx("py-20 sm:py-24", className)} {...props}>
+      {children}
+    </div>
+  );
+});
+
+const ContainerInner: ContainerType = React.forwardRef(function ContainerInner(
+  { children, className, ...props },
+  ref
+) {
+  return (
+    <div
+      ref={ref}
+      className={cx("mx-auto max-w-screen-2xl px-6 lg:px-8", className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+});
+
+const ContainerContent: ContainerType = React.forwardRef(
+  function ContainerContent({ children, className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        className={cx(
+          "lg:flex lg:items-center mx-auto lg:mx-0 max-w-2xl lg:max-w-none",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+// @ts-ignore
+const Container: ContainerType & {
+  Inner: ContainerType;
+  Outer: ContainerType;
+  Content: ContainerType;
+} = React.forwardRef(function Container(
+  { children, className, ...props },
+  ref: React.ForwardedRef<HTMLDivElement>
+) {
+  return (
+    <ContainerOuter ref={ref} className={className} {...props}>
+      <ContainerInner>{children}</ContainerInner>
+    </ContainerOuter>
+  );
+});
+
+Container.Outer = ContainerOuter;
+Container.Inner = ContainerInner;
+Container.Content = ContainerContent;
