@@ -18,7 +18,6 @@ type SiteConfig = {
   email: string;
   videoURL: string;
   signInLink: string;
-  signUpLink: string;
   engagements: number;
   registered: number;
   participants: number;

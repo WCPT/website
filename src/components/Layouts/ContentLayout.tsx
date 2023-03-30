@@ -20,7 +20,9 @@ export const ContentLayout = ({
         {description ? <meta name="description" content={description} /> : null}
       </Head>
 
-      <Navbar />
+      <header>
+        <Navbar />
+      </header>
 
       <main className="my-16">
         <Container>{children}</Container>

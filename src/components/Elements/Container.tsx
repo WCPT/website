@@ -9,7 +9,7 @@ export const Container = ({
   className?: string;
 }) => {
   return (
-    <div className={cx("container mx-auto max-w-7xl px-8 sm:px-12", className)}>
+    <div className={cx("container mx-auto max-w-7xl px-6 sm:px-8", className)}>
       {children}
     </div>
   );

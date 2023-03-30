@@ -1,6 +1,10 @@
+import { Formik } from "formik";
+import cx from "clsx";
+
 import { ContentLayout } from "@/components/Layouts";
 
 const occupations = [
+  { label: "Select occupation", value: "" },
   {
     label: "Teacher - Early Child Education",
     value: "teacher:ECE",
@@ -12,6 +16,7 @@ const occupations = [
 ];
 
 const countries = [
+  { label: "Select country", value: "" },
   { label: "American Samoa", value: "AS" },
   { label: "Cook Islands", value: "CK" },
   { label: "Fiji", value: "FJ" },
@@ -42,7 +47,7 @@ const SignUpPage = () => {
       <div className="grid lg:grid-cols-2 gap-16 justify-center">
         <div className="prose max-w-3xl text-lg text-skin-base">
           <h1 className="mb-10 text-5xl leading-tight">
-            Learn, share, connect and move forward together
+            Empowring teachers in the Pacific region
           </h1>
           <p>
             WCPT is dedicated to empowering teachers in the Pacific region. One
@@ -59,51 +64,96 @@ const SignUpPage = () => {
         </div>
         <div className="-mx-8 sm:mx-0 sm:max-w-3xl bg-skin-inverted sm:rounded-md">
           <div className="py-16 px-8 sm:p-16 lg:p-12 xl:p-16">
-            <form className="grid md:grid-cols-2 gap-6 lg:flex lg:flex-col">
-              <TextInput
-                name="firstname"
-                label="First name"
-                autoComplete="given-name"
-                placeholder="John"
-                required
-              />
-              <TextInput
-                name="lastname"
-                label="Last name"
-                autoComplete="family-name"
-                placeholder="Smith"
-                required
-              />
-              <TextInput
-                className="md:col-span-2"
-                name="email"
-                type="email"
-                label="Email"
-                autoComplete="email"
-                placeholder="johnsmith@example.com"
-                required
-              />
-              <SelectInput
-                name="occupation"
-                label="Occupation"
-                options={occupations}
-                required
-              />
-              <SelectInput
-                name="country"
-                label="Country"
-                options={countries}
-                required
-              />
-              <div className="md:col-span-2">
-                <button
-                  type="submit"
-                  className="flex items-center justify-center mt-4 lg:w-full px-8 py-3 bg-skin-primary-muted hover:bg-skin-accent text-skin-inverted hover:text-black rounded-full shadow-md transition-colors"
+            <Formik
+              initialValues={{
+                firstname: "",
+                lastname: "",
+                email: "",
+                occupation: "",
+                country: "",
+              }}
+              onSubmit={(values, { setSubmitting }) => {
+                setTimeout(() => {
+                  alert(JSON.stringify(values, null, 2));
+                  setSubmitting(false);
+                }, 400);
+              }}
+            >
+              {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+              }) => (
+                <form
+                  className="grid md:grid-cols-2 gap-6 lg:flex lg:flex-col"
+                  onSubmit={handleSubmit}
                 >
-                  Submit
-                </button>
-              </div>
-            </form>
+                  <TextInput
+                    name="firstname"
+                    label="First name"
+                    autoComplete="given-name"
+                    placeholder="John"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.firstname}
+                    required
+                  />
+                  <TextInput
+                    name="lastname"
+                    label="Last name"
+                    autoComplete="family-name"
+                    placeholder="Smith"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.lastname}
+                    required
+                  />
+                  <TextInput
+                    className="md:col-span-2"
+                    name="email"
+                    type="email"
+                    label="Email"
+                    autoComplete="email"
+                    placeholder="johnsmith@example.com"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.email}
+                    required
+                  />
+                  <SelectInput
+                    name="occupation"
+                    label="Occupation"
+                    options={occupations}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.occupation}
+                    required
+                  />
+                  <SelectInput
+                    name="country"
+                    label="Country"
+                    options={countries}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.country}
+                    required
+                  />
+                  <div className="md:col-span-2">
+                    <button
+                      type="submit"
+                      className="flex items-center justify-center mt-4 lg:w-full px-8 py-3 bg-skin-primary-muted hover:bg-skin-accent text-skin-inverted hover:text-black rounded-full shadow-md transition-colors"
+                      disabled={isSubmitting}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              )}
+            </Formik>
           </div>
         </div>
       </div>
@@ -169,11 +219,19 @@ const SelectInput = ({
         <select
           id={name}
           name={name}
-          className="block w-full py-2 text-skin-inverted bg-transparent outline-none border-b border-gray-500 cursor-pointer"
+          className={cx(
+            "block w-full py-2 bg-transparent outline-none border-b border-gray-500 cursor-pointer",
+            props.value === "" ? "text-gray-400" : "text-skin-inverted"
+          )}
           {...props}
         >
           {options.map(({ value, label }) => (
-            <option key={value} value={value}>
+            <option
+              key={value}
+              value={value}
+              disabled={value === ""}
+              hidden={value === ""}
+            >
               {label}
             </option>
           ))}

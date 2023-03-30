@@ -33,7 +33,6 @@ collections:
         fields:
           - { label: "Video URL", name: "videoURL", widget: "string" }
           - { label: "Sign in link", name: "signInLink", widget: "string" }
-          - { label: "Sign up link", name: "signUpLink", widget: "string" }
 
   - label: "Event"
     name: "events"

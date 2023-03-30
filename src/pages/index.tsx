@@ -1,14 +1,9 @@
-import React from "react";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
-import Link from "next/link";
+import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { differenceInMonths, format } from "date-fns";
-import {
-  MdOpenInNew,
-  MdPlayCircleOutline,
-  MdOutlineFormatListBulleted,
-} from "react-icons/md";
-import { BsArrowRightCircle } from "react-icons/bs";
+import { BsArrowRightCircle, BsArrowRight } from "react-icons/bs";
 import cx from "clsx";
 
 import { useExtendedContent, useModal } from "@/hooks";
@@ -21,10 +16,9 @@ import {
   TwitterIcon,
   YoutubeIcon,
   EmailIcon,
-  Logo,
+  Navbar,
 } from "@/components/Elements";
 
-import Blueocean from "@/images/blueocean.jpeg";
 import SmilingFijianImage from "@/images/smiling-fijian.jpeg";
 import StudentPortraitImage from "@/images/student-portrait.jpeg";
 import SmilingStudentImage from "@/images/smiling-student.jpeg";
@@ -34,7 +28,6 @@ import GlobeImage from "@/images/globe.jpeg";
 type ServerSideProps = {
   title: string;
   header: string;
-  signUpLink: string;
   signInLink: string;
   videoURL: string;
   intro: {
@@ -67,11 +60,11 @@ export const getStaticProps = (async () => {
 
   return {
     props: {
-      title: "Wisdom Community of Pasifika Teachers",
-      header: "Learning, sharing, connecting and moving forward together.",
+      title: "Learning, sharing, connecting and moving forward together.",
+      header:
+        "Empowering Pacific educators through collaboration, the Pasifika Teachers network drives optimal student outcomes and global competency. Uniting under SDG4 and PacREF, we thrive in our shared wisdom and professional growth. Join us!",
       videoURL: config.videoURL,
       signInLink: config.signInLink,
-      signUpLink: config.signUpLink,
 
       intro: {
         title:
@@ -143,8 +136,6 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   title,
   header,
   videoURL,
-  signUpLink,
-  signInLink,
   intro,
   stats,
   social,
@@ -157,26 +148,8 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <title>{title}</title>
       </Head>
 
-      <Navbar
-        themeStyle={1}
-        className="absolute top-0 z-10"
-        itemsRight={
-          <div className="flex items-center theme-social-transparent-bg">
-            <FacebookIcon href={social.facebook} />
-            <TwitterIcon href={social.twitter} />
-            <YoutubeIcon href={social.youtube} />
-            <EmailIcon href={social.email} />
-          </div>
-        }
-      />
       <main>
-        <HeroSection
-          title={title}
-          header={header}
-          videoURL={videoURL}
-          signUpLink={signUpLink}
-          signInLink={signInLink}
-        />
+        <HeroSection title={title} header={header} videoURL={videoURL} />
         <IntroSection
           title={intro.title}
           excerpt={intro.excerpt}
@@ -206,67 +179,19 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
 export default HomePage;
 
-const Navbar = ({
-  themeStyle = 0,
-  className,
-  itemsRight,
-}: {
-  themeStyle?: 0 | 1;
-  className?: string;
-  itemsRight?: React.ReactNode;
-}) => {
-  return (
-    <nav
-      className={cx(
-        `flex w-full transition-all text-skin-inverted-muted`,
-        className
-      )}
-    >
-      <div className="xl:container mx-auto flex justify-between items-center flex-1 py-8 px-8 sm:px-12">
-        <Link href="/" className="flex items-center">
-          <Logo
-            dark={themeStyle === 0}
-            className="mr-4 h-16 md:h-20 transition-all"
-          />
-          <span className="hidden sm:block w-44 md:w-48 text-lg md:text-xl font-light font-serif">
-            Wisdom Community of Pasifika Teachers
-          </span>
-        </Link>
-
-        {itemsRight && <div className="ml-auto">{itemsRight}</div>}
-      </div>
-    </nav>
-  );
-};
-
 const HeroSection = ({
   title,
   header,
-  signUpLink,
-  signInLink,
   videoURL,
 }: {
   title: string;
   header: string;
-  signUpLink: string;
-  signInLink: string;
   videoURL: string;
 }) => {
   const [isOpen, openModal, closeModal] = useModal(false);
 
   return (
-    <div className="relative h-screen min-h-[640px] overflow-hidden">
-      <Image
-        backgroundCover
-        priority
-        className="object-center"
-        overlayed="opacity-10 bg-black"
-        placeholder="blur"
-        src={Blueocean}
-        alt="Blue ocean"
-        credit="Photo by Hoodh Ahmed on Unsplash"
-      />
-
+    <div className="bg-skin-secondary min-h-screen">
       <VideoModal
         url={videoURL}
         openModal={openModal}
@@ -274,62 +199,144 @@ const HeroSection = ({
         isOpen={isOpen}
       />
 
-      <div className="flex h-full xl:container mx-auto">
-        <div className="mx-auto lg:mx-0 flex flex-col items-center lg:items-start justify-center px-12 text-center lg:text-left">
-          {/* For mobile */}
-          <div className="block sm:hidden">
-            <h1 className="pb-4 text-[1.8rem] leading-snug text-center text-skin-inverted">
-              {title}
-            </h1>
-
-            <h2 className="mb-4 font-light text-[1.2rem] leading-snug opacity-90 text-skin-inverted">
-              {header}
-            </h2>
-          </div>
-
-          {/* For tablet and desktop */}
-          <div className="hidden sm:block sm:w-[500px] lg:w-[520px]">
-            <h2 className="mb-4 font-serif font-light text-[2.5rem] leading-snug text-skin-inverted">
-              {header}
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:flex sm:flex-row my-4">
-            <div className="flex justify-center group">
-              <button
-                type="button"
-                className="cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full text-skin-inverted-muted border border-blue-600 bg-blue-600 rounded shadow-lg"
-                onClick={openModal}
+      <header className="absolute inset-x-0 top-0 z-50">
+        <Navbar />
+      </header>
+      <main>
+        <div className="relative isolate">
+          <svg
+            className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]"
+            aria-hidden="true"
+          >
+            <defs>
+              <pattern
+                id="1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84"
+                width={200}
+                height={200}
+                x="50%"
+                y={-1}
+                patternUnits="userSpaceOnUse"
               >
-                <MdPlayCircleOutline className="-ml-1 mr-2 text-xl text-gray-200" />
-                <span className="text-gray-200">Watch short video</span>
-              </button>
-            </div>
-
-            <div className="flex justify-center group">
-              <a
-                className="cursor-pointer inline-flex justify-center items-center py-2 px-4 w-60 sm:w-full bg-skin-secondary text-skin-base border border-gray-200 group-hover:border-white rounded shadow-lg"
-                href={signUpLink}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span className="mr-2">Join our community</span>
-                <MdOpenInNew className="text-xl" />
-              </a>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center mt-6 sm:my-2 text-skin-inverted-muted text-lg">
-            <span className="sm:mr-2 font-thin">Already a member?</span>
-            <a
-              href={signInLink}
-              className="underline underline-offset-4 text-skin-accent font-thin transition-all"
+                <path d="M.5 200V.5H200" fill="none" />
+              </pattern>
+            </defs>
+            <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
+              <path
+                d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+                strokeWidth={0}
+              />
+            </svg>
+            <rect
+              width="100%"
+              height="100%"
+              strokeWidth={0}
+              fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)"
+            />
+          </svg>
+          <div className="absolute top-0 left-1/2 right-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48">
+            <svg
+              viewBox="0 0 801 1036"
+              aria-hidden="true"
+              className="w-[50.0625rem]"
             >
-              Sign in here!
-            </a>
+              <path
+                fill="url(#70656b7e-db44-4b9b-b7d2-1f06791bed52)"
+                fillOpacity=".3"
+                d="m282.279 843.371 32.285 192.609-313.61-25.32 281.325-167.289-58.145-346.888c94.5 92.652 277.002 213.246 251.009-45.597C442.651 127.331 248.072 10.369 449.268.891c160.956-7.583 301.235 116.434 351.256 179.39L507.001 307.557l270.983 241.04-495.705 294.774Z"
+              />
+              <defs>
+                <linearGradient
+                  id="70656b7e-db44-4b9b-b7d2-1f06791bed52"
+                  x1="508.179"
+                  x2="-28.677"
+                  y1="-116.221"
+                  y2="1091.63"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="#9089FC" />
+                  <stop offset={1} stopColor="#FF80B5" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div className="overflow-hidden">
+            <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+              <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
+                <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
+                  <h1 className="text-4xl sm:text-6xl sm:leading-[4.2rem] font-bold tracking-tight text-gray-900">
+                    {title}
+                  </h1>
+                  <p className="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
+                    {header}
+                  </p>
+                  <div className="mt-10 flex items-center gap-x-6">
+                    <button
+                      onClick={openModal}
+                      className="text-skin-inverted hover:text-skin-base bg-skin-primary-muted hover:bg-skin-accent px-3.5 py-2.5 font-semibold shadow-sm rounded-full transition-all"
+                    >
+                      Watch short video
+                    </button>
+                    <Link
+                      href="/sign-up"
+                      className="font-semibold leading-6 text-gray-900 hover:text-skin-primary transition-colors"
+                    >
+                      Sign up <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
+                </div>
+                <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
+                  <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
+                    <div className="relative">
+                      <img
+                        src="images/1.jpeg"
+                        alt=""
+                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                      />
+                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+                    </div>
+                  </div>
+                  <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
+                    <div className="relative">
+                      <img
+                        src="images/2.jpeg"
+                        alt=""
+                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                      />
+                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+                    </div>
+                    <div className="relative">
+                      <img
+                        src="images/3.jpeg"
+                        alt=""
+                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                      />
+                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+                    </div>
+                  </div>
+                  <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
+                    <div className="relative">
+                      <img
+                        src="images/4.jpeg"
+                        alt=""
+                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                      />
+                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+                    </div>
+                    <div className="relative">
+                      <img
+                        src="images/5.jpeg"
+                        alt=""
+                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                      />
+                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
@@ -609,10 +616,10 @@ const EventsSection = ({
             <div className="mt-4">
               <Link
                 href="/events"
-                className="inline-flex items-center gap-x-2 py-2.5 px-4 bg-skin-base text-skin-base hover:text-skin-primary rounded shadow-lg transition-colors"
+                className="inline-flex items-center gap-x-2 py-2.5 text-skin-inverted hover:text-skin-inverted-muted transition-colors"
               >
-                <MdOutlineFormatListBulleted size={18} />
                 <span>View all events</span>
+                <BsArrowRight size={18} />
               </Link>
             </div>
           </div>
@@ -703,11 +710,11 @@ const ContactSection = ({
   return (
     <section className="relative py-12 sm:py-12 bg-white">
       <div className="xl:container mx-auto py-16 px-8 sm:px-12 flex flex-col">
-        <h2 className="z-10 font-sans font-black text-3xl sm:text-4xl tracking-tight text-gray-900">
-          <span className="block">Want to get in touch?</span>
-          <span className="block bg-clip-text text-skin-primary">
+        <h2 className="z-10 font-sans font-black text-4xl sm:text-5xl tracking-tight text-gray-900">
+          <div className="">Want to get in touch?</div>
+          <div className="bg-clip-text text-skin-primary">
             Reach us through social media or email us!
-          </span>
+          </div>
         </h2>
         <div className="z-10 mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
           <div className="flex items-center theme-social-gray-bg">

@@ -43,11 +43,7 @@ export const Navbar = () => {
 
           {/* Mobile */}
           <div className="flex lg:hidden justify-center items-center">
-            <MenuButton
-              icon={MdMenu}
-              className="border border-gray-300"
-              onClick={toggleMobileMenu}
-            />
+            <MenuButton icon={MdMenu} onClick={toggleMobileMenu} />
             <div
               className={cx(
                 "fixed inset-0 min-h-screen bg-skin-inverted transition-opacity duration-200",
@@ -67,7 +63,7 @@ export const Navbar = () => {
                   <div>
                     <MenuButton
                       icon={MdClose}
-                      className="text-gray-300 border border-gray-400"
+                      className="text-gray-300"
                       onClick={toggleMobileMenu}
                     />
                   </div>
@@ -181,26 +177,6 @@ const MobileLink = ({
       >
         {children}
       </Link>
-      {/* <style jsx>{`
-        div > :global(.link):before {
-          content: "";
-          position: absolute;
-          bottom: 0.25rem;
-          left: 0;
-          right: 0;
-          height: 4px;
-          opacity: 0;
-          background: var(--color-text-base);
-          transition: all 0.25s ease;
-        }
-        div > :global(.link):hover:before {
-          opacity: 1;
-        }
-        div > :global(.link.active):before {
-          background: var(--color-primary);
-          opacity: 1;
-        }
-      `}</style> */}
     </div>
   );
 };
