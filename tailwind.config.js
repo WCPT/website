@@ -28,6 +28,7 @@ module.exports = {
 
       textColor: {
         skin: {
+          strong: "var(--color-text-strong)",
           base: "var(--color-text-base)",
           muted: "var(--color-text-muted)",
           inverted: "var(--color-text-inverted)",

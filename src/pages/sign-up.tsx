@@ -59,7 +59,7 @@ export default function SignUpPage() {
     <ContentLayout title="Become a member">
       <div className="grid lg:grid-cols-2 gap-16 xl:gap-28 justify-center">
         <div className="prose max-w-3xl text-lg text-skin-base">
-          <h1 className="mb-10 text-5xl leading-tight">
+          <h1 className="mb-10 text-5xl leading-tight font-normal">
             Empowering teachers in the Pacific region
           </h1>
           <p>

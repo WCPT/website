@@ -3,7 +3,7 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { differenceInMonths, format } from "date-fns";
-import { BsArrowRightCircle } from "react-icons/bs";
+import { BsArrowRight, BsArrowRightCircle } from "react-icons/bs";
 import cx from "clsx";
 
 import { useExtendedContent, useModal } from "@/hooks";
@@ -268,16 +268,16 @@ function HeroSection({
           <Container.Inner className="pb-32 pt-36 sm:pt-60 lg:pt-32">
             <Container.Content className="gap-x-14">
               <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
-                <h1 className="text-4xl sm:text-6xl sm:leading-[4.2rem] tracking-tight text-gray-900">
+                <h1 className="text-4xl sm:text-6xl sm:leading-[4.2rem] tracking-tight text-skin-strong">
                   {title}
                 </h1>
-                <p className="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
+                <p className="relative mt-6 text-lg leading-8 text-skin-base sm:max-w-md lg:max-w-none">
                   {header}
                 </p>
                 <div className="mt-10 flex items-center gap-x-6">
                   <button
                     onClick={openModal}
-                    className="px-3.5 py-2.5 text-skin-inverted hover:text-skin-base bg-skin-primary-muted hover:bg-skin-accent shadow-sm rounded-full transition-all"
+                    className="px-3.5 py-2.5 text-skin-inverted hover:text-skin-strong bg-skin-primary-muted hover:bg-skin-accent shadow-sm rounded-full transition-all"
                   >
                     Watch short video
                   </button>
@@ -376,13 +376,13 @@ function IntroSection({
       <Container.Outer ref={ref} className="relative bg-skin-base">
         <Container.Inner className="mb-4">
           <div className="flex justify-center mb-8">
-            <SectionHeader className="text-center text-gray-600">
+            <SectionHeader className="text-center text-skin-base">
               {title}
             </SectionHeader>
           </div>
           <div className="grid lmd:grid-cols-5 xl:grid-cols-2 gap-8">
             <div className="lmd:col-span-3 xl:col-span-1">
-              <div className="prose prose-p:leading-normal max-w-none lg:pr-6 text-lg lg:text-xl text-gray-600">
+              <div className="prose prose-p:leading-normal max-w-none lg:pr-6 text-lg lg:text-xl text-skin-base">
                 <p
                   className="first-letter:text-5xl"
                   dangerouslySetInnerHTML={{ __html: excerpt }}
@@ -616,30 +616,32 @@ function EventsSection({
           <Container.Content>
             <div className="flex flex-col">
               <div className="flex flex-col mt-4 mb-16 max-w-lg text-start">
-                <Link
-                  href="https://twitter.com/hashtag/WCPTevents?src=hashtag_click"
-                  className="text-lg tracking-wider text-yellow-400"
-                  referrerPolicy="no-referrer"
-                  target="_blank"
-                >
-                  #WCPTevents
-                </Link>
-                <SectionHeader className="mt-2 mb-4 text-skin-inverted">
+                <div>
+                  <Link
+                    href="https://twitter.com/hashtag/WCPTevents?src=hashtag_click"
+                    className="text-lg tracking-wider text-[#eafaff] hover:text-skin-inverted-muted transition-colors"
+                    referrerPolicy="no-referrer"
+                    target="_blank"
+                  >
+                    #WCPTevents
+                  </Link>
+                </div>
+                <SectionHeader className="mb-4 text-skin-inverted">
                   Upcoming Events
                 </SectionHeader>
-                <span className="font-sans text-lg text-gray-100">
+                <span className="font-sans text-lg text-[#eafaff]">
                   Join us in our virtual events. We carry out workshops and
                   meetups that you can virtually join from anywhere.
                 </span>
-                {/* <div className="mt-4">
+                <div className="mt-2">
                   <Link
                     href="/events"
-                    className="inline-flex items-center gap-x-2 py-2.5 text-skin-inverted hover:text-amber-400 transition-colors"
+                    className="inline-flex items-center gap-x-2 py-2.5 text-[#eafaff] hover:text-skin-inverted-muted transition-colors"
                   >
                     <span>View all events</span>
                     <BsArrowRight size={18} />
                   </Link>
-                </div> */}
+                </div>
               </div>
               <div className="grid lg:grid-cols-3 grid-rows-1 gap-12 lg:gap-8 xl:gap-10 2xl:gap-12 text-gray-600 overflow-hidden">
                 {events.map((event, i) => (
@@ -681,7 +683,7 @@ function EventCard({
     <a
       href={href}
       className={cx(
-        "group flex flex-col rounded-md overflow-hidden",
+        "group flex flex-col rounded-md overflow-hidden hover:scale-[99%] transition-transform duration-300 ease-in-out",
         className
       )}
     >
@@ -760,13 +762,17 @@ const CoursesSection = ({ courses }: { courses: CoursePost[] }) => {
           <div className="flex flex-col">
             <SectionHeader className="mb-4 text-skin-inverted text-start">
               Discover short courses curated for our community
-              <Link href="/courses">
-                <BsArrowRightCircle className="inline ml-2" />
+              <Link href="/courses" className="">
+                <BsArrowRightCircle className="inline ml-2 hover:scale-95 transition-transform" />
               </Link>
             </SectionHeader>
             <div className="grid lg:flex gap-6 my-4">
               {courses.map((course) => (
-                <Link key={course.slug} href={`courses/${course.slug}`}>
+                <Link
+                  key={course.slug}
+                  href={`courses/${course.slug}`}
+                  className="hover:scale-[99%] transition-all duration-300 ease-in-out"
+                >
                   <div className="flex py-4 px-6 bg-skin-base rounded-md">
                     <div className="text-skin-base">{course.title}</div>
                   </div>
