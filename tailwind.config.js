@@ -14,9 +14,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["Lato", "sans-serif"],
-        serif: ["Bitter", "serif"],
-        mono: ["Cousine"],
+        sans: ["var(--font-sans)", "sans-serif"],
+        serif: ["var(--font-serif)", "serif"],
       },
 
       colors: {

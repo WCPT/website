@@ -1,9 +1,9 @@
-import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { differenceInMonths, format } from "date-fns";
-import { BsArrowRightCircle, BsArrowRight } from "react-icons/bs";
+import { BsArrowRightCircle } from "react-icons/bs";
 import cx from "clsx";
 
 import { useExtendedContent, useModal } from "@/hooks";
@@ -17,7 +17,14 @@ import {
   YoutubeIcon,
   EmailIcon,
   Navbar,
+  Footer,
 } from "@/components/Elements";
+
+import tileImageOne from "@/images/1.jpeg";
+import tileImageTwo from "@/images/2.jpeg";
+import tileImageThree from "@/images/3.jpeg";
+import tileImageFour from "@/images/4.jpeg";
+import tileImageFive from "@/images/5.jpeg";
 
 import SmilingFijianImage from "@/images/smiling-fijian.jpeg";
 import StudentPortraitImage from "@/images/student-portrait.jpeg";
@@ -132,7 +139,7 @@ export const getStaticProps = (async () => {
   };
 }) satisfies GetStaticProps<ServerSideProps>;
 
-const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+export default function HomePage({
   title,
   header,
   videoURL,
@@ -141,7 +148,7 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   social,
   events,
   courses,
-}) => {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
       <Head>
@@ -162,7 +169,7 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           lifetimeInMonths={stats.lifetimeInMonths}
         />
         <EventsSection events={events} />
-        {/* <CoursesSection courses={courses} /> */}
+        <CoursesSection courses={courses} />
         <ContactSection
           socialLinks={{
             facebook: social.facebook,
@@ -175,11 +182,9 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <Footer />
     </div>
   );
-};
+}
 
-export default HomePage;
-
-const HeroSection = ({
+function HeroSection({
   title,
   header,
   videoURL,
@@ -187,7 +192,7 @@ const HeroSection = ({
   title: string;
   header: string;
   videoURL: string;
-}) => {
+}) {
   const [isOpen, openModal, closeModal] = useModal(false);
 
   return (
@@ -272,13 +277,13 @@ const HeroSection = ({
                 <div className="mt-10 flex items-center gap-x-6">
                   <button
                     onClick={openModal}
-                    className="px-3.5 py-2.5 text-skin-inverted hover:text-gray-900 bg-skin-primary-muted hover:bg-skin-accent shadow-sm rounded-full transition-all"
+                    className="px-3.5 py-2.5 text-skin-inverted hover:text-skin-base bg-skin-primary-muted hover:bg-skin-accent shadow-sm rounded-full transition-all"
                   >
                     Watch short video
                   </button>
                   <Link
                     href="/sign-up"
-                    className="font-semibold leading-6 text-gray-900 hover:text-skin-primary transition-colors"
+                    className="font-semibold leading-6 text-skin-base hover:text-skin-primary transition-colors"
                   >
                     Sign up <span aria-hidden="true">→</span>
                   </Link>
@@ -288,9 +293,10 @@ const HeroSection = ({
                 <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
                   <div className="relative">
                     <Image
-                      width={176}
-                      height={264}
-                      src="/images/1.jpeg"
+                      width={250}
+                      height={318}
+                      quality={75}
+                      src={tileImageOne}
                       alt=""
                       className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                     />
@@ -300,9 +306,10 @@ const HeroSection = ({
                 <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
                   <div className="relative">
                     <Image
-                      width={176}
-                      height={264}
-                      src="/images/2.jpeg"
+                      width={750}
+                      height={500}
+                      quality={75}
+                      src={tileImageTwo}
                       alt=""
                       className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                     />
@@ -310,9 +317,10 @@ const HeroSection = ({
                   </div>
                   <div className="relative">
                     <Image
-                      width={176}
-                      height={264}
-                      src="/images/3.jpeg"
+                      width={250}
+                      height={375}
+                      quality={75}
+                      src={tileImageThree}
                       alt=""
                       className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                     />
@@ -322,9 +330,10 @@ const HeroSection = ({
                 <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
                   <div className="relative">
                     <Image
-                      width={176}
-                      height={264}
-                      src="/images/4.jpeg"
+                      width={750}
+                      height={500}
+                      quality={75}
+                      src={tileImageFour}
                       alt=""
                       className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                     />
@@ -332,9 +341,10 @@ const HeroSection = ({
                   </div>
                   <div className="relative">
                     <Image
-                      width={176}
-                      height={264}
-                      src="/images/5.jpeg"
+                      width={300}
+                      height={450}
+                      quality={75}
+                      src={tileImageFive}
                       alt=""
                       className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                     />
@@ -348,9 +358,9 @@ const HeroSection = ({
       </div>
     </div>
   );
-};
+}
 
-const IntroSection = ({
+function IntroSection({
   title,
   excerpt,
   body,
@@ -358,7 +368,7 @@ const IntroSection = ({
   title: string;
   excerpt: string;
   body: string;
-}) => {
+}) {
   const { ref, isVisible, toggle } = useExtendedContent();
 
   return (
@@ -366,13 +376,13 @@ const IntroSection = ({
       <Container.Outer ref={ref} className="relative bg-skin-base">
         <Container.Inner className="mb-4">
           <div className="flex justify-center mb-8">
-            <h1 className="font-serif sm:mb-8 max-w-3xl text-2xl sm:text-3xl md:text-4xl text-center leading-snug md:leading-snug text-skin-base">
+            <SectionHeader className="text-center text-gray-600">
               {title}
-            </h1>
+            </SectionHeader>
           </div>
           <div className="grid lmd:grid-cols-5 xl:grid-cols-2 gap-8">
             <div className="lmd:col-span-3 xl:col-span-1">
-              <div className="prose prose-p:leading-normal max-w-none lg:pr-6 text-lg lg:text-xl text-skin-base">
+              <div className="prose prose-p:leading-normal max-w-none lg:pr-6 text-lg lg:text-xl text-gray-600">
                 <p
                   className="first-letter:text-5xl"
                   dangerouslySetInnerHTML={{ __html: excerpt }}
@@ -440,9 +450,9 @@ const IntroSection = ({
       </Container.Outer>
     </section>
   );
-};
+}
 
-const StatsSection = ({
+function StatsSection({
   engagements,
   registered,
   participants,
@@ -452,15 +462,15 @@ const StatsSection = ({
   registered: string | number;
   participants: string | number;
   lifetimeInMonths: number;
-}) => {
+}) {
   return (
     <section className="relative">
       <Container.Outer className="bg-skin-secondary">
         <Container.Inner className="mt-4 mb-20">
           <div className="flex flex-col justify-center items-center mb-20">
-            <h1 className="sm:mb-8 max-w-2xl text-center text-2xl sm:text-3xl md:text-4xl leading-snug md:leading-snug text-skin-base font-light">
+            <SectionHeader className="font-light text-center">
               We are an active, growing community in the wider Pacific region
-            </h1>
+            </SectionHeader>
           </div>
           <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-y-16 lg:px-32 xl:px-0">
             <Stat
@@ -554,9 +564,9 @@ const StatsSection = ({
       </Container.Outer>
     </section>
   );
-};
+}
 
-const Stat = ({
+function Stat({
   icon,
   stat,
   text,
@@ -566,7 +576,7 @@ const Stat = ({
   stat: string | number;
   text: string;
   className?: string;
-}) => {
+}) {
   return (
     <div
       className={cx(
@@ -583,13 +593,13 @@ const Stat = ({
       </span>
     </div>
   );
-};
+}
 
-const EventsSection = ({
+function EventsSection({
   events,
 }: {
   events: Awaited<ReturnType<typeof getEvents>>;
-}) => {
+}) {
   return (
     <section>
       <Container.Outer className="relative">
@@ -602,24 +612,22 @@ const EventsSection = ({
           credit="Background vector created by liuzishan on freepik.com"
           creditHref="https://www.freepik.com/vectors/background"
         />
-        <Container.Inner className="my-16">
+        <Container.Inner className="mb-12">
           <Container.Content>
-            <div className="flex flex-col mb-12 lg:mb-0">
-              <div className="z-10 flex flex-col mb-16 max-w-lg">
-                <div>
-                  <Link
-                    href="https://twitter.com/hashtag/WCPTevents?src=hashtag_click"
-                    className="text-lg tracking-wider text-yellow-400"
-                    referrerPolicy="no-referrer"
-                    target="_blank"
-                  >
-                    #WCPTevents
-                  </Link>
-                </div>
-                <h1 className="mt-1 mb-2 sm:mb-4 text-2xl sm:text-3xl md:text-4xl text-skin-inverted">
+            <div className="flex flex-col">
+              <div className="flex flex-col mt-4 mb-16 max-w-lg text-start">
+                <Link
+                  href="https://twitter.com/hashtag/WCPTevents?src=hashtag_click"
+                  className="text-lg tracking-wider text-yellow-400"
+                  referrerPolicy="no-referrer"
+                  target="_blank"
+                >
+                  #WCPTevents
+                </Link>
+                <SectionHeader className="mt-2 mb-4 text-skin-inverted">
                   Upcoming Events
-                </h1>
-                <span className="text-lg text-gray-100">
+                </SectionHeader>
+                <span className="font-sans text-lg text-gray-100">
                   Join us in our virtual events. We carry out workshops and
                   meetups that you can virtually join from anywhere.
                 </span>
@@ -633,7 +641,7 @@ const EventsSection = ({
                   </Link>
                 </div> */}
               </div>
-              <div className="z-10 grid lg:grid-cols-3 grid-rows-1 gap-12 lg:gap-8 xl:gap-10 2xl:gap-12 text-gray-600 overflow-hidden">
+              <div className="grid lg:grid-cols-3 grid-rows-1 gap-12 lg:gap-8 xl:gap-10 2xl:gap-12 text-gray-600 overflow-hidden">
                 {events.map((event, i) => (
                   <EventCard
                     key={i}
@@ -648,9 +656,9 @@ const EventsSection = ({
       </Container.Outer>
     </section>
   );
-};
+}
 
-const EventCard = ({
+function EventCard({
   className,
   href,
   type,
@@ -668,7 +676,7 @@ const EventCard = ({
   date?: string | null;
   datetime: string;
   year: number;
-}) => {
+}) {
   return (
     <a
       href={href}
@@ -677,26 +685,26 @@ const EventCard = ({
         className
       )}
     >
-      <div className="relative flex justify-between py-8 px-10 border-b border-solid bg-skin-primary-muted">
+      <div className="relative flex justify-between py-6 px-10 border-b border-solid bg-skin-primary-muted">
         <div className="flex flex-col">
-          <span className="text-2xl 2xl:text-3xl font-semibold text-skin-inverted">
+          <h3 className="my-2 text-xl 2xl:text-2xl font-semibold text-skin-inverted">
             {date ? date : format(new Date(datetime), "d MMM yyyy")}
-          </span>
+          </h3>
           <span className="text-lg uppercase tracking-widest">{year}</span>
-          <div className="absolute bottom-0 translate-y-1/2 py-1.5 px-2.5 rounded-md drop-shadow-md bg-skin-base">
-            <span className="font-semibold text-skin-muted tracking-wider">
+
+          <h2 className="my-2 font-serif font-medium text-[#eafaff] text-2xl leading-snug">
+            {title}
+          </h2>
+          <div className="mt-1">
+            <span className="py-1 px-2 text-[#ccf3ff] text-sm border border-[#ccf3ff] rounded-md">
               {type}
             </span>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col h-full p-10 bg-skin-base">
+      <div className="flex flex-col h-full py-6 px-10 bg-skin-base">
         <div className="flex flex-col leading-snug">
-          <span className="text-lg xl:text-xl font-bold mb-4 group-hover:text-skin-primary transition-colors duration-200">
-            {title}
-          </span>
-
           {excerpt && (
             <div className="block text-lg leading-normal text-skin-muted">
               {excerpt}
@@ -704,16 +712,75 @@ const EventCard = ({
           )}
         </div>
 
-        <div className="flex items-center mt-auto pt-8 2xl:pt-12 gap-2 text-skin-muted group-hover:text-skin-primary transition-colors duration-200">
+        <div className="flex items-center mt-auto pt-6 gap-2 text-skin-muted group-hover:text-skin-primary transition-colors duration-200">
           <span>View details</span>
           <BsArrowRightCircle className="text-3xl" />
         </div>
       </div>
     </a>
   );
+}
+
+const CoursesSection = ({ courses }: { courses: CoursePost[] }) => {
+  return (
+    <Container.Outer className="bg-[#c55f42] overflow-hidden">
+      <div className="relative isolate pointer-events-none">
+        <svg
+          className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]"
+          aria-hidden="true"
+        >
+          <defs>
+            <pattern
+              id="1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84"
+              width={200}
+              height={200}
+              x="50%"
+              y={-1}
+              patternUnits="userSpaceOnUse"
+            >
+              <path d="M.5 200V.5H200" fill="none" />
+            </pattern>
+          </defs>
+          <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
+            <path
+              d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+              strokeWidth={0}
+            />
+          </svg>
+          <rect
+            width="100%"
+            height="100%"
+            strokeWidth={0}
+            fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)"
+          />
+        </svg>
+      </div>
+      <Container.Inner className="isolate">
+        <Container.Content>
+          <div className="flex flex-col">
+            <SectionHeader className="mb-4 text-skin-inverted text-start">
+              Discover short courses curated for our community
+              <Link href="/courses">
+                <BsArrowRightCircle className="inline ml-2" />
+              </Link>
+            </SectionHeader>
+            <div className="grid lg:flex gap-6 my-4">
+              {courses.map((course) => (
+                <Link key={course.slug} href={`courses/${course.slug}`}>
+                  <div className="flex py-4 px-6 bg-skin-base rounded-md">
+                    <div className="text-skin-base">{course.title}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </Container.Content>
+      </Container.Inner>
+    </Container.Outer>
+  );
 };
 
-const ContactSection = ({
+function ContactSection({
   socialLinks,
 }: {
   socialLinks: {
@@ -722,17 +789,17 @@ const ContactSection = ({
     youtube: string;
     email: string;
   };
-}) => {
+}) {
   return (
     <section className="relative py-12 sm:py-12 bg-white">
       <div className="xl:container mx-auto py-16 px-8 sm:px-12 flex flex-col">
-        <h2 className="z-10 font-sans font-black text-4xl sm:text-5xl tracking-tight text-gray-900">
+        <h2 className="font-sans font-black text-4xl sm:text-5xl tracking-tight text-gray-900">
           <div className="">Want to get in touch?</div>
           <div className="bg-clip-text text-skin-primary">
             Reach us through social media or email us!
           </div>
         </h2>
-        <div className="z-10 mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
+        <div className="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
           <div className="flex items-center theme-social-gray-bg">
             <FacebookIcon href={socialLinks.facebook} />
             <TwitterIcon href={socialLinks.twitter} />
@@ -743,39 +810,25 @@ const ContactSection = ({
       </div>
     </section>
   );
-};
+}
 
-// const CoursesSection = ({ courses }: { courses: CoursePost[] }) => {
-//   return (
-//     <div>
-//       {courses.map((course) => (
-//         <div key={course.id}>{course.title}</div>
-//       ))}
-//     </div>
-//   );
-// };
-
-const Footer = ({ className }: { className?: string }) => {
+function SectionHeader({
+  children,
+  className,
+  ...props
+}: { children: React.ReactNode } & React.ComponentProps<"div">) {
   return (
-    <footer className={cx("relative bg-skin-secondary", className)}>
-      <div className="flex flex-col container mx-auto px-8 sm:px-12">
-        <div className="z-10 flex flex-col md:flex-row justify-between container mx-auto py-12">
-          <div className="flex justify-center items-center my-2">
-            <div className="text-center text-gray-900">
-              <span>Wisdom Community of Pasifika Teachers &copy; </span>
-              <span>{new Date().getFullYear()}</span>
-            </div>
-          </div>
-          <div className="flex justify-center items-center my-2">
-            <span className="text-center text-gray-900">
-              Supported by Fiji National University
-            </span>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <h1
+      className={cx(
+        "font-serif max-w-3xl text-2xl sm:text-3xl md:text-4xl !leading-snug",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </h1>
   );
-};
+}
 
 type ContainerType = React.ForwardRefExoticComponent<
   React.HTMLAttributes<HTMLDivElement> & React.RefAttributes<HTMLDivElement>

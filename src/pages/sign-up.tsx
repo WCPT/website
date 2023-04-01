@@ -1,7 +1,11 @@
-import { Formik } from "formik";
+import React from "react";
 import cx from "clsx";
+import axios from "axios";
+import { Formik, FormikErrors, FormikTouched } from "formik";
+import { HiXCircle, HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 
 import { ContentLayout } from "@/components/Layouts";
+import { userRegistrationSchema } from "@/lib";
 
 const occupations = [
   { label: "Select occupation", value: "" },
@@ -41,7 +45,16 @@ const countries = [
   { label: "Wallis and Futuna", value: "WF" },
 ].sort((a, b) => (a.label > b.label ? 1 : -1));
 
-const SignUpPage = () => {
+const initialValues = {
+  firstname: "",
+  lastname: "",
+  email: "",
+  password: "",
+  occupation: "",
+  country: "",
+};
+
+export default function SignUpPage() {
   return (
     <ContentLayout title="Become a member">
       <div className="grid lg:grid-cols-2 gap-16 xl:gap-28 justify-center">
@@ -65,28 +78,35 @@ const SignUpPage = () => {
         <div className="-mx-8 sm:mx-0 sm:max-w-3xl bg-skin-inverted sm:rounded-md">
           <div className="py-16 px-8 sm:p-16 lg:p-12 xl:p-16">
             <Formik
-              initialValues={{
-                firstname: "",
-                lastname: "",
-                email: "",
-                occupation: "",
-                country: "",
-              }}
-              onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  setSubmitting(false);
-                }, 400);
+              initialValues={initialValues}
+              validationSchema={userRegistrationSchema}
+              onSubmit={(values, { setSubmitting, resetForm }) => {
+                axios
+                  .post("/api/register-user", values)
+                  .then((response) => {
+                    console.log(response.data.user);
+                    if (response.status === 200) {
+                      resetForm();
+                    }
+                  })
+                  .catch(({ response }) => {
+                    console.error(response.data);
+                  })
+                  .finally(() => {
+                    setSubmitting(false);
+                  });
               }}
             >
               {({
-                values,
+                isValid,
                 errors,
                 touched,
+                values,
                 handleChange,
                 handleBlur,
                 handleSubmit,
                 isSubmitting,
+                submitCount,
               }) => (
                 <form
                   className="grid md:grid-cols-2 gap-6 lg:flex lg:flex-col"
@@ -124,6 +144,18 @@ const SignUpPage = () => {
                     value={values.email}
                     required
                   />
+                  <TextInput
+                    className="md:col-span-2"
+                    name="password"
+                    type="password"
+                    label="Password"
+                    autoComplete="password"
+                    placeholder="********"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.password}
+                    required
+                  />
                   <SelectInput
                     name="occupation"
                     label="Occupation"
@@ -142,10 +174,16 @@ const SignUpPage = () => {
                     value={values.country}
                     required
                   />
+                  {!isValid && submitCount > 0 ? (
+                    <ErrorMessage errors={errors} touched={touched} />
+                  ) : null}
                   <div className="md:col-span-2">
                     <button
                       type="submit"
-                      className="flex items-center justify-center mt-4 lg:w-full px-8 py-3 bg-skin-primary-muted hover:bg-skin-accent text-skin-inverted hover:text-black rounded-full shadow-md transition-colors"
+                      className={cx(
+                        "flex items-center justify-center mt-4 lg:w-full px-8 py-3 bg-skin-primary-muted hover:bg-skin-accent text-skin-inverted hover:text-black rounded-full shadow-md transition-colors",
+                        isSubmitting && "opacity-50 cursor-not-allowed"
+                      )}
                       disabled={isSubmitting}
                     >
                       Submit
@@ -159,18 +197,30 @@ const SignUpPage = () => {
       </div>
     </ContentLayout>
   );
-};
+}
 
-export default SignUpPage;
-
-const TextInput = ({
+function TextInput({
   className,
   label,
   name,
+  type,
   ...props
 }: React.ComponentProps<"input"> & {
   label: string;
-}) => {
+}) {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [fieldType, setFieldType] = React.useState(type);
+
+  React.useEffect(() => {
+    if (type === "password") {
+      if (showPassword) {
+        setFieldType("text");
+      } else {
+        setFieldType(type);
+      }
+    }
+  }, [showPassword]);
+
   return (
     <div className={className}>
       <label
@@ -179,14 +229,29 @@ const TextInput = ({
       >
         {label}
       </label>
-      <div className="mt-1">
+      <div className="flex mt-1">
         <input
           id={name}
           name={name}
-          type="text"
+          type={fieldType}
           className="block w-full py-2 text-skin-inverted bg-transparent outline-none border-b border-gray-500"
           {...props}
         />
+        {type === "password" ? (
+          <button type="button" className="text-skin-inverted-muted">
+            {showPassword ? (
+              <HiOutlineEyeOff
+                className="w-6 h-6 m-2"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <HiOutlineEye
+                className="w-6 h-6 m-2"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
+          </button>
+        ) : null}
       </div>
       <style jsx>{`
         input:-webkit-autofill {
@@ -196,9 +261,9 @@ const TextInput = ({
       `}</style>
     </div>
   );
-};
+}
 
-const SelectInput = ({
+function SelectInput({
   label,
   name,
   options,
@@ -206,7 +271,7 @@ const SelectInput = ({
 }: React.ComponentProps<"select"> & {
   label: string;
   options: { label: string; value: string }[];
-}) => {
+}) {
   return (
     <div>
       <label
@@ -245,4 +310,47 @@ const SelectInput = ({
       `}</style>
     </div>
   );
-};
+}
+
+function ErrorMessage({
+  errors,
+  touched,
+}: {
+  errors: FormikErrors<typeof initialValues>;
+  touched: FormikTouched<typeof initialValues>;
+}) {
+  return (
+    <div className="rounded-md bg-red-50 p-4">
+      <div className="flex">
+        <div className="flex-shrink-0">
+          <HiXCircle className="h-5 w-5 text-red-400" aria-hidden="true" />
+        </div>
+        <div className="ml-3">
+          <h3 className="text-sm font-medium text-red-800">
+            There was an error with your submission
+          </h3>
+          <div className="mt-2 text-sm text-red-700">
+            <ul role="list" className="list-disc space-y-1 pl-5">
+              {errors.firstname && touched.firstname ? (
+                <li>{errors.firstname}</li>
+              ) : null}
+              {errors.lastname && touched.lastname ? (
+                <li>{errors.lastname}</li>
+              ) : null}
+              {errors.email && touched.email ? <li>{errors.email}</li> : null}
+              {errors.password && touched.password ? (
+                <li>{errors.password}</li>
+              ) : null}
+              {errors.country && touched.country ? (
+                <li>{errors.country}</li>
+              ) : null}
+              {errors.occupation && touched.occupation ? (
+                <li>{errors.occupation}</li>
+              ) : null}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
