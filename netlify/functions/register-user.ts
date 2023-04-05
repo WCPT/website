@@ -186,7 +186,7 @@ function mapUserFields({
   return {
     username: makeUsername(firstname, lastname),
     password,
-    firstname: removeSpaces(firstname),
+    firstname: firstname.trim(),
     lastname: removeSpaces(lastname),
     email: removeSpaces(email),
     country: removeSpaces(country),

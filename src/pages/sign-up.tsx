@@ -49,18 +49,15 @@ const initialValues = {
   firstname: "",
   lastname: "",
   email: "",
-  password: "",
   occupation: "",
   country: "",
 };
 
 export default function SignUpPage() {
-  const [registrationSuccess, setRegistrationSuccess] = React.useState<
-    boolean | null
-  >(null);
   const [signedUpUser, setSignedUpUser] = React.useState<{
     email: string;
   } | null>(null);
+  const [signUpError, setSignUpError] = React.useState<string>();
 
   return (
     <ContentLayout title="Become a member">
@@ -83,7 +80,7 @@ export default function SignUpPage() {
           </p>
         </div>
         <div className="-mx-8 sm:mx-0 sm:max-w-3xl bg-skin-inverted sm:rounded-md">
-          {registrationSuccess && signedUpUser ? (
+          {signedUpUser ? (
             <div className="text-skin-inverted">
               <div className="py-16 px-8 sm:p-16 lg:p-12 xl:p-16">
                 <h2 className="text-2xl font-semibold mb-4">
@@ -110,12 +107,12 @@ export default function SignUpPage() {
                     .then((response) => {
                       if (response.status === 200) {
                         resetForm();
-                        setRegistrationSuccess(true);
                         setSignedUpUser(response.data.user);
                       }
                     })
                     .catch(({ response }) => {
                       console.error(response.data);
+                      setSignUpError(response.data.message);
                     })
                     .finally(() => {
                       setSubmitting(false);
@@ -199,6 +196,7 @@ export default function SignUpPage() {
                       value={values.country}
                       required
                     />
+
                     {!isValid && submitCount > 0 ? (
                       <ErrorMessage errors={errors} touched={touched} />
                     ) : null}
@@ -213,6 +211,24 @@ export default function SignUpPage() {
                       >
                         Submit
                       </button>
+
+                      {signUpError ? (
+                        <div className="mt-6 rounded-md bg-red-50 p-4">
+                          <div className="flex">
+                            <div className="flex-shrink-0">
+                              <HiXCircle
+                                className="h-5 w-5 text-red-400"
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <div className="ml-3">
+                              <h3 className="text-sm font-medium text-red-800">
+                                {signUpError}
+                              </h3>
+                            </div>
+                          </div>
+                        </div>
+                      ) : null}
                     </div>
                   </form>
                 )}
@@ -364,9 +380,6 @@ function ErrorMessage({
                 <li>{errors.lastname}</li>
               ) : null}
               {errors.email && touched.email ? <li>{errors.email}</li> : null}
-              {errors.password && touched.password ? (
-                <li>{errors.password}</li>
-              ) : null}
               {errors.country && touched.country ? (
                 <li>{errors.country}</li>
               ) : null}
