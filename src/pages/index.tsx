@@ -826,7 +826,7 @@ function SectionHeader({
   return (
     <h1
       className={cx(
-        "font-serif max-w-3xl text-2xl sm:text-3xl md:text-4xl !leading-snug",
+        "font-serif max-w-3xl text-3xl md:text-4xl !leading-snug",
         className
       )}
       {...props}

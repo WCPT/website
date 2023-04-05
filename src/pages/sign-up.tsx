@@ -55,6 +55,10 @@ const initialValues = {
 };
 
 export default function SignUpPage() {
+  const [registrationSuccess, setRegistrationSuccess] = React.useState<
+    boolean | null
+  >(null);
+
   return (
     <ContentLayout title="Become a member">
       <div className="grid lg:grid-cols-2 gap-16 xl:gap-28 justify-center">
@@ -76,75 +80,88 @@ export default function SignUpPage() {
           </p>
         </div>
         <div className="-mx-8 sm:mx-0 sm:max-w-3xl bg-skin-inverted sm:rounded-md">
-          <div className="py-16 px-8 sm:p-16 lg:p-12 xl:p-16">
-            <Formik
-              initialValues={initialValues}
-              validationSchema={userRegistrationSchema}
-              onSubmit={(values, { setSubmitting, resetForm }) => {
-                axios
-                  .post("/api/register-user", values)
-                  .then((response) => {
-                    console.log(response.data.user);
-                    if (response.status === 200) {
-                      resetForm();
-                    }
-                  })
-                  .catch(({ response }) => {
-                    console.error(response.data);
-                  })
-                  .finally(() => {
-                    setSubmitting(false);
-                  });
-              }}
-            >
-              {({
-                isValid,
-                errors,
-                touched,
-                values,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-                submitCount,
-              }) => (
-                <form
-                  className="grid md:grid-cols-2 gap-6 lg:flex lg:flex-col"
-                  onSubmit={handleSubmit}
-                >
-                  <TextInput
-                    name="firstname"
-                    label="First name"
-                    autoComplete="given-name"
-                    placeholder="John"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.firstname}
-                    required
-                  />
-                  <TextInput
-                    name="lastname"
-                    label="Last name"
-                    autoComplete="family-name"
-                    placeholder="Smith"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.lastname}
-                    required
-                  />
-                  <TextInput
-                    className="md:col-span-2"
-                    name="email"
-                    type="email"
-                    label="Email"
-                    autoComplete="email"
-                    placeholder="johnsmith@example.com"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                    required
-                  />
-                  <TextInput
+          {registrationSuccess ? (
+            <div className="text-skin-inverted">
+              <div className="py-16 px-8 sm:p-16 lg:p-12 xl:p-16">
+                <h2 className="text-2xl font-semibold mb-4">
+                  Thank you for registering!
+                </h2>
+                <p className="text-lg">
+                  You will receive an email shortly with a link to activate your
+                  account.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="py-16 px-8 sm:p-16 lg:p-12 xl:p-16">
+              <Formik
+                initialValues={initialValues}
+                validationSchema={userRegistrationSchema}
+                onSubmit={(values, { setSubmitting, resetForm }) => {
+                  axios
+                    .post("/api/register-user", values)
+                    .then((response) => {
+                      if (response.status === 200) {
+                        resetForm();
+                        setRegistrationSuccess(true);
+                      }
+                    })
+                    .catch(({ response }) => {
+                      console.error(response.data);
+                    })
+                    .finally(() => {
+                      setSubmitting(false);
+                    });
+                }}
+              >
+                {({
+                  isValid,
+                  errors,
+                  touched,
+                  values,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                  submitCount,
+                }) => (
+                  <form
+                    className="grid md:grid-cols-2 gap-6 lg:flex lg:flex-col"
+                    onSubmit={handleSubmit}
+                  >
+                    <TextInput
+                      name="firstname"
+                      label="First name"
+                      autoComplete="given-name"
+                      placeholder="John"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.firstname}
+                      required
+                    />
+                    <TextInput
+                      name="lastname"
+                      label="Last name"
+                      autoComplete="family-name"
+                      placeholder="Smith"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.lastname}
+                      required
+                    />
+                    <TextInput
+                      className="md:col-span-2"
+                      name="email"
+                      type="email"
+                      label="Email"
+                      autoComplete="email"
+                      placeholder="johnsmith@example.com"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                      required
+                    />
+                    {/* <TextInput
                     className="md:col-span-2"
                     name="password"
                     type="password"
@@ -155,44 +172,45 @@ export default function SignUpPage() {
                     onBlur={handleBlur}
                     value={values.password}
                     required
-                  />
-                  <SelectInput
-                    name="occupation"
-                    label="Occupation"
-                    options={occupations}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.occupation}
-                    required
-                  />
-                  <SelectInput
-                    name="country"
-                    label="Country"
-                    options={countries}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.country}
-                    required
-                  />
-                  {!isValid && submitCount > 0 ? (
-                    <ErrorMessage errors={errors} touched={touched} />
-                  ) : null}
-                  <div className="md:col-span-2">
-                    <button
-                      type="submit"
-                      className={cx(
-                        "flex items-center justify-center mt-4 lg:w-full px-8 py-3 bg-skin-primary-muted hover:bg-skin-accent text-skin-inverted hover:text-black rounded-full shadow-md transition-colors",
-                        isSubmitting && "opacity-50 cursor-not-allowed"
-                      )}
-                      disabled={isSubmitting}
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              )}
-            </Formik>
-          </div>
+                  /> */}
+                    <SelectInput
+                      name="occupation"
+                      label="Occupation"
+                      options={occupations}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.occupation}
+                      required
+                    />
+                    <SelectInput
+                      name="country"
+                      label="Country"
+                      options={countries}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.country}
+                      required
+                    />
+                    {!isValid && submitCount > 0 ? (
+                      <ErrorMessage errors={errors} touched={touched} />
+                    ) : null}
+                    <div className="md:col-span-2">
+                      <button
+                        type="submit"
+                        className={cx(
+                          "flex items-center justify-center mt-4 lg:w-full px-8 py-3 bg-skin-primary-muted hover:bg-skin-accent text-skin-inverted hover:text-black rounded-full shadow-md transition-colors",
+                          isSubmitting && "opacity-50 cursor-not-allowed"
+                        )}
+                        disabled={isSubmitting}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </Formik>
+            </div>
+          )}
         </div>
       </div>
     </ContentLayout>
