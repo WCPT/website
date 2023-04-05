@@ -39,8 +39,6 @@ collections:
     folder: "content/events"
     create: true
     slug: "{{slug}}"
-    media_folder: ""
-    public_folder: ""
     path: "{{title}}"
     editor:
       preview: false
@@ -54,7 +52,13 @@ collections:
       - { label: "Event Type", name: "type", widget: "string" }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Datetime", name: "datetime", widget: "datetime" }
-      # - { label: "Dates", name: "dates", widget: "string", required: false }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "string",
+          required: false,
+          comment: "Specifying this will override the displayed date for the event",
+        }
       - { label: "Duration", name: "duration", widget: "string" }
       - {
           label: "Registration URL",
@@ -68,7 +72,12 @@ collections:
           widget: "string",
           required: false,
         }
-      - { label: "Excerpt", name: "excerpt", widget: "string" }
+      - {
+          label: "Excerpt",
+          name: "excerpt",
+          widget: "string",
+          comment: "A short extract of what the event is about in approximately 25 words",
+        }
       - { label: "Details", name: "body", widget: "markdown" }
 
   - label: "Course"
@@ -76,8 +85,6 @@ collections:
     folder: "content/courses"
     create: true
     slug: "{{slug}}"
-    media_folder: ""
-    public_folder: ""
     path: "{{title}}"
     editor:
       preview: false
@@ -109,5 +116,10 @@ collections:
           widget: "string",
           required: false,
         }
-      - { label: "Excerpt", name: "excerpt", widget: "string" }
+      - {
+          label: "Excerpt",
+          name: "excerpt",
+          widget: "string",
+          comment: "A short extract of what the event is about in approximately 40 words",
+        }
       - { label: "Details", name: "body", widget: "markdown" }

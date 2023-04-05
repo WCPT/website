@@ -2,10 +2,10 @@ import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import { MdOpenInNew } from "react-icons/md";
 import { BsArrowLeftCircle } from "react-icons/bs";
-import { format } from "date-fns";
 
 import { ContentLayout } from "@/components/Layouts";
 import { getEvents, getCourseBySlug, getCourses } from "@/lib";
+import { SideSuggestionsPane } from "@/components/Elements";
 
 export const getStaticPaths = async () => {
   const courses = await getCourses();
@@ -29,20 +29,20 @@ export const getStaticProps = (async ({ params }) => {
   return {
     props: {
       course,
-      courseList: allCourses.slice(0, 5),
-      eventList: allEvents.slice(0, 5),
+      courses: allCourses.slice(0, 5),
+      events: allEvents.slice(0, 5),
     },
   };
 }) satisfies GetStaticProps<{
   course: Awaited<ReturnType<typeof getCourseBySlug>>;
-  courseList: Awaited<ReturnType<typeof getCourses>>;
-  eventList: Awaited<ReturnType<typeof getEvents>>;
+  courses: Awaited<ReturnType<typeof getCourses>>;
+  events: Awaited<ReturnType<typeof getEvents>>;
 }>;
 
 export const EventPage = ({
   course,
-  eventList,
-  courseList,
+  events,
+  courses,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <ContentLayout title={course.title} description={course.excerpt}>
@@ -95,47 +95,7 @@ export const EventPage = ({
           ) : null}
         </article>
 
-        <aside className="hidden lg:flex flex-col col-span-2 gap-y-12">
-          <div className="flex flex-col gap-y-2">
-            <h1 className="font-bold">Workshops & Events</h1>
-            {eventList.map((event) => (
-              <Link
-                key={event.slug}
-                href={`/events/${event.slug}`}
-                className="group"
-              >
-                <span className="block group-hover:underline underline-offset-2">
-                  {event.title}
-                </span>
-                <span className="flex items-center gap-x-1.5 text-sm text-skin-muted">
-                  {event.date
-                    ? event.date
-                    : format(new Date(event.datetime), "d MMM yyyy")}
-                  <div className="inline-block rounded-full w-1 h-1 bg-gray-400" />
-                  {event.type}
-                </span>
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex flex-col gap-y-2">
-            <h1 className="font-bold">Short Courses</h1>
-            {courseList.map((event) => (
-              <Link
-                key={event.slug}
-                href={`/courses/${event.slug}`}
-                className="group"
-              >
-                <span className="block group-hover:underline underline-offset-2">
-                  {event.title}
-                </span>
-                <span className="flex items-center gap-x-1.5 text-sm text-skin-muted">
-                  {event.dates}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </aside>
+        <SideSuggestionsPane events={events} courses={courses} />
       </div>
     </ContentLayout>
   );

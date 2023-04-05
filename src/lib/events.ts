@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 type EventPost = {
   slug: string;
   published: boolean;
@@ -55,4 +57,13 @@ export async function getEventBySlug(slug: string): Promise<EventPost> {
     content: html ?? null,
     slug,
   };
+}
+
+export function displayEventDate(event: {
+  date?: string | null;
+  datetime: string;
+}) {
+  return event.date
+    ? event.date
+    : format(new Date(event.datetime), "d MMM yyyy");
 }

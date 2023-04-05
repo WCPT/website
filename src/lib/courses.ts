@@ -1,10 +1,12 @@
+import { format } from "date-fns";
+
 type CoursePost = {
   id: string | number;
   slug: string;
   published: boolean;
   title: string;
-  openingDate: Date;
-  closingDate?: Date | null;
+  openingDate: string; // ISO date string
+  closingDate?: string | null; // ISO date string
   dates?: string | null; // to be deprecated
   registrationUrl?: string | null;
   registrationDeadline?: string | null;
@@ -57,4 +59,19 @@ export async function getCourseBySlug(slug: string): Promise<CoursePost> {
     content: html ?? null,
     slug,
   };
+}
+
+export function displayCourseDate(course: {
+  dates?: string | null;
+  openingDate: string;
+  closingDate?: string | null;
+}) {
+  return course.dates
+    ? course.dates
+    : course.closingDate
+    ? `${format(new Date(course.openingDate), "d MMM yyyy")} - ${format(
+        new Date(course.closingDate),
+        "d MMM yyyy"
+      )}`
+    : format(new Date(course.openingDate), "d MMM yyyy");
 }

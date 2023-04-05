@@ -2,7 +2,7 @@ import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import { format } from "date-fns";
 
-import { getCourses } from "@/lib";
+import { displayCourseDate, getCourses } from "@/lib";
 import { ContentLayout } from "@/components/Layouts";
 
 export const getStaticProps = (async () => {
@@ -36,7 +36,7 @@ export const EventsIndexPage = ({
                 <div className="text-skin-muted">{course.excerpt}</div>
               ) : null}
               <span className="flex items-center gap-x-1.5 text-skin-muted">
-                {format(new Date(course.openingDate), "d MMM yyyy")}
+                {displayCourseDate(course)}
               </span>
             </Link>
           </li>
