@@ -76,26 +76,24 @@ export const EventPage = ({
             </div>
 
             <div className="order-1 sm:order-2">
-              {event.type ? (
-                <div className="font-bold">{event.type}</div>
-              ) : null}
+              {event.type && <div className="font-bold">{event.type}</div>}
 
               <div>{event.duration}</div>
-              {event.registrationDeadline ? (
+              {event.registrationDeadline && (
                 <div className="text-xl text-skin-muted">
                   {event.registrationDeadline}
                 </div>
-              ) : null}
+              )}
             </div>
           </div>
 
-          {event.content ? (
+          {event.content && (
             <div
               className="mt-16"
               dangerouslySetInnerHTML={{ __html: event.content }}
               itemProp="articleBody"
             />
-          ) : null}
+          )}
         </article>
 
         <SideSuggestionsPane events={events} courses={courses} />

@@ -2,7 +2,7 @@
 published: true
 title: Communication Skills for Open, Distance and Flexible Learning
 openingDate: 2022-01-02T12:00:03.129Z
-# closingDate:
+closingDate: 2022-01-30T12:00:03.129Z
 dates: 3 - 30 January 2022
 registrationUrl: https://oer.nz/cs4odfl22
 excerpt: This four-week CS4ODFL course helps teachers enhance communication in ODFL contexts, particularly in the Pacific Region. Participants commit 3-5 hours weekly to learn inclusive practices, technology use, course design, online facilitation, and conflict-management strategies, earning digital badges and a completion certificate.

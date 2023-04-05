@@ -2,7 +2,6 @@
 published: true
 title: Grammar Matters - English for Teaching Purposes
 openingDate: 2023-01-30T20:34:29.413Z
-# closingDate:
 dates: Self-paced
 excerpt: This free, six-unit course enhances understanding of grammar and meaning, especially for student communication. Master grammar as a flexible tool, learn how grammar and vocabulary choices create diverse meanings, and apply grammar awareness in real-world situations for effective everyday and professional communication.
 ---

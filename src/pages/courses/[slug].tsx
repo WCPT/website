@@ -78,21 +78,21 @@ export const EventPage = ({
             </div>
 
             <div className="order-1 sm:order-2">
-              {course.registrationDeadline ? (
+              {course.registrationDeadline && (
                 <div className="text-xl text-skin-muted">
                   {course.registrationDeadline}
                 </div>
-              ) : null}
+              )}
             </div>
           </div>
 
-          {course.content ? (
+          {course.content && (
             <div
               className="mt-16"
               dangerouslySetInnerHTML={{ __html: course.content }}
               itemProp="articleBody"
             />
-          ) : null}
+          )}
         </article>
 
         <SideSuggestionsPane events={events} courses={courses} />

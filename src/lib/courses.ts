@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { formatDate } from "./dates";
 
 type CoursePost = {
   id: string | number;
@@ -69,9 +69,6 @@ export function displayCourseDate(course: {
   return course.dates
     ? course.dates
     : course.closingDate
-    ? `${format(new Date(course.openingDate), "d MMM yyyy")} - ${format(
-        new Date(course.closingDate),
-        "d MMM yyyy"
-      )}`
-    : format(new Date(course.openingDate), "d MMM yyyy");
+    ? `${formatDate(course.openingDate)} - ${formatDate(course.closingDate)}`
+    : formatDate(course.openingDate);
 }

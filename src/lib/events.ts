@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { formatDate } from "./dates";
 
 type EventPost = {
   slug: string;
@@ -63,7 +63,5 @@ export function displayEventDate(event: {
   date?: string | null;
   datetime: string;
 }) {
-  return event.date
-    ? event.date
-    : format(new Date(event.datetime), "d MMM yyyy");
+  return event.date ?? formatDate(event.datetime);
 }
