@@ -1,7 +1,8 @@
 import { HandlerEvent, HandlerContext } from "@netlify/functions";
 import sendgrid from "@sendgrid/mail";
 import * as yup from "yup";
-// import ejs from "ejs";
+import ejs from "ejs";
+import fs from "fs";
 
 import { userRegistrationSchema } from "../../src/lib/validationSchema";
 import MoodleClient from "../lib/moodle/client";
@@ -10,10 +11,41 @@ import generatePassword from "../lib/generatePassword";
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const COURSE_ID = Number(process.env.COURSE_ID);
+
 const moodleClient = new MoodleClient({
   wwwroot: process.env.MOODLE_URL!,
   token: process.env.MOODLE_API_KEY!,
 });
+
+const emailTemplate = `
+<div>
+  <p>Dear <%= lastname %>,</p>
+  <p>Congratulations! Your registration is confirmed.</p>
+  <p>Thank you for your interest in Please Talanoa Karo, Pasifika!</p>
+  <p>
+    You may now access "Please Talanoa Karo, Pasifika!" in Moodle <a href="<%= process.env.MOODLE_URL %>course/view.php?id=<%= process.env.COURSE_ID %>">here</a> using
+    <% if (locals.username && locals.password) { %>
+      the following credentials:
+      <p>
+        <div>username: <%= username %></div>
+        <div>password: <%= password %></div>
+      </p>
+    <% } else { %>
+      your usual Moodle credentials.
+    <% } %>
+  </p>
+  <p>This online discussion platform has a collection of discussion forums on topics pertaining to teaching experiences. Please feel free to post your experiences and ideas in the forums. You can also use these forums to request for or offer assistance.</p>
+  <p>Please ensure to read the forum etiquette before posting.</p>
+  <p>If you have any queries, please feel free to email to <a href="mailto:clte@fnu.ac.fj">clte@fnu.ac.fj</a></p>
+  <p>
+    <div>Best regards,</div>
+    <div>Team CLTE.</div>
+    <div>
+      <a href="https://clte.fnu.ac.fj/">Our website</a>
+    </div>
+  </p>
+</div>
+`;
 
 type RequestBody = {
   firstname: string;
@@ -120,15 +152,19 @@ async function sendWelcomeEmail(
     return await sendgrid.send({
       to: user.email,
       from: "no-reply@pasifikateachers.org",
-      subject: "Welcome to the community!",
-      html: "<p>Welcome to the community!</p>",
+      subject: "Welcome to Please Talanoa Karo, Pasifika!",
+      html: ejs.render(emailTemplate, {
+        lastname: user.lastname,
+        username: user.username,
+        password: user.password,
+      }),
     });
   }
   return await sendgrid.send({
     to: user.email,
     from: "no-reply@pasifikateachers.org",
-    subject: "Welcome to the community!",
-    html: "<p>Welcome to the community!</p>",
+    subject: "Welcome to Please Talanoa Karo, Pasifika!",
+    html: ejs.render(emailTemplate, { lastname: user.lastname }),
   });
 }
 

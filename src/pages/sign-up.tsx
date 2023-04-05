@@ -58,6 +58,9 @@ export default function SignUpPage() {
   const [registrationSuccess, setRegistrationSuccess] = React.useState<
     boolean | null
   >(null);
+  const [signedUpUser, setSignedUpUser] = React.useState<{
+    email: string;
+  } | null>(null);
 
   return (
     <ContentLayout title="Become a member">
@@ -80,15 +83,19 @@ export default function SignUpPage() {
           </p>
         </div>
         <div className="-mx-8 sm:mx-0 sm:max-w-3xl bg-skin-inverted sm:rounded-md">
-          {registrationSuccess ? (
+          {registrationSuccess && signedUpUser ? (
             <div className="text-skin-inverted">
               <div className="py-16 px-8 sm:p-16 lg:p-12 xl:p-16">
                 <h2 className="text-2xl font-semibold mb-4">
-                  Thank you for registering!
+                  Congratulations!
+                  <br />
+                  Your registration is confirmed.
                 </h2>
                 <p className="text-lg">
-                  You will receive an email shortly with a link to activate your
-                  account.
+                  Please check your email{" "}
+                  <span className="text-blue-400">{signedUpUser.email}</span> to
+                  find the instructions to access{" "}
+                  <strong>Please Talanoa Karo, Pasifika!</strong> on Moodle.
                 </p>
               </div>
             </div>
@@ -104,6 +111,7 @@ export default function SignUpPage() {
                       if (response.status === 200) {
                         resetForm();
                         setRegistrationSuccess(true);
+                        setSignedUpUser(response.data.user);
                       }
                     })
                     .catch(({ response }) => {
