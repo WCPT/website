@@ -17,7 +17,7 @@ export const Icon = ({
     <Link href={href} target="_blank" rel="noopener" title={title}>
       <IconComponent
         className={cx(
-          `mx-1 p-1.5 text-4xl sm:p-2.5 sm:text-5xl rounded-md transition-all duration-300`,
+          `mx-1 p-2.5 text-5xl rounded-md transition-all duration-300`,
           className
         )}
       />
