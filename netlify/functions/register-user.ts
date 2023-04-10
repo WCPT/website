@@ -2,7 +2,6 @@ import { HandlerEvent, HandlerContext } from "@netlify/functions";
 import sendgrid from "@sendgrid/mail";
 import * as yup from "yup";
 import ejs from "ejs";
-import fs from "fs";
 
 import { userRegistrationSchema } from "../../src/lib/validationSchema";
 import MoodleClient from "../lib/moodle/client";
