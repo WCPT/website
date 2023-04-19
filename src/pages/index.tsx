@@ -264,11 +264,12 @@ function HeroSection({
             </defs>
           </svg>
         </div>
+
         <div className="overflow-hidden">
           <Container.Inner className="pb-32 pt-36 sm:pt-60 lg:pt-32">
             <Container.Content className="gap-x-14">
               <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
-                <h1 className="text-4xl sm:text-6xl sm:leading-[4.2rem] tracking-tight text-skin-strong">
+                <h1 className="text-4xl/tight sm:text-6xl sm:leading-[4.2rem] tracking-tight text-skin-strong">
                   {title}
                 </h1>
                 <p className="relative mt-6 text-lg leading-8 text-skin-base sm:max-w-md lg:max-w-none">
@@ -397,12 +398,13 @@ function IntroSection({
               </div>
 
               <div className="block sm:hidden">
-                <span
-                  className="inline-block px-2 py-1.5 sm:p-2 rounded-sm text-blue-500 border border-blue-500 cursor-pointer"
+                <button
+                  type="button"
+                  className="inline-block px-2.5 py-1.5 sm:p-2 text-sm text-skin-primary border border-skin-primary cursor-pointer rounded-full"
                   onClick={toggle}
                 >
                   {isVisible ? "Show less" : "Show more"}
-                </span>
+                </button>
               </div>
             </div>
             <div className="hidden relative lmd:grid xl:grid-cols-2 gap-4 auto-rows-min col-span-2 xl:col-span-1">
@@ -687,9 +689,9 @@ function EventCard({
         className
       )}
     >
-      <div className="relative flex justify-between py-6 px-10 border-b border-solid bg-skin-primary-muted">
+      <div className="relative flex justify-between py-6 px-6 sm:px-10 border-b border-solid bg-skin-primary-muted">
         <div className="flex flex-col">
-          <h3 className="my-2 text-xl 2xl:text-2xl font-semibold text-skin-inverted">
+          <h3 className="sm:my-2 text-2xl font-semibold text-skin-inverted">
             {date ? date : format(new Date(datetime), "d MMM yyyy")}
           </h3>
           <span className="text-lg uppercase tracking-widest">{year}</span>
@@ -705,7 +707,7 @@ function EventCard({
         </div>
       </div>
 
-      <div className="flex flex-col h-full py-6 px-10 bg-skin-base">
+      <div className="flex flex-col h-full py-6 px-6 sm:px-10 bg-skin-base">
         <div className="flex flex-col leading-snug">
           {excerpt && (
             <div className="block text-lg leading-normal text-skin-muted">
