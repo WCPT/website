@@ -11,6 +11,7 @@ const links = [
   {
     href: "https://online.fnu.ac.fj/course/view.php?id=3",
     label: "Please Talanoa Karo, Pasifika!",
+    newTab: true,
   },
   { href: "/events", label: "Workshops & Events" },
   { href: "/courses", label: "Short courses" },
@@ -34,8 +35,13 @@ export const Navbar = ({ className }: { className?: string }) => {
           </Link>
           {/* Desktop */}
           <div className="hidden lg:flex gap-x-6">
-            {links.map(({ href, label }) => (
-              <DesktopLink key={href} href={href}>
+            {links.map(({ href, label, newTab }) => (
+              <DesktopLink
+                key={href}
+                href={href}
+                target={newTab ? "_blank" : "_self"}
+                referrerPolicy="no-referrer"
+              >
                 {label}
               </DesktopLink>
             ))}
