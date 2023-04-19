@@ -76,8 +76,12 @@ export const Navbar = ({ className }: { className?: string }) => {
                 </div>
 
                 <div className="flex flex-col my-16 divide-y divide-stone-600">
-                  {links.map(({ href, label }) => (
-                    <MobileLink key={href} href={href}>
+                  {links.map(({ href, label, newTab }) => (
+                    <MobileLink
+                      key={href}
+                      href={href}
+                      target={newTab ? "_blank" : "_self"}
+                    >
                       {label}
                     </MobileLink>
                   ))}
