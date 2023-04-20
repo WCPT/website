@@ -26,5 +26,4 @@ Workshop schedule:
 
 | Date       | Day       | Time (FJT)   |
 | ---------- | --------- | ------------ |
-| ﻿ 5 April  | Wednesday | 3.30–5.30 pm |
 | ﻿ 27 April | Thursday  | 3.30–5.30 pm |
