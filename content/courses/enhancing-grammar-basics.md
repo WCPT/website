@@ -1,10 +1,16 @@
 ---
 published: true
 title: Enhancing Grammar Basics
-openingDate: 2023-06-29T23:08:50.719Z
-dates: 12 July 2021 - 30 June 2023
+openingDate: 2021-07-11T23:08:50.719Z
+closingDate: 2023-11-29T23:00:47.097Z
+dates: ""
 registrationUrl: https://forms.gle/hNtu6sCUyLazBzEX8
-excerpt: This free, self-paced online course refines English grammar proficiency, teaching sentence components, punctuation, strategies to avoid word confusion, and grammatically correct sentence formation. Earn a digital badge as a micro-credential, accessible and verifiable online, upon successful completion.
+# A short extract of what the event is about in approximately 40 words
+excerpt: This free, self-paced online course refines English grammar
+  proficiency, teaching sentence components, punctuation, strategies to avoid
+  word confusion, and grammatically correct sentence formation. Earn a digital
+  badge as a micro-credential, accessible and verifiable online, upon successful
+  completion.
 ---
 
 This is a free-of-charge, self-paced and self-directed online short
