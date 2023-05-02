@@ -2,10 +2,13 @@
 published: true
 type: Virtual Workshop
 title: Create Instructional Videos with PowerPoint!
-datetime: 2023-04-05T03:30:31.593Z
+datetime: 2023-04-27T03:30:31.593Z
 duration: 2 hours
 registrationUrl: https://fijinationaluniversity.zoom.us/webinar/register/WN_ysakW5EASa2xPb00vloqPA
-excerpt: Master captivating instructional videos in our 2-hour workshop. Learn PowerPoint recording, narration, capturing gestures, and editing. Engage students like never before!
+# A short extract of what the event is about in approximately 25 words
+excerpt: Master captivating instructional videos in our 2-hour workshop. Learn
+  PowerPoint recording, narration, capturing gestures, and editing. Engage
+  students like never before!
 ---
 
 #### Ready to step up your teaching game to the next level?
@@ -23,5 +26,4 @@ Workshop schedule:
 
 | Date       | Day       | Time (FJT)   |
 | ---------- | --------- | ------------ |
-| ﻿ 5 April  | Wednesday | 3.30–5.30 pm |
 | ﻿ 27 April | Thursday  | 3.30–5.30 pm |
