@@ -86,10 +86,6 @@ export const Navbar = ({ className }: { className?: string }) => {
                     </MobileLink>
                   ))}
                 </div>
-
-                <div className="mt-auto mx-auto py-4 text-skin-inverted-muted text-sm">
-                  Supported by Fiji National University
-                </div>
               </Container>
             </div>
           </div>
