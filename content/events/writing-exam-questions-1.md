@@ -1,6 +1,6 @@
 ---
 published: true
-type: Workshop
+type: Virtual Workshop
 title: Writing Exam Questions
 datetime: 2023-05-25T03:30:13.399Z
 duration: 2 Hours
