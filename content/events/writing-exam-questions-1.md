@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 type: Virtual Workshop
 title: Writing Exam Questions - Session 1
 datetime: 2023-05-25T03:30:13.399Z
