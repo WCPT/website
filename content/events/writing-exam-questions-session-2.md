@@ -1,17 +1,17 @@
 ---
-published: false
+published: true
 type: Virtual Workshop
 title: Writing Exam Questions - Session 2
 datetime: 2023-06-07T03:30:48.493Z
 duration: 2 Hours
 registrationUrl: https://fijinationaluniversity.zoom.us/webinar/register/WN_vOQtYCfpSFSXKInj2NZOJw
-registrationDeadline: 6 June 2023
+registrationDeadline: "Registration close: 6 June 2023"
 # A short extract of what the event is about in approximately 25 words
 excerpt: In this 90-minute workshop, master exam question design. Discover key
   principles, select suitable question types, and draft clear instructions and
   wording.
 ---
-##### Learn to design exam questions that accurately reflect your objectives and gauge student learning!
+**Learn to design exam questions that accurately reflect your objectives and gauge student learning!**
 
 This workshop aims to equip teachers with the essential skills of writing good exam questions. During this 90-minute workshop, participants will:
 
@@ -19,7 +19,7 @@ This workshop aims to equip teachers with the essential skills of writing good e
 * Learn to select the most suitable question types after observing the advantages and drawbacks of each.
 * Develop skills in drafting clear instructions, wording and reviewing the exam questions.
 
-###### Workshop schedule:
+**Workshop schedule:**
 
 | Date       | Day       | Time (FJT)   |
 | ---------- | --------- | ------------ |
@@ -29,4 +29,4 @@ This workshop aims to equip teachers with the essential skills of writing good e
 
 
 
-###### All sessions are identical so you just need to register for one.
+**All sessions are identical so you just need to register for one.**
