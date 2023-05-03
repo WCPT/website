@@ -1,11 +1,11 @@
 ---
-published: true
+published: false
 type: Virtual Workshop
 title: Writing Exam Questions - Session 1
 datetime: 2023-05-25T03:30:13.399Z
 duration: 2 Hours
 registrationUrl: https://fijinationaluniversity.zoom.us/webinar/register/WN_vOQtYCfpSFSXKInj2NZOJw
-registrationDeadline: "Registration closes: 24 May 2023"
+registrationDeadline: "Registration close: 24 May 2023"
 # A short extract of what the event is about in approximately 25 words
 excerpt: In this 90-minute workshop, master exam question design. Discover key
   principles, select suitable question types, and draft clear instructions and
