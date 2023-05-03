@@ -1,7 +1,7 @@
 ---
-published: true
+published: false
 type: Virtual Workshop
-title: Writing Exam Questions
+title: Writing Exam Questions - Session 1
 datetime: 2023-05-25T03:30:13.399Z
 duration: 2 Hours
 registrationUrl: https://fijinationaluniversity.zoom.us/webinar/register/WN_vOQtYCfpSFSXKInj2NZOJw
