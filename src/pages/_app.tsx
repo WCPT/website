@@ -33,8 +33,8 @@ function _App({ Component, pageProps }: AppProps) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', ${GA_TAG_ID});
-            gtag('config', ${GA_TAG_ID}, {
+            gtag('config', '${GA_TAG_ID}');
+            gtag('config', '${GA_TAG_ID}', {
               page_path: window.location.pathname,
           });
           `,
