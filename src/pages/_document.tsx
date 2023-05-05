@@ -1,10 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
-/**
- * https://nextjs.org/docs/advanced-features/custom-document
- *
- * Initialised only once for the app, always rendered the server side.
- */
 function _Document() {
   return (
     <Html lang="en" className="scroll-smooth">
