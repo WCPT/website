@@ -21,11 +21,9 @@ This workshop aims to equip teachers with the essential skills of writing good e
 
 **Workshop schedule:**
 
-| Date       | Day       | Time (FJT)   |
-| ---------- | --------- | ------------ |
-| ﻿ 7 June    | Wednesday | 3.30–5.30 pm |
-| ﻿ 22 June   | Thursday  | 3.30–5.30 pm |
+| Date      | Day       | Time (FJT)   |
+| --------- | --------- | ------------ |
+| ﻿ 7 June  | Wednesday | 3.30–5.30 pm |
+| ﻿ 22 June | Thursday  | 3.30–5.30 pm |
 
-
-
-**All sessions are identical so you just need to register for one.**
+**Both sessions are identical so you just need to register for one.**
