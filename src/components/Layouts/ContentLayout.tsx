@@ -14,7 +14,7 @@ export const ContentLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="bg-skin-secondary">
+    <div className="flex flex-col bg-skin-secondary min-h-screen">
       <Head>
         <title>{title}</title>
         {description ? <meta name="description" content={description} /> : null}
@@ -24,7 +24,7 @@ export const ContentLayout = ({
         <Navbar />
       </header>
 
-      <main className="my-16">
+      <main className="flex flex-1 my-16">
         <Container>{children}</Container>
       </main>
 

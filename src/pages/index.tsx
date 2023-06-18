@@ -196,7 +196,7 @@ function HeroSection({
   const [isOpen, openModal, closeModal] = useModal(false);
 
   return (
-    <div className="bg-skin-secondary min-h-screen">
+    <div className="lg:flex lg:justify-center lg:items-center bg-skin-secondary min-h-screen">
       <VideoModal
         url={videoURL}
         openModal={openModal}
