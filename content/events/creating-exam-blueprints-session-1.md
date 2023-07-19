@@ -12,6 +12,8 @@ excerpt: Join us for a comprehensive 2-hour workshop on creating effective exam
   and skills needed to develop well-structured exam blueprints that align with
   instructional goals and ensure valid and reliable assessments.
 ---
+**Join us for a comprehensive 2-hour workshop on creating effective exam blueprints. This workshop is designed to equip participants with the knowledge and skills needed to develop well-structured exam blueprints that align with instructional goals and ensure valid and reliable assessments.**
+
 During this workshop, you will:
 
 * Recognise the importance of exam blueprints in the assessment process.
@@ -21,8 +23,8 @@ During this workshop, you will:
 
 **Workshop schedule:**
 
-| Date       | Day       | Time (FJT)   |
-| ---------  | --------- | ------------ |
+| Date        | Day       | Time (FJT)   |
+| ----------- | --------- | ------------ |
 | ﻿ 27 July   | Thursday  | 3.30–5.30 pm |
 | ﻿ 9 August  | Wednesday | 3.30–5.30 pm |
 | ﻿ 22 August | Tuesday   | 3.30–5.30 pm |
