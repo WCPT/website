@@ -2,6 +2,7 @@ import { HandlerEvent, HandlerContext } from "@netlify/functions";
 import sendgrid from "@sendgrid/mail";
 import * as yup from "yup";
 import ejs from "ejs";
+// import { Redis } from "@upstash/redis";
 
 import { userRegistrationSchema } from "../../src/lib/validationSchema";
 import MoodleClient from "../lib/moodle/client";
@@ -16,13 +17,18 @@ const moodleClient = new MoodleClient({
   token: process.env.MOODLE_API_KEY!,
 });
 
+// const redis = new Redis({
+//   url: "https://subtle-tomcat-40219.upstash.io",
+//   token: "********",
+// });
+
 const emailTemplate = `
 <div>
-  <p>Dear <%= lastname %>,</p>
+  <p>Dear <%= firstname %>,</p>
   <p>Congratulations! Your registration is confirmed.</p>
-  <p>Thank you for your interest in Please Talanoa Karo, Pasifika!</p>
+  <p>Thank you for your interest in Wisdom Community of Pasifika Teachers (WCPT)!</p>
   <p>
-    You may now access "Please Talanoa Karo, Pasifika!" in Moodle <a href="<%= process.env.MOODLE_URL %>course/view.php?id=<%= process.env.COURSE_ID %>">here</a> using
+    You may now access WCPT's online discussion platform, "Please Talanoa Karo, Pasifika!" in Moodle <a href="<%= process.env.MOODLE_URL %>course/view.php?id=<%= process.env.COURSE_ID %>">here</a>, using
     <% if (locals.username && locals.password) { %>
       the following credentials:
       <p>
@@ -33,14 +39,14 @@ const emailTemplate = `
       your usual Moodle credentials.
     <% } %>
   </p>
-  <p>This online discussion platform has a collection of discussion forums on topics pertaining to teaching experiences. Please feel free to post your experiences and ideas in the forums. You can also use these forums to request for or offer assistance.</p>
-  <p>Please ensure to read the forum etiquette before posting.</p>
-  <p>If you have any queries, please feel free to email to <a href="mailto:clte@fnu.ac.fj">clte@fnu.ac.fj</a></p>
+  <p>This online discussion platform hosts various forums on topics related to teaching experiences. Please feel free to share your experiences and ideas in the forums. You can also use these forums to request or offer assistance.</p>
+  <p>Please be sure to review the forum etiquette guidelines before posting.</p>
+  <p>If you have any questions, please don't hesitate to email us at <a href="mailto:pasifikateachers@gmail.com">pasifikateachers@gmail.com</a></p>
   <p>
     <div>Best regards,</div>
-    <div>Team CLTE.</div>
+    <div>Team WCPT.</div>
     <div>
-      <a href="https://clte.fnu.ac.fj/">Our website</a>
+      <a href="https://pasifikateachers.org">Our website</a>
     </div>
   </p>
 </div>
@@ -55,51 +61,7 @@ type RequestBody = {
 };
 
 export async function handler(event: HandlerEvent, _context: HandlerContext) {
-  if (event.httpMethod === "POST") {
-    const body: RequestBody = JSON.parse(event.body!);
-
-    try {
-      await userRegistrationSchema.validate(body);
-    } catch (e: unknown) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({
-          message: "Invalid request body",
-          errors: (e as yup.ValidationError).errors,
-        }),
-      };
-    }
-
-    const user = await registerUser(body);
-    try {
-      // Important to ensure that the email is sent
-
-      // If the email fails to send:
-      //  - the user will be registered but not get the credentials to access the course
-      //  - the user may not be aware how and where to access the course
-
-      // Cases where it might fail:
-      // - Sendgrid is down
-      // - Netlify's network is down
-      // - Sendgrid's network is down
-
-      // However, both are unlikely to happen based on their SLAs,
-      // so stick to console.error just to log errors for now
-      await sendWelcomeEmail(user);
-    } catch (e) {
-      console.error(
-        "Error while trying to send welcome email",
-        JSON.stringify({ error: e, user })
-      );
-    }
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        user,
-      }),
-    };
-  } else {
+  if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
       body: JSON.stringify({
@@ -107,6 +69,49 @@ export async function handler(event: HandlerEvent, _context: HandlerContext) {
       }),
     };
   }
+
+  const body: RequestBody = JSON.parse(event.body!);
+  try {
+    await userRegistrationSchema.validate(body);
+  } catch (e: unknown) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Invalid request body",
+        errors: (e as yup.ValidationError).errors,
+      }),
+    };
+  }
+
+  const user = await registerUser(body);
+  try {
+    // Important to ensure that the email is sent
+
+    // If the email fails to send:
+    //  - the user will be registered but not get the credentials to access the course
+    //  - the user may not be aware how and where to access the course
+
+    // Cases where it might fail:
+    // - Sendgrid is down
+    // - Netlify's network is down
+    // - Sendgrid's network is down
+
+    // However, both are unlikely to happen based on their SLAs,
+    // so stick to console.error just to log errors for now
+    await sendWelcomeEmail(user);
+  } catch (e) {
+    console.error(
+      "Error while trying to send welcome email",
+      JSON.stringify({ error: e, user })
+    );
+  }
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      user,
+    }),
+  };
 }
 
 async function registerUser(body: RequestBody) {
@@ -153,7 +158,7 @@ async function sendWelcomeEmail(
       from: "no-reply@pasifikateachers.org",
       subject: "Welcome to Please Talanoa Karo, Pasifika!",
       html: ejs.render(emailTemplate, {
-        lastname: user.lastname,
+        firstname: user.firstname,
         username: user.username,
         password: user.password,
       }),
@@ -163,7 +168,7 @@ async function sendWelcomeEmail(
     to: user.email,
     from: "no-reply@pasifikateachers.org",
     subject: "Welcome to Please Talanoa Karo, Pasifika!",
-    html: ejs.render(emailTemplate, { lastname: user.lastname }),
+    html: ejs.render(emailTemplate, { firstname: user.firstname }),
   });
 }
 
