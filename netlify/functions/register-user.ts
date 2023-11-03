@@ -156,7 +156,7 @@ async function sendWelcomeEmail(
     return await sendgrid.send({
       to: user.email,
       from: "no-reply@pasifikateachers.org",
-      subject: "Welcome to Please Talanoa Karo, Pasifika!",
+      subject: "Welcome to Wisdom Community of Pasifika Teachers!",
       html: ejs.render(emailTemplate, {
         firstname: user.firstname,
         username: user.username,
@@ -167,7 +167,7 @@ async function sendWelcomeEmail(
   return await sendgrid.send({
     to: user.email,
     from: "no-reply@pasifikateachers.org",
-    subject: "Welcome to Please Talanoa Karo, Pasifika!",
+    subject: "Welcome to Wisdom Community of Pasifika Teachers!",
     html: ejs.render(emailTemplate, { firstname: user.firstname }),
   });
 }
